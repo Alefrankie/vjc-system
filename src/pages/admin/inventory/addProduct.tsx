@@ -12,10 +12,10 @@ type Props = {
   preferences: PreferencesT
 }
 
-function PageComponent({ preferences }: Props): React.ReactElement {
+function PageComponent ({ preferences }: Props): React.ReactElement {
   const { user } = useUser()
 
-  if (user?.privileges !== 'User') {
+  if (user?.privileges === 'User') {
     return (
       <ModalAlert
         tittle='Preferencias'

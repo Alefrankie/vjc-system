@@ -147,7 +147,10 @@ function Login () {
           </div>
 
           <div className='mt-5'>
-            <button className='focus:outline-none | bg-blue-500 hover:bg-green-300 | px-4 py-2.5 mt-5 mb-5 | font-bold text-white rounded | transition duration-500'>
+            <button
+              disabled={isSubmitting}
+              className='focus:outline-none | bg-blue-500 hover:bg-green-300 | px-4 py-2.5 mt-5 mb-5 | font-bold text-white rounded | transition duration-500'
+            >
               Iniciar Sesión &nbsp;
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>

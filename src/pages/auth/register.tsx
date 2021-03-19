@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { signUp } from 'services/users'
 import { UserT } from 'types'
 
-function Register() {
+function Register () {
   const { user } = useUser()
   useEffect(() => {
     if (user) {
@@ -70,21 +70,30 @@ function Register() {
 
   return (
     <>
-      <div className='container mx-auto mt-5 h-1/2 sm:w-3/4 md:w-1/2 lg:w-1/3 | border shadow-lg rounded'>
-        <div className='rounded bg-white h-full mb-5'>
-          <form className='text-center px-4' onSubmit={handleSubmit(onSubmit)}>
-            <p className='text-gray-400 text-sm font-medium border-b pt-10 pb-2 w-48 mx-auto'>
-              Sign Up with credentials
-            </p>
-            <div className='flex flex-col mt-8 relative'>
+      <div className='container mx-auto mt-5 flex flex-col justify-between  | max-w-md h-96 | bg-white border shadow-lg rounded'>
+        <div className='text-center'>
+          <p className='text-gray-400 text-sm font-semibold | border-b | w-64 mx-auto mt-5 pb-2 '>
+            Sign Up with credentials
+          </p>
+        </div>
+        <form className='text-center px-4' onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <div className='flex flex-col relative'>
+              <label
+                htmlFor='username'
+                className='text-gray-400 text-bold text-left mb-1'
+              >
+                Username:
+              </label>
               <FontAwesomeIcon
                 icon={faUser}
-                className='absolute top-5 left-4 text-gray-400'
+                className='absolute top-10 left-4 text-gray-400'
               />
               <input
                 type='text'
-                className='border-2 rounded | focus:outline-none focus:ring focus:border-blue-100| my-2 px-10 py-2'
+                className='px-10 py-2 w-full | border-2 rounded | focus:outline-none focus:ring focus:border-blue-100'
                 name='username'
+                id='username'
                 placeholder='Username'
                 autoComplete='off'
                 ref={register({
@@ -99,16 +108,30 @@ function Register() {
                   }
                 })}
               />
-              <ErrorMessage errors={errors} name='username' as='h6' />
+              <ErrorMessage
+                errors={errors}
+                name='username'
+                className='text-red-500'
+                as='h6'
+              />
+            </div>
 
+            <div className='flex flex-col relative mt-5'>
+              <label
+                htmlFor='password'
+                className='text-gray-400 text-bold text-left mb-1'
+              >
+                Password:
+              </label>
               <FontAwesomeIcon
                 icon={faLock}
-                className='absolute top-24 left-4 text-gray-400'
+                className='absolute top-10 left-4 text-gray-400'
               />
               <input
                 type='password'
+                id='password'
                 name='password'
-                className='border-2 rounded | focus:outline-none focus:ring focus:border-blue-100| mt-6 px-10 py-2'
+                className='px-10 py-2 w-full | border-2 rounded | focus:outline-none focus:ring focus:border-blue-100'
                 placeholder='Password'
                 autoComplete='off'
                 ref={register({
@@ -123,9 +146,20 @@ function Register() {
                   }
                 })}
               />
-              <ErrorMessage errors={errors} name='password' as='h6' />
+              <ErrorMessage
+                errors={errors}
+                name='password'
+                className='text-red-500'
+                as='h6'
+              />
             </div>
-            <button className='focus:outline-none | bg-blue-500 hover:bg-green-300 | px-4 py-2.5 mt-5 mb-5 | font-bold text-white rounded | focus:outline-none | transition-all ease-in-out  duration-400'>
+          </div>
+
+          <div className='mt-5'>
+            <button
+              disabled={isSubmitting}
+              className='focus:outline-none | bg-blue-500 hover:bg-green-300 | px-4 py-2.5 mt-5 mb-5 | font-bold text-white rounded | transition duration-500'
+            >
               Registrarse &nbsp;
               <FontAwesomeIcon icon={faDoorOpen} />
             </button>
@@ -137,19 +171,25 @@ function Register() {
                 />
               </p>
             ) : (
-                <p className='text-red-500 font-bold'>{response}</p>
-              )}
-          </form>
-        </div>
-        <div className='flex justify-between pt-4'>
+              <p
+                className={`text-red-500 font-bold transform ${
+                  response ? 'scale-100' : 'scale-0'
+                } duration-500`}
+              >
+                {response}
+              </p>
+            )}
+          </div>
+        </form>
+        <div className='flex justify-between py-1 px-2'>
           <Link href='#'>
             <a className='text-gray-500 font-semibold hover:scale-2 -mt-5 text-sm'>
               ¿Olvidó su Contraseña?
             </a>
           </Link>
-          <Link href='/auth/login'>
+          <Link href='/auth/register'>
             <a className='text-gray-500 font-semibold hover:scale-2 -mt-5 text-sm '>
-              ¿Usted ya posee cuenta?
+              Create new account
             </a>
           </Link>
         </div>

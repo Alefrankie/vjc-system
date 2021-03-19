@@ -8,17 +8,21 @@ type Props = {
   preferences: PreferencesT
 }
 
-export function OneInvoiceReport({ invoice, lote }: Props) {
+export function OneInvoiceReport ({ invoice, lote }: Props) {
   const { invoiceType } = invoice
   const { user } = useUser()
 
   const formatterPercent = new Intl.NumberFormat('es-ES', { style: 'percent' })
   return (
-    <div className={`flex flex-col relative | h-full p-5 | bg-white report-one-invoice | print:text-xs print:p-0 ${invoiceType.includes('Sales') ? 'print:h-96 print:mt-24' : 'print:h-1/2'}`}>
+    <div
+      className={`flex flex-col relative | h-full p-5 | bg-white report-one-invoice | print:text-xs print:p-0 ${
+        invoiceType.includes('Sales') ? 'print:h-96 print:mt-24' : 'print:h-96'
+      }`}
+    >
       <div
         className={`flex font-bold pb-1 ${
           invoiceType.includes('Sale') ? 'print:hidden' : ''
-          }`}
+        }`}
       >
         <div className='flex w-3/4'>
           <div className='w-36 h-full mr-1 relative print:w-24 print:h-18 '>
@@ -60,7 +64,7 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
               <p
                 className={`text-right print:leading-3 ${
                   invoiceType.includes('Sale') ? 'print:hidden' : ''
-                  }`}
+                }`}
               >
                 {invoiceType.includes('DeliveryNote') && 'Nota De Entrega'}
                 {invoiceType.includes('Budget') && 'Presupuesto'}
@@ -68,7 +72,7 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
               <p
                 className={`text-right print:leading-3${
                   invoiceType.includes('Sale') ? 'print:hidden' : ''
-                  }`}
+                }`}
               >
                 {invoice.controlNumber}
               </p>
@@ -81,7 +85,7 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
         <div className='flex flex-col'>
           <p className='leading-4'>{`Cliente/Razón Social: ${
             invoice.dni.includes('V-') ? invoice.fullName : invoice.socialReason
-            }`}</p>
+          }`}</p>
 
           <p className='leading-4'>
             C.I / Rif: {invoice.dni}
@@ -95,7 +99,9 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
         <div className='flex flex-col'>
           <p className='leading-4'>Fecha: {`${invoice.invoiceDate}`}</p>
           <p className='leading-4'>Forma de Pago: {invoice.payCondition}</p>
-          {!invoiceType.includes('Sales') && <p className='leading-4'>Usuario: {user.username}</p>}
+          {!invoiceType.includes('Sales') && (
+            <p className='leading-4'>Usuario: {user.username}</p>
+          )}
         </div>
 
         <button
@@ -123,10 +129,12 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
                 {e.quantityRequested < 1 && e.unit === 'LTS.'
                   ? `${e.quantityRequested * 1000} ML.`
                   : e.quantityRequested < 1 && e.unit === 'KG.'
-                    ? `${e.quantityRequested * 1000} GR.`
-                    : `${e.quantityRequested} ${e.unit}`}
+                  ? `${e.quantityRequested * 1000} GR.`
+                  : `${e.quantityRequested} ${e.unit}`}
               </th>
-              <th className='text-left uppercase print:leading-3'>{e.productName}</th>
+              <th className='text-left uppercase print:leading-3'>
+                {e.productName}
+              </th>
               <th className='text-right print:leading-3'>
                 {`${useExchangeQuantity(
                   e.productPrice * invoice.exchangeRate
@@ -139,7 +147,7 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
                 {useExchangeQuantity(
                   (e.productPrice * e.quantityRequested -
                     e.productPrice * e.quantityRequested * e.productDiscount) *
-                  invoice.exchangeRate
+                    invoice.exchangeRate
                 )}
               </th>
             </tr>
@@ -148,7 +156,11 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
 
         <tfoot className='flex font-bold | absolute right-0 w-full | print:bottom-0'>
           <tr className='w-full px-5 print:px-0'>
-            <div className={`flex justify-between ${!invoice.invoiceType.includes('Sales') && 'border-t border-black'}`}>
+            <div
+              className={`flex justify-between ${!invoice.invoiceType.includes(
+                'Sales'
+              ) && 'border-t border-black'}`}
+            >
               <div>
                 {!invoice.invoiceType.includes('Sales') && (
                   <p className='text-left'>
@@ -176,26 +188,31 @@ export function OneInvoiceReport({ invoice, lote }: Props) {
                       Total:{' '}
                       {useExchangeQuantity(
                         invoice.subTotal * invoice.exchangeRate +
-                        invoice.subTotal * invoice.exchangeRate * 0.16
+                          invoice.subTotal * invoice.exchangeRate * 0.16
+                      )}
+                    </p>
+                    <p className='text-right print:hidden'>
+                      Total Dólares:{' '}
+                      {useExchangeQuantity(
+                        invoice.subTotal + invoice.subTotal * 0.16
                       )}
                     </p>
                   </>
                 )}
 
                 {!invoice.invoiceType.includes('Sales') && (
-                  <p className='text-right'>
-                    Total:{' '}
-                    {useExchangeQuantity(
-                      invoice.subTotal * invoice.exchangeRate
-                    )}
-                  </p>
+                  <>
+                    <p className='text-right'>
+                      Total:{' '}
+                      {useExchangeQuantity(
+                        invoice.subTotal * invoice.exchangeRate
+                      )}
+                    </p>
+                    <p className='text-right print:hidden'>
+                      Total Dólares: {useExchangeQuantity(invoice.subTotal)}
+                    </p>
+                  </>
                 )}
-                <p className='text-right print:hidden'>
-                  Total Dólares:{' '}
-                  {useExchangeQuantity(
-                    invoice.subTotal + invoice.subTotal * 0.16
-                  )}
-                </p>
               </div>
             </div>
           </tr>

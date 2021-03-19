@@ -49,23 +49,19 @@ function AdminNavbar ({
 
   return (
     <>
-      <nav className='flex justify-between p-1 px-4 bg-green-500 noPrint'>
-        <div className='text-center'>
+      <nav className='flex justify-between | bg-green-500 | shadow-lg'>
+        <div className='pl-5 | text-left | w-1/2'>
           <button
-            type='button'
-            className='p-2 focus:outline-none'
+            className='p-1 | text-white text-2xl | focus:outline-none'
             onClick={sidebarCollapse}
           >
-            <FontAwesomeIcon
-              className='text-white text-xl'
-              icon={isCollapsed ? faToggleOff : faToggleOn}
-            />
+            <FontAwesomeIcon icon={isCollapsed ? faToggleOff : faToggleOn} />
           </button>
         </div>
 
-        <div className='relative inline-block text-left'>
+        <div className='w-1/2 text-right'>
           <button
-            className='text-white text-lg p-2 focus:outline-none'
+            className='text-white text-xl | p-2 pr-5 | focus:outline-none'
             onClick={expandMenu}
           >
             <FontAwesomeIcon icon={faBars} />
@@ -74,12 +70,12 @@ function AdminNavbar ({
           <div
             className={`origin-top-right right-0 absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 ${
               isOn
-                ? 'transform opacity-100 scale-100'
-                : 'transform opacity-0 scale-0'
+                ? 'transform opacity-100 scale-100 duration-300'
+                : 'transform opacity-0 scale-0 duration-300'
             }`}
           >
             <div
-              className='py-1'
+              className='py-1 text-left'
               role='menu'
               aria-orientation='vertical'
               aria-labelledby='options-menu'
