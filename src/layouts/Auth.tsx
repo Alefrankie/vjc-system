@@ -17,13 +17,11 @@ function Auth ({ children }: Props): React.ReactElement {
 
   return (
     <>
-      <div className='flex flex-col | h-screen'>
+      <div className='flex flex-col | h-screen | bg-gray-100'>
         <AuthNavbar />
         <div className='flex | h-full'>
-          <main className='flex flex-col justify-between | w-full'>
-            {children}
-            <AuthFooter />
-          </main>
+          <main className='container mx-auto'>{children}</main>
+          <AuthFooter />
         </div>
       </div>
     </>

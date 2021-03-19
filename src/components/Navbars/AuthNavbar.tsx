@@ -1,19 +1,19 @@
-import { faCircle, faKey } from '@fortawesome/free-solid-svg-icons'
+import { faKey, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-function AdminNavbar(): React.ReactElement {
+function AdminNavbar (): React.ReactElement {
   return (
     <>
-      <nav className='border-b-2 shadow-md bg-green-500 text-right pr-5 p-1'>
+      <nav className='bg-green-500 | text-right | pr-5 py-1 | border-b-2 | shadow-md | border border-green-400'>
         <Link href='/auth/register'>
-          <a className='p-2 mx-2 text-white h-full'>
-            <FontAwesomeIcon icon={faCircle} />
+          <a className='inline-block | text-white font-semibold | m-1 mr-2 | transform duration-200 hover:scale-110'>
+            <FontAwesomeIcon icon={faUserAlt} />
             &nbsp; Register
           </a>
         </Link>
         <Link href='/auth/login'>
-          <a className='p-2 mx-2 text-white h-full'>
+          <a className='inline-block | text-white font-semibold | m-1 mr-2 | transform duration-200 hover:scale-110'>
             <FontAwesomeIcon icon={faKey} />
             &nbsp; Login
           </a>

@@ -1,10 +1,10 @@
-import UserHeader from 'components/Headers/UserHeader'
+import AuthHeader from 'components/Headers/AuthHeader'
 import Admin from 'layouts/Admin'
 
 function Profile () {
   return (
     <>
-      <UserHeader />
+      <AuthHeader />
     </>
   )
 }
