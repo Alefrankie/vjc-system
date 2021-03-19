@@ -1,0 +1,39 @@
+type Query {
+  getAllProduct: [Product!]
+  findAllInvoices(
+    invoiceType: String
+    searchTo: String
+    currentPage: Int
+  ): [Invoice!]
+}
+
+type Product {
+  _id: ID
+  productId: String
+  productCode: String
+  productName: String
+  unitaryPrice: Float
+  retailPrice: Float
+  quantity: Float
+  unit: String
+}
+
+type Invoice {
+  _id: ID
+  invoiceId: String
+  controlNumber: String
+  fullName: String
+  dni: String
+  address: String
+  contact: String
+  socialReason: String
+  exchangeRate: Float
+  invoiceType: String
+  invoiceDate: String
+  status: Boolean
+  payCondition: String
+}
+
+type Mutation {
+  holaM: String
+}
