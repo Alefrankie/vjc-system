@@ -14,7 +14,7 @@ type Props = {
   products: ProductT[]
 }
 
-export function ProductsList({
+export function ProductsList ({
   invoiceType,
   preferences,
   products
@@ -80,7 +80,7 @@ export function ProductsList({
 
   return (
     <>
-      <div className='my-3 px-3'>
+      <div>
         <OnKeySearchLocal
           setState={setCurrentProducts}
           array={currentProducts}

@@ -13,6 +13,7 @@ export interface IInvoice extends Document {
   invoiceDate: string
   status: true
   payCondition: string
+  customerId: { type: Schema.Types.ObjectId; ref: 'Customer' }
 }
 
 const InvoiceSchema = new Schema({
@@ -72,7 +73,8 @@ const InvoiceSchema = new Schema({
     required: true,
     trim: true,
     default: 'De Contado'
-  }
+  },
+  customerId: { type: Schema.Types.ObjectId, ref: 'Customer' }
 })
 
 export default mongoose.models.Invoice ||

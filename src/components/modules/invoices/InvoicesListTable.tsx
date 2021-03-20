@@ -219,12 +219,26 @@ export function InvoicesListTable ({ invoices, setState, currentPage }: Props) {
               <div className='flex-1 flex justify-between sm:hidden'>
                 <a
                   href='#'
+                  onClick={() =>
+                    setState({
+                      currentPage:
+                        currentPage <= 1 ? 1 : Number(currentPage - 1)
+                    })
+                  }
                   className='relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500'
                 >
                   Previous
                 </a>
                 <a
                   href='#'
+                  onClick={() =>
+                    setState({
+                      currentPage:
+                        currentPage == Math.ceil(invoices.length / currentPage)
+                          ? Math.ceil(invoices.length / currentPage)
+                          : Number(currentPage + 1)
+                    })
+                  }
                   className='ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500'
                 >
                   Next

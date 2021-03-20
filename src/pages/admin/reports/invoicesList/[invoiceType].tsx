@@ -14,7 +14,7 @@ type Props = {
   invoiceTypePage: string
 }
 
-function PageComponent({ invoiceTypePage }: Props) {
+function PageComponent ({ invoiceTypePage }: Props) {
   console.log(invoiceTypePage)
   const { response, setResponse } = useResponse()
 
@@ -29,7 +29,7 @@ function PageComponent({ invoiceTypePage }: Props) {
     currentPage: 1
   })
 
-  function Reducer(prevState: any, state: any) {
+  function Reducer (prevState: any, state: any) {
     return { ...prevState, ...state }
   }
 
@@ -52,8 +52,7 @@ function PageComponent({ invoiceTypePage }: Props) {
       setState({
         invoices: [],
         invoiceType: `${invoiceTypePage}:All`,
-        rangeDate: { from: '', until: '', date: '' },
-        currentPage: 1
+        rangeDate: { from: '', until: '', date: '' }
       })
     }
   }, [invoiceType, currentPage])

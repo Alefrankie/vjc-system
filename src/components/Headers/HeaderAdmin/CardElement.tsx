@@ -2,7 +2,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import Router from 'next/router'
 
 type Props = {
   title: string
@@ -11,7 +10,7 @@ type Props = {
   stats: Number
 }
 
-export function CardElement({
+export function CardElement ({
   title,
   footerTitle,
   stats,
@@ -19,7 +18,7 @@ export function CardElement({
 }: Props): React.ReactElement {
   return (
     <>
-      <div className='border rounded shadow-md w-full px-3 py-1 cursor:pointer' onClick={() => Router.push('/admin/reports/invoicesList/DeliveryNote')}>
+      <div className='mx-2 cursor-pointer border rounded shadow-md w-full px-3 py-1 transform duration-300 hover:scale-110'>
         <p className='text-gray-400 font-semibold border-t shadow-inner'>
           {title}
         </p>

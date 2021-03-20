@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ErrorMessage } from '@hookform/error-message'
 import { useUser } from 'context'
 import Auth from 'layouts/Auth'
+import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -70,11 +71,21 @@ function Register () {
 
   return (
     <>
-      <div className='container mx-auto mt-5 flex flex-col justify-between  | max-w-md h-96 | bg-white border shadow-lg rounded'>
-        <div className='text-center'>
-          <p className='text-gray-400 text-sm font-semibold | border-b | w-64 mx-auto mt-5 pb-2 '>
-            Sign Up with credentials
-          </p>
+      <div className='container mx-auto mt-5 flex flex-col justify-between | max-w-md h-3/4 | bg-white border shadow-lg rounded'>
+        <div className='text-center relative mt-5'>
+          <figure className='flex flex-col'>
+            <Image
+              src='/img/user-avatar.png'
+              alt='user-avatar.png'
+              width='100'
+              height='100'
+              layout='intrinsic'
+              objectFit='contain'
+            />
+            <figcaption className='text-gray-400 text-sm font-semibold | border-b | mx-auto mt-5'>
+              Sign in with credentials
+            </figcaption>
+          </figure>
         </div>
         <form className='text-center px-4' onSubmit={handleSubmit(onSubmit)}>
           <div>
