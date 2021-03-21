@@ -16,7 +16,7 @@ export function OneInvoiceReport ({ invoice, lote }: Props) {
   return (
     <div
       className={`flex flex-col relative | h-full p-5 | bg-white report-one-invoice | print:text-xs print:p-0 ${
-        invoiceType.includes('Sales') ? 'print:h-96 print:mt-24' : 'print:h-96'
+        invoiceType.includes('Sales') ? 'print:h-96 print:mt-24' : 'print:h-1/2'
       }`}
     >
       <div

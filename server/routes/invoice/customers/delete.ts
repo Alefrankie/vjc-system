@@ -11,9 +11,7 @@ router.delete(
       >req.body
 
       if (customerId === '' || customerType === '') {
-        return res
-          .status(400)
-          .send("You must don't let void fields")
+        return res.status(400).send("You must don't let void fields")
       }
 
       const dataFound = await Customer.deleteOne({
@@ -22,19 +20,16 @@ router.delete(
       })
 
       if (!dataFound) {
-        return res
-          .status(404)
-          .send('Registers not found')
+        return res.status(404).send('Registers not found')
       }
 
       return res.json({
         message: 'Register deleted successfully'
       })
-      
     } catch ({ message }) {
       return res.send('Error deleting user: ' + message)
     }
   }
 )
 
-export { router as Delete }
+export default router

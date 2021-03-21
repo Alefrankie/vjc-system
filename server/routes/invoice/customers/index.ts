@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { Delete } from './delete'
-import { findAll } from './findAll'
-import { findOneByDni } from './findOneByDni'
-import { findOneById } from './findOneById'
-import { save } from './save'
+import Delete from './delete'
+import findAll from './findAll'
+import findOneByDni from './findOneByDni'
+import findOneById from './findOneById'
+import save from './save'
 import Update from './update'
 import { isLoggedIn } from '../../../middlewares'
 
@@ -16,4 +16,4 @@ router.use('/findOneById', findOneById)
 router.use('/save', isLoggedIn, save)
 router.use('/update', isLoggedIn, Update)
 
-export { router as Customers }
+export default router

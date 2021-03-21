@@ -2,12 +2,12 @@ import express, { Request, Response } from 'express'
 import next from 'next'
 import graphQLServer from './graphql/graphQLServer'
 import './MongoDB'
-import { MyRoutes } from './routes'
+import MyRoutes from './routes'
 import findAllInvoices from './routes/script'
-import { Services } from './services'
+import Services from './services'
 
 // const server = http.createServer(app)
-
+const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
 const handle = nextApp.getRequestHandler()
@@ -26,8 +26,8 @@ nextApp.prepare().then(() => {
     return handle(req, res)
   })
 
-  app.listen(3000, (err?: Error) => {
+  app.listen(port, (err?: Error) => {
     if (err) throw err
-    console.log(`> Ready on localhost:${3000} - env ${process.env.NODE_ENV}`)
+    console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`)
   })
 })

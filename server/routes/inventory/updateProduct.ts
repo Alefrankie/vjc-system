@@ -8,17 +8,15 @@ router.put(
     const { productId } = req.body
 
     if (!productId) {
-      return res
-        .status(400)
-        .send('You must indicate a Product ID')
+      return res.status(400).send('You must indicate a Product ID')
     }
 
     await Product.updateOne({ productId }, req.body)
-    
+
     return res.status(200).json({
       success: 'Operation successfully.'
     })
   }
 )
 
-export { router as updateProduct }
+export default router

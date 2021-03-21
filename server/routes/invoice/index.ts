@@ -5,7 +5,7 @@ import FindAll from './findAll'
 import FindAllRangeDate from './findAllRangeDate'
 import FindOne from './findOne'
 import SaveInvoice from './saveInvoice'
-import { Customers } from './customers'
+import Customers from './customers'
 import { isLoggedIn } from '../../middlewares'
 
 const router = Router()
@@ -18,4 +18,4 @@ router.use('/findOne', FindOne)
 router.use('/saveInvoice', isLoggedIn, SaveInvoice)
 router.use('/customers', Customers)
 
-export { router as Invoice }
+export default router

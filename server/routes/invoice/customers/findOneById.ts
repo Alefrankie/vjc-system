@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express'
 import Customer from '../../../schemas/Customers'
-const handler = Router()
+const router = Router()
 
-handler.post(
+router.post(
   '/',
   async (req: Request, res: Response): Promise<Response> => {
     const { customerId, customerType } = req.body
@@ -11,9 +11,10 @@ handler.post(
       customerType
     })
     if (!customerFound) {
-      return res.status(404).send('Customer Not Found!' )
+      return res.status(404).send('Customer Not Found!')
     }
     return res.status(200).json({ customer: customerFound })
   }
 )
-export { handler as findOneById }
+
+export default router

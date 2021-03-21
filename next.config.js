@@ -4,6 +4,7 @@ const path = require('path')
 
 const imagePlugin = withImages({
   inlineImageLimit: 16384,
+  useFileSystemPublicRoutes: true,
   webpack (config, options) {
     config.module.rules.push({
       test: /\.(eot|ttf|woff|woff2)$/,

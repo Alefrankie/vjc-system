@@ -24,5 +24,4 @@ router.post(
     return res.status(200).json({ customer: customerFound })
   }
 )
-export { router as findOneByDni }
-
+export default router

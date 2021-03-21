@@ -8,9 +8,7 @@ router.post(
     const { username } = req.body
 
     if (!username) {
-      return res
-        .status(400)
-        .send('Error, you must indicate a valid username.')
+      return res.status(400).send('Error, you must indicate a valid username.')
     }
 
     const userFound = await User.findOne({ username: username })
@@ -24,4 +22,4 @@ router.post(
   }
 )
 
-export { router as checkSessionActiveUseCase }
+export default router

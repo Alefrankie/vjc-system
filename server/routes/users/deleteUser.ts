@@ -22,4 +22,4 @@ router.delete(
   }
 )
 
-export { router as deleteUser }
+export default router

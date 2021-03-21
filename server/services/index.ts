@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import getStats from './getStats'
-const router = Router()
+const services = Router()
 
-router.use('/getStats', getStats)
+services.use('/getStats', getStats)
 
-export { router as Services }
+export default services

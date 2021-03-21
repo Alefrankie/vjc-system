@@ -19,4 +19,4 @@ router.get(
   }
 )
 
-export { router as findOneUserUseCase }
+export default router

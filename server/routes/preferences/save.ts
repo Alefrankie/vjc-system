@@ -20,8 +20,6 @@ router.put(
   }
 )
 
-export { router as save }
-
 export type Preferences = {
   exchangeRate: Number
   retailRate: Number
@@ -67,3 +65,5 @@ export async function savePreferences ({
 
   return 'Successfully'
 }
+
+export default router

@@ -56,4 +56,4 @@ const createToken = (userId: string) => {
 
   return jwt.encode(payLoad, process.env.JWT_SECRET || 'someSecretToken')
 }
-export { router as signIn }
+export default router

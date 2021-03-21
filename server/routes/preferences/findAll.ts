@@ -27,4 +27,4 @@ export async function getPreferences () {
   return preferences
 }
 
-export { router as findAll }
+export default router

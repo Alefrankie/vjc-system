@@ -60,7 +60,7 @@
     "sass": "^1.32.8",
     "tailwindcss": "^2.0.4",
     "ts-node": "^9.1.1",
-    "uuid": "latest",
+    "uuid": "^8.3.2",
     "vercel": "latest",
     "webpack": "^5.24.4"
   },

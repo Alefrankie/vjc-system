@@ -48,5 +48,4 @@ router.post(
   }
 )
 
-export { router as findLikeUsersUseCase }
-
+export default router

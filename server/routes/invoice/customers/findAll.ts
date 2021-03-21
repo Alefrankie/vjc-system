@@ -22,4 +22,4 @@ router.post(
   }
 )
 
-export { router as findAll }
+export default router

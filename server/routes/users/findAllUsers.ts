@@ -18,4 +18,4 @@ router.get(
     return res.status(200).json({ users })
   }
 )
-export { router as findAllUsers }
+export default router

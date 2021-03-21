@@ -14,4 +14,4 @@ router.get(
   }
 )
 
-export { router as findAllProducts }
+export default router

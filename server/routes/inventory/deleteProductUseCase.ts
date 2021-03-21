@@ -10,7 +10,7 @@ router.delete(
     if (!productId) {
       return res.status(400).send('You must indicate a ProductId')
     }
-    
+
     await Product.deleteOne({
       productId
     })
@@ -19,4 +19,4 @@ router.delete(
   }
 )
 
-export { router as deleteProductUseCase }
+export default router

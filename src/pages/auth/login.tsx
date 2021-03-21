@@ -93,9 +93,10 @@ function Login () {
               />
               <input
                 type='text'
-                className='px-10 py-2 w-full | border-2 rounded | focus:outline-none focus:ring focus:border-blue-100'
+                className='px-10 py-2 w-full | border-2 rounded | focus:outline-none focus:ring required:border-red-100'
                 name='username'
                 id='username'
+                required
                 placeholder='Username'
                 autoComplete='off'
                 ref={register({
@@ -109,6 +110,7 @@ function Login () {
                     message: 'Máximo 8 caracteres'
                   }
                 })}
+                title='Input an username'
               />
               <ErrorMessage
                 errors={errors}
@@ -130,6 +132,7 @@ function Login () {
                 className='absolute top-10 left-4 text-gray-400'
               />
               <input
+                title='Input a password'
                 type='password'
                 id='password'
                 name='password'

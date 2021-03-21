@@ -5,18 +5,10 @@ const router = Router()
 router.post(
   '/',
   async (req: Request, res: Response): Promise<Response> => {
-    const {
-      firstName,
-      dni,
-      address,
-      contact,
-      customerType
-    } = req.body
+    const { firstName, dni, address, contact, customerType } = req.body
 
     if (contact.length < 10 || contact.length > 11) {
-      return res
-        .status(400)
-        .send('Phone number is not valid!')
+      return res.status(400).send('Phone number is not valid!')
     }
 
     if (customerType === 'provider') {
@@ -50,5 +42,4 @@ router.post(
   }
 )
 
-export { router as save }
-
+export default router

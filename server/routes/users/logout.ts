@@ -24,4 +24,4 @@ router.put(
     return res.status(200).json({ message: 'User Logout Successfully.' })
   }
 )
-export { router as logout }
+export default router

@@ -49,7 +49,7 @@ function AdminNavbar ({
 
   return (
     <>
-      <nav className='flex justify-between | bg-green-500 | shadow-lg'>
+      <nav className='flex justify-between | bg-green-500 | shadow-lg | print:hidden'>
         <div className='pl-5 | text-left | w-1/2'>
           <button
             className='p-1 | text-white text-2xl | focus:outline-none'

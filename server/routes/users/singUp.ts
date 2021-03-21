@@ -47,4 +47,4 @@ function validateFields (
   return false
 }
 
-export { router as singUp }
+export default router

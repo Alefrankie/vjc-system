@@ -61,4 +61,4 @@ router.get(
   }
 )
 
-export { router as checkInventoryQuantitiesUseCase }
+export default router
