@@ -7,6 +7,7 @@ import findAllInvoices from './routes/script'
 import Services from './services'
 
 // const server = http.createServer(app)
+
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
