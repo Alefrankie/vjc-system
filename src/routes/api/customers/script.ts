@@ -1,6 +1,5 @@
-import { dbConnect } from '$lib/database/mongo'
-import CustomerOld from '$lib/database/schemas/old/CustomerOld'
 import { Customer } from '$lib/database/schemas/Customer'
+import CustomerOld from '$lib/database/schemas/old/CustomerOld'
 import type { RequestHandler } from '@sveltejs/kit'
 
 // firstName: string
@@ -14,8 +13,6 @@ import type { RequestHandler } from '@sveltejs/kit'
 // socialReason: string
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [data] = await Promise.all([CustomerOld.find().lean()])
 	await Customer.deleteMany({})
 

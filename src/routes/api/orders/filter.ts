@@ -1,10 +1,7 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Order } from '$lib/database/schemas/Order'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
-
 	const body = await request.json()
 	const { query, limit } = body
 	// InvoiceType: Sale:Retail
@@ -18,7 +15,7 @@ export const post: RequestHandler = async ({ request }) => {
 
 	data = await Promise.all(
 		data.map((item) => {
-			if (item.code < 3408) item.rate = item.rate / 1_000_000
+			if (item.code < 3408) item.rate /= 1_000_000
 
 			if (item.type === 'DeliveryNote') item.type = 'Nota de Entrega'
 			if (item.type === 'Sale') item.type = 'Factura Fiscal'

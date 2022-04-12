@@ -1,11 +1,14 @@
-// import { dbConnect } from '$lib/database/mongo'
+import { dbConnect } from '$lib/database/mongo'
+import { Customer } from '$lib/database/schemas/Customer'
+import { Order } from '$lib/database/schemas/Order'
 import type { Handle } from '@sveltejs/kit'
 import cookie from 'cookie'
 
 // eslint-disable-next-line max-statements
 export const handle: Handle = async ({ event, resolve }) => {
-	// await Order.init()
-	// await Customer.init()
+	await dbConnect()
+	await Order.init()
+	await Customer.init()
 
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '')
 	event.locals.user = {}

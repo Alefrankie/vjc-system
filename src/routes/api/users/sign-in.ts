@@ -1,4 +1,3 @@
-import { dbConnect } from '$lib/database/mongo'
 import { User } from '$lib/database/schemas/User'
 import type { RequestHandler } from '@sveltejs/kit'
 import * as bcrypt from 'bcryptjs'
@@ -6,8 +5,6 @@ import cookie from 'cookie'
 // import jwt from 'jwt-simple'
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
-
 	const { username, password } = await request.json()
 
 	const user = await User.findOne({ username })

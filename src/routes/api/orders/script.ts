@@ -1,8 +1,7 @@
-import { dbConnect } from '$lib/database/mongo'
-import LoteOld from '$lib/database/schemas/old/LoteOld'
-import InvoiceOld from '$lib/database/schemas/old/InvoiceOld'
-import { Order } from '$lib/database/schemas/Order'
 import { Customer } from '$lib/database/schemas/Customer'
+import InvoiceOld from '$lib/database/schemas/old/InvoiceOld'
+import LoteOld from '$lib/database/schemas/old/LoteOld'
+import { Order } from '$lib/database/schemas/Order'
 import type { RequestHandler } from '@sveltejs/kit'
 
 // code: string
@@ -14,8 +13,6 @@ import type { RequestHandler } from '@sveltejs/kit'
 // payCondition: string
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [invoices] = await Promise.all([InvoiceOld.find().lean()])
 	const [customers] = await Promise.all([Customer.find().lean()])
 	await Order.deleteMany({})

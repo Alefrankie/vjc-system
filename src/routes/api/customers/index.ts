@@ -1,9 +1,6 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Customer } from '$lib/database/schemas/Customer'
+import type { RequestHandler } from '@sveltejs/kit'
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [data] = await Promise.all([Customer.find()])
 
 	return {
@@ -12,8 +9,6 @@ export const get: RequestHandler = async () => {
 }
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
-
 	const body = await request.json()
 	const { dni, phone } = body
 

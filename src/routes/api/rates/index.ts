@@ -1,10 +1,7 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Rate } from '$lib/database/schemas/Rate'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const Retail = await Rate.findOne({ name: 'Retail' })
 	const Wholesale = await Rate.findOne({ name: 'Wholesale' })
 
@@ -14,7 +11,6 @@ export const get: RequestHandler = async () => {
 }
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
 	const { name, value } = await request.json()
 
 	console.log(name, value)

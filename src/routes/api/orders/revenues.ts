@@ -1,11 +1,7 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Order } from '$lib/database/schemas/Order'
-import { Rate } from '$lib/database/schemas/Rate'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
-
 	const body = await request.json()
 	const { query, limit, page } = body
 	// InvoiceType: Sale:Retail

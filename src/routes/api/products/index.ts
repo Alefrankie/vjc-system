@@ -1,9 +1,6 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Product } from '$lib/database/schemas/Product'
 import type { RequestHandler } from '@sveltejs/kit'
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [data] = await Promise.all([Product.find().sort({ name: 1 })])
 
 	return {
@@ -12,7 +9,6 @@ export const get: RequestHandler = async () => {
 }
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
 	const body = await request.json()
 
 	if (

@@ -1,10 +1,7 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Product } from '$lib/database/schemas/Product'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async ({ url }) => {
-	await dbConnect()
-
 	const key = url.searchParams.get('key')
 
 	if (!key) {

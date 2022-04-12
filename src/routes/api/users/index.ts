@@ -1,10 +1,7 @@
-import { dbConnect } from '$lib/database/mongo'
 import { User } from '$lib/database/schemas/User'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [users] = await Promise.all([User.find()])
 
 	return {
@@ -13,7 +10,6 @@ export const get: RequestHandler = async () => {
 }
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
 	const body = await request.json(),
 		{ dni, username } = body,
 		dataFound = await User.findOne({ $or: [{ dni }, { username }] })

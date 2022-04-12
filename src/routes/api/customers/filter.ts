@@ -1,10 +1,7 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Customer } from '$lib/database/schemas/Customer'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async ({ url }) => {
-	await dbConnect()
-
 	const key = url.searchParams.get('key')
 
 	if (!key.length) {
@@ -17,27 +14,27 @@ export const get: RequestHandler = async ({ url }) => {
 			$or: [
 				{
 					dni: {
-						$regex: '.*' + key + '.*'
+						$regex: `.*${  key  }.*`
 					}
 				},
 				{
 					firstName: {
-						$regex: '.*' + key + '.*'
+						$regex: `.*${  key  }.*`
 					}
 				},
 				{
 					lastName: {
-						$regex: '.*' + key + '.*'
+						$regex: `.*${  key  }.*`
 					}
 				},
 				{
 					address: {
-						$regex: '.*' + key + '.*'
+						$regex: `.*${  key  }.*`
 					}
 				},
 				{
 					phone: {
-						$regex: '.*' + key + '.*'
+						$regex: `.*${  key  }.*`
 					}
 				}
 			]

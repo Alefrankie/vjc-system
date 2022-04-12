@@ -1,12 +1,9 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Customer } from '$lib/database/schemas/Customer'
 import { Order } from '$lib/database/schemas/Order'
+import type { RequestHandler } from '@sveltejs/kit'
 
 // FindAll
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [customers] = await Promise.all([Customer.find().populate('orders')])
 	const [orders] = await Promise.all([Order.find().populate('customer')])
 

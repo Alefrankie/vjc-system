@@ -1,12 +1,9 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { User } from '$lib/database/schemas/User'
+import type { RequestHandler } from '@sveltejs/kit'
 import * as bcrypt from 'bcryptjs'
 
-//FindAll
+// FindAll
 export const get: RequestHandler = async ({ params }) => {
-	await dbConnect()
-
 	const { id } = params
 
 	const user = await User.findById(id)
@@ -20,8 +17,6 @@ export const get: RequestHandler = async ({ params }) => {
 }
 
 export const patch: RequestHandler = async ({ request, params }) => {
-	await dbConnect()
-
 	const { id } = params
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const body = await request.json()

@@ -1,8 +1,6 @@
-import { dbConnect } from '$lib/database/mongo'
 import UserOld from '$lib/database/schemas/old/UserOld'
 import { User } from '$lib/database/schemas/User'
 import type { RequestHandler } from '@sveltejs/kit'
-
 
 // firstName: string
 // lastName: string
@@ -16,27 +14,26 @@ import type { RequestHandler } from '@sveltejs/kit'
 // role: number
 
 export const get: RequestHandler = async () => {
-  await dbConnect()
+	const [users] = await Promise.all([UserOld.find().lean()])
+	await User.deleteMany({})
 
-  const [users] = await Promise.all([UserOld.find().lean()])
-  await User.deleteMany({})
+	await Promise.all(
+		users.map(async (e) => {
+			e.firstName = e.name
 
-  await Promise.all(users.map(async (e) => {
+			delete e._id
+			delete e.name
+			delete e.userId
+			delete e.privileges
+			delete e.dniType
+			delete e.status
 
-    e.firstName = e.name
+			const newData = new User(e)
+			await newData.save()
+		})
+	)
 
-    delete e._id
-    delete e.name
-    delete e.userId
-    delete e.privileges
-    delete e.dniType
-    delete e.status
-
-    const newData = new User(e)
-    await newData.save()
-  }))
-
-  return {
-    body: { data: users }
-  }
+	return {
+		body: { data: users }
+	}
 }

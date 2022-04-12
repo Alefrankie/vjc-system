@@ -1,11 +1,8 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Order } from '$lib/database/schemas/Order'
 import { Rate } from '$lib/database/schemas/Rate'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
-
 	const { invoiceType, searchTo, currentPage } = await request.json()
 	// InvoiceType: Sale:Retail
 	// InvoiceType: Sale:Wholesale
@@ -43,7 +40,7 @@ const findingSales = async (
 	if (invoiceType.includes('Today')) {
 		responsePromise = Invoice.find({
 			invoiceType: {
-				$regex: '.*' + searchTo + '.*'
+				$regex: `.*${  searchTo  }.*`
 			}
 		})
 			.skip(perPage * currentPage - perPage)
@@ -54,7 +51,7 @@ const findingSales = async (
 	if (invoiceType.includes('All')) {
 		responsePromise = Invoice.find({
 			invoiceType: {
-				$regex: '.*' + searchTo + '.*'
+				$regex: `.*${  searchTo  }.*`
 			}
 		})
 			.skip(perPage * currentPage - perPage)

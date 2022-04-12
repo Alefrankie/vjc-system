@@ -1,4 +1,3 @@
-import { dbConnect } from '$lib/database/mongo'
 import { Product } from '$lib/database/schemas/Product'
 import type { RequestHandler } from '@sveltejs/kit'
 import fs from 'fs'
@@ -11,8 +10,6 @@ async function getPreferences() {
 }
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const responsePromises = []
 	const responsePromise = Product.find().sort({ productName: 1 })
 	responsePromises.push(responsePromise)

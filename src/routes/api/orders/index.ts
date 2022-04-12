@@ -1,12 +1,9 @@
-import { dbConnect } from '$lib/database/mongo'
 import '$lib/database/schemas/Customer'
 import { IOrder, Order } from '$lib/database/schemas/Order'
 import type { RequestHandler } from '@sveltejs/kit'
 import { findCode } from './findCode'
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [data] = await Promise.all([Order.find().limit(1).sort({ code: -1 }).populate('customer')])
 
 	const count = await Order.count()
@@ -17,7 +14,6 @@ export const get: RequestHandler = async () => {
 }
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
 	const { order }: { order: IOrder } = await request.json()
 
 	order.customer = order.customer._id

@@ -1,10 +1,7 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Product } from '$lib/database/schemas/Product'
+import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async ({ params }) => {
-	await dbConnect()
-
 	const { id } = params
 
 	if (!id.length) {
@@ -21,7 +18,7 @@ export const get: RequestHandler = async ({ params }) => {
 			$or: [
 				{
 					productName: {
-						$regex: '.*' + id + '.*'
+						$regex: `.*${  id  }.*`
 					}
 				}
 			]

@@ -1,4 +1,3 @@
-import { dbConnect } from '$lib/database/mongo'
 import ProductOld from '$lib/database/schemas/old/ProductOld'
 import { Product } from '$lib/database/schemas/Product'
 import type { RequestHandler } from '@sveltejs/kit'
@@ -10,8 +9,6 @@ import type { RequestHandler } from '@sveltejs/kit'
 // unit: string
 
 export const get: RequestHandler = async () => {
-	await dbConnect()
-
 	const [data] = await Promise.all([ProductOld.find().lean()])
 	await Product.deleteMany({})
 

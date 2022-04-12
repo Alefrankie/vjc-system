@@ -1,11 +1,8 @@
-import type { RequestHandler } from '@sveltejs/kit'
-import { dbConnect } from '$lib/database/mongo'
 import { Product } from '$lib/database/schemas/Product'
+import type { RequestHandler } from '@sveltejs/kit'
 
-//FindAll
+// FindAll
 export const get: RequestHandler = async ({ params }) => {
-	await dbConnect()
-
 	const { id } = params
 
 	const data = await Product.findById(id)
@@ -20,8 +17,6 @@ export const get: RequestHandler = async ({ params }) => {
 }
 
 export const patch: RequestHandler = async ({ request, params }) => {
-	await dbConnect()
-
 	const { id } = params
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const body = await request.json()

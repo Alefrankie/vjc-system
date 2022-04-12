@@ -1,11 +1,9 @@
-import { dbConnect } from '$lib/database/mongo'
 import { User } from '$lib/database/schemas/User'
 import type { RequestHandler } from '@sveltejs/kit'
 import cookie from 'cookie'
 // import jwt from 'jwt-simple'
 
 export const post: RequestHandler = async ({ request }) => {
-	await dbConnect()
 	const { _id } = await request.json()
 
 	await User.findByIdAndUpdate(_id, { status: false })
