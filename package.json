@@ -2,6 +2,7 @@
 	"name": "vjc-system",
 	"version": "0.0.1",
 	"scripts": {
+		"co": "sui-mono commit",
 		"dev": "svelte-kit dev --host",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
@@ -39,6 +40,7 @@
 		"@fortawesome/free-solid-svg-icons": "6.1.0",
 		"@lukeed/uuid": "2.0.0",
 		"@popperjs/core": "2.10.2",
+		"@s-ui/mono": "^2.26.0",
 		"@svelte-drama/swr": "^0.2.3",
 		"bcryptjs": "2.4.3",
 		"bootstrap": "5.1.3",
