@@ -2,26 +2,26 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { Fetch } from '$lib/stores/Fetch'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Rates } from '$lib/stores/Rates'
 
 	let retail = {
 		name: 'Retail',
-		value: $RateStore.Retail
+		value: $Rates.Retail
 	}
 
 	let wholesale = {
 		name: 'Wholesale',
-		value: $RateStore.Wholesale
+		value: $Rates.Wholesale
 	}
 
 	const saveRetail = async () => {
 		const { data } = await Fetch.Post('/api/rates', retail)
-		RateStore.setRetail(data.value)
+		Rates.setRetail(data.value)
 	}
 
 	const saveWholesale = async () => {
 		const { data } = await Fetch.Post('/api/rates', wholesale)
-		RateStore.setWholesale(data.value)
+		Rates.setWholesale(data.value)
 	}
 </script>
 

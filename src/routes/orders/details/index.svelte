@@ -1,6 +1,6 @@
 <script context="module">
 	export async function load({ params }) {
-		const { data: order } = await Fetch.Get(`/api/orders/${params.id}`)
+		const { data: order } = await Fetch.get(`/api/orders/${params.id}`)
 		return {
 			props: { order }
 		}

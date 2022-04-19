@@ -3,14 +3,14 @@
 	import { useFinder } from '$lib/hooks/useFinder'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
-	import { ProductStore } from '$lib/stores/ProductStore'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Products } from '$lib/stores/Products'
+	import { Rates } from '$lib/stores/Rates'
 
 	const removeProduct = async (product) => {
 		const isSure = confirm('¿Desea remover el registro?')
 		if (isSure) {
 			await Fetch.Delete(`/api/products/${product._id}`)
-			ProductStore.remove(product)
+			Products.remove(product)
 		}
 	}
 </script>
@@ -89,7 +89,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each $ProductStore as item, index}
+								{#each $Products as item, index}
 									<tr>
 										<td class="d-print-none">{index + 1}</td>
 										<td class="d-print-none">
@@ -98,13 +98,13 @@
 										<td>{item.name}</td>
 										<td>
 											<p class="mb-1">
-												{useFormatNumber(item.price * $RateStore.Wholesale)} Bs
+												{useFormatNumber(item.price * $Rates.Wholesale)} Bs
 											</p>
 											<p class="mb-0">{useFormatNumber(item.price)} Bs$</p>
 										</td>
 										<td
 											><p class="mb-1">
-												{useFormatNumber(item.price * $RateStore.Retail)} Bs
+												{useFormatNumber(item.price * $Rates.Retail)} Bs
 											</p>
 											<p class="mb-0">{useFormatNumber(item.price)} Bs$</p></td
 										>

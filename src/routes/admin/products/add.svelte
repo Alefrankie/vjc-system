@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/Alert.svelte'
 	import { Fetch } from '$lib/stores/Fetch'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Rates } from '$lib/stores/Rates'
 
 	let product = {
 		code: '0001',
@@ -81,13 +81,13 @@
 										<div class="col-sm-6">
 											<label for="dni">Mayor</label>
 											<span id="dni" class="form-control">
-												{product.price * $RateStore.Wholesale}
+												{product.price * $Rates.Wholesale}
 											</span>
 										</div>
 										<div class="col-sm-6">
 											<label for="dni">Detal</label>
 											<span id="dni" class="form-control">
-												{product.price * $RateStore.Retail}
+												{product.price * $Rates.Retail}
 											</span>
 										</div>
 									</div>

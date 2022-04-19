@@ -1,15 +1,20 @@
 <script lang="ts">
+	import { browser } from '$app/env'
 	import Loading from '$lib/components/Loading.svelte'
 	import TableWrap from '$lib/components/TableWrap.svelte'
-	import { CustomerStore } from '$lib/stores/CustomerStore'
+	import { Customers } from '$lib/stores/Customers'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
-	import { OrderStore } from '$lib/stores/OrderStore'
 	import { fade } from 'svelte/transition'
+
+	$: if (browser) {
+		Fetch.get('/api/customers').then(({ data }) => Customers.set(data))
+	}
+
 	const removeCustomer = (customer) => {
 		const isSure = confirm('¿Desea remover al cliente?')
 		if (isSure) {
 			Fetch.Delete(`/api/customers/${customer._id}`)
-			CustomerStore.remove(customer)
+			Customers.remove(customer)
 		}
 	}
 
@@ -21,8 +26,8 @@
 		}
 
 		timeoutId = setTimeout(async () => {
-			const { data } = await Fetch.Get(`/api/customers/filter/?key=${value}`)
-			CustomerStore.set(data)
+			const { data } = await Fetch.get(`/api/customers/filter/?key=${value}`)
+			Customers.set(data)
 		}, 200)
 	}
 </script>
@@ -89,7 +94,7 @@
 						</svelte:fragment>
 
 						<svelte:fragment slot="tbody">
-							{#each $CustomerStore as item, index}
+							{#each $Customers as item, index}
 								<tr>
 									<td>
 										{index + 1}
@@ -121,7 +126,7 @@
 												<li>
 													<a
 														href="/orders/add"
-														on:click={() => OrderStore.setCustomer(item)}
+														on:click={() => Order.setCustomer(item)}
 														class="dropdown-item"
 													>
 														<i class="mdi mdi-shopping font-size-16 text-success me-1" />

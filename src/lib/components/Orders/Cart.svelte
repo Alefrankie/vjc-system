@@ -9,41 +9,41 @@
 		getSubTotal,
 		getTotal
 	} from '$lib/hooks/useMoney'
-	import { CartStore } from '$lib/stores/CartStore'
+	import { Cart } from '$lib/stores/Cart'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
-	import { OrderStore } from '$lib/stores/OrderStore'
-	import { ProductStore } from '$lib/stores/ProductStore'
+	import { Order } from '$lib/stores/Order'
+	import { Products } from '$lib/stores/Products'
 	import Loading from '../Loading.svelte'
 
 	function updateQuantity(e, item: IProduct) {
 		const quantity = e.target.value
-		CartStore.update(item, quantity, 'requested')
+		Cart.update(item, quantity, 'requested')
 	}
 
 	function updateDiscount(e, item) {
 		const discount = e.target.value
-		CartStore.update(item, discount / 100, 'discount')
+		Cart.update(item, discount / 100, 'discount')
 	}
 
 	function removeItem(product) {
-		CartStore.remove(product)
-		ProductStore.add(product)
+		Cart.remove(product)
+		Products.add(product)
 	}
 
 	async function saveOrder() {
-		OrderStore.setCart($CartStore)
+		Order.setCart($Cart)
 
-		if (!$OrderStore.customer) {
+		if (!$Order.customer) {
 			return alert('Debe indicar el cliente')
 		}
-		if ($CartStore.length === 0) {
+		if ($Cart.length === 0) {
 			return alert('El carrito no puede estar vacío')
 		}
 
-		await Fetch.Post('/api/orders', { order: $OrderStore })
+		await Fetch.Post('/api/orders', { order: $Order })
 
-		CartStore.wipe()
-		OrderStore.wipe()
+		Cart.wipe()
+		Order.wipe()
 	}
 </script>
 
@@ -70,7 +70,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{#each $CartStore as product}
+							{#each $Cart as product}
 								<tr>
 									<td>
 										<h5 class="font-size-14 text-uppercase">{product.name}</h5>
@@ -94,9 +94,7 @@
 									<!-- Total -->
 									<td>
 										<p class="mb-1">
-											{useFormatNumber(
-												(getPrice(product) - getDiscount(product)) * $OrderStore.rate
-											)} Bs
+											{useFormatNumber((getPrice(product) - getDiscount(product)) * $Order.rate)} Bs
 										</p>
 										<p class="mb-0">
 											{useFormatNumber(getPrice(product) - getDiscount(product))} $
@@ -134,10 +132,10 @@
 								<td>Sub-Total :</td>
 								<td>
 									<p class="mb-1">
-										{useFormatNumber(getSubTotal($CartStore) * $OrderStore.rate)} Bs
+										{useFormatNumber(getSubTotal($Cart) * $Order.rate)} Bs
 									</p>
 									<p class="mb-0">
-										{useFormatNumber(getSubTotal($CartStore))} $
+										{useFormatNumber(getSubTotal($Cart))} $
 									</p>
 								</td>
 							</tr>
@@ -145,10 +143,10 @@
 								<td>Descuento Total: </td>
 								<td>
 									<p class="mb-1">
-										-{useFormatNumber(getDiscountTotal($CartStore) * $OrderStore.rate)} Bs
+										-{useFormatNumber(getDiscountTotal($Cart) * $Order.rate)} Bs
 									</p>
 									<p class="mb-0">
-										-{useFormatNumber(getDiscountTotal($CartStore))} $
+										-{useFormatNumber(getDiscountTotal($Cart))} $
 									</p>
 								</td>
 							</tr>
@@ -157,15 +155,15 @@
 								<td>$0</td>
 							</tr> -->
 
-							{#if $OrderStore.type === 'Sale'}
+							{#if $Order.type === 'Sale'}
 								<tr>
 									<td>IVA: </td>
 									<td>
 										<p class="mb-1">
-											+{useFormatNumber(getIva($CartStore) * $OrderStore.rate)} Bs
+											+{useFormatNumber(getIva($Cart) * $Order.rate)} Bs
 										</p>
 										<p class="mb-0">
-											+{useFormatNumber(getIva($CartStore))} $
+											+{useFormatNumber(getIva($Cart))} $
 										</p>
 									</td>
 								</tr>
@@ -173,12 +171,10 @@
 									<th>Total:</th>
 									<th>
 										<p class="mb-1">
-											{useFormatNumber(
-												(getTotal($CartStore) + getIva($CartStore)) * $OrderStore.rate
-											)} Bs
+											{useFormatNumber((getTotal($Cart) + getIva($Cart)) * $Order.rate)} Bs
 										</p>
 										<p class="mb-0">
-											{useFormatNumber(getTotal($CartStore) + getIva($CartStore))} $
+											{useFormatNumber(getTotal($Cart) + getIva($Cart))} $
 										</p>
 									</th>
 								</tr>
@@ -187,10 +183,10 @@
 									<th>Total:</th>
 									<th>
 										<p class="mb-1">
-											{useFormatNumber(getTotal($CartStore) * $OrderStore.rate)} Bs
+											{useFormatNumber(getTotal($Cart) * $Order.rate)} Bs
 										</p>
 										<p class="mb-0">
-											{useFormatNumber(getTotal($CartStore))} $
+											{useFormatNumber(getTotal($Cart))} $
 										</p>
 									</th>
 								</tr>

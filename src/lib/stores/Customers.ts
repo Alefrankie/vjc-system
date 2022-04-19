@@ -17,4 +17,4 @@ const createStore = () => {
 	}
 }
 
-export const CustomerStore = createStore()
+export const Customers = createStore()

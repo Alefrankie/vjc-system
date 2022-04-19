@@ -1,14 +1,6 @@
 <script>
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
-	import {
-		getDiscount,
-		getDiscountTotal,
-		getIva,
-		getPrice,
-		getSubTotal,
-		getTotal
-	} from '$lib/hooks/useMoney'
-	import { OrderStore } from '$lib/stores/OrderStore'
+	import { getDiscountTotal, getIva, getPrice, getSubTotal, getTotal } from '$lib/hooks/useMoney'
 </script>
 
 <main>
@@ -23,7 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each $OrderStore.cart as item}
+			{#each $Order.cart as item}
 				<tr>
 					<td
 						style="padding-left: 0.5rem; display: flex; align-items: center;align-items: center; width: 20%;"
@@ -37,7 +29,7 @@
 					<td
 						style="display: flex; justify-content: end; padding-right: 4rem;align-items: center; width: 20%;"
 					>
-						{useFormatNumber(item.price * $OrderStore.rate)} Bs
+						{useFormatNumber(item.price * $Order.rate)} Bs
 					</td>
 					<td
 						style="display: flex; justify-content: end;align-items: center; width: 20%; padding-right: 2rem;"
@@ -45,7 +37,7 @@
 						{item.discount * 100}%
 					</td>
 					<td style="display: flex; justify-content: end;align-items: center; width: 20%;">
-						{useFormatNumber(getPrice(item) * $OrderStore.rate)} Bs
+						{useFormatNumber(getPrice(item) * $Order.rate)} Bs
 					</td>
 				</tr>
 			{/each}
@@ -55,43 +47,40 @@
 			<tr>
 				<td style="flex-grow: 1; padding-left: 0.5rem">
 					<span>
-						{#if $OrderStore.volume === 'Wholesale'}
+						{#if $Order.volume === 'Wholesale'}
 							Al Mayor<br />
 						{/if}
-						{#if $OrderStore.volume === 'Retail'}
+						{#if $Order.volume === 'Retail'}
 							Al Detal<br />
 						{/if}
 					</span>
-					<span>Factura: #{$OrderStore.code}</span>
+					<span>Factura: #{$Order.code}</span>
 				</td>
 				<td style="text-align: right; padding-left: 0; display: flex; flex-direction: column;">
 					<span>
 						Sub-Total:
-						{useFormatNumber(getSubTotal($OrderStore.cart) * $OrderStore.rate)} Bs
+						{useFormatNumber(getSubTotal($Order.cart) * $Order.rate)} Bs
 					</span>
 
 					<span>
-						Descuento: -{useFormatNumber(getDiscountTotal($OrderStore.cart) * $OrderStore.rate)} Bs
+						Descuento: -{useFormatNumber(getDiscountTotal($Order.cart) * $Order.rate)} Bs
 					</span>
-					{#if $OrderStore.type !== 'Sale'}
+					{#if $Order.type !== 'Sale'}
 						<span>
-							Iva: +{useFormatNumber(getIva($OrderStore.cart) * $OrderStore.rate)} Bs
+							Iva: +{useFormatNumber(getIva($Order.cart) * $Order.rate)} Bs
 						</span>
 
 						<span
-							>Total: {useFormatNumber(
-								(getTotal($OrderStore.cart) + getIva($OrderStore.cart)) * $OrderStore.rate
-							)} Bs</span
+							>Total: {useFormatNumber((getTotal($Order.cart) + getIva($Order.cart)) * $Order.rate)}
+							Bs</span
 						>
 						<span class="d-print-none">
-							Total Dólares: {useFormatNumber(
-								getTotal($OrderStore.cart) + getIva($OrderStore.cart)
-							)} Bs
+							Total Dólares: {useFormatNumber(getTotal($Order.cart) + getIva($Order.cart))} Bs
 						</span>
 					{:else}
-						<span>Total: {useFormatNumber(getTotal($OrderStore.cart) * $OrderStore.rate)} Bs</span>
+						<span>Total: {useFormatNumber(getTotal($Order.cart) * $Order.rate)} Bs</span>
 						<span class="d-print-none">
-							Total Dólares: {useFormatNumber(getTotal($OrderStore.cart))} Bs
+							Total Dólares: {useFormatNumber(getTotal($Order.cart))} Bs
 						</span>
 					{/if}
 				</td>

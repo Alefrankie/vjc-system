@@ -3,12 +3,11 @@
 	import FinderCustomer from '$lib/components/Orders/FinderCustomer.svelte'
 	import Products from '$lib/components/Orders/Products.svelte'
 	import TypeVolume from '$lib/components/Orders/TypeVolume.svelte'
-	import { OrderStore } from '$lib/stores/OrderStore'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Rates } from '$lib/stores/Rates'
 	import { onMount } from 'svelte'
 
 	onMount(() => {
-		OrderStore.setRate($RateStore.Retail)
+		Order.setRate($Rates.Retail)
 	})
 </script>
 
@@ -23,7 +22,7 @@
 		</div>
 	</div>
 </div>
-<!-- {JSON.stringify($OrderStore)} -->
+<!-- {JSON.stringify($Order)} -->
 
 <FinderCustomer />
 

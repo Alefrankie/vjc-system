@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store'
-import { RateStore } from './RateStore'
+import { Rates } from './Rates'
 
 const defaultValues = {
 	customer: null,
@@ -52,14 +52,14 @@ const createStore = () => {
 
 			if (data === 'Retail') {
 				update((store) => {
-					store.rate = get(RateStore).Retail
+					store.rate = get(Rates).Retail
 					return store
 				})
 			}
 
 			if (data === 'Wholesale') {
 				update((store) => {
-					store.rate = get(RateStore).Wholesale
+					store.rate = get(Rates).Wholesale
 					return store
 				})
 			}
@@ -70,4 +70,4 @@ const createStore = () => {
 	}
 }
 
-export const OrderStore = createStore()
+export const Order = createStore()

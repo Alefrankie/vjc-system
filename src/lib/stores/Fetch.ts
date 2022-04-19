@@ -9,7 +9,7 @@ const createStore = () => {
 
 	return {
 		subscribe,
-		Get: async (url: string) => {
+		get: async (url: string) => {
 			const promise = http.Get(url)
 			set(promise)
 			const data = await promise

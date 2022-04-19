@@ -1,7 +1,7 @@
 import { Fetch } from '$lib/stores/Fetch'
-import { ProductStore } from '$lib/stores/ProductStore'
+import { Products } from '$lib/stores/Products'
 
-let timeoutId
+let timeoutId = null
 type Entity = 'products' | 'orders' | 'customers'
 
 export const useFinder = (e, entity: Entity) => {
@@ -10,8 +10,8 @@ export const useFinder = (e, entity: Entity) => {
 	}
 
 	timeoutId = setTimeout(async () => {
-		const { data } = await Fetch.Get(`/api/${entity}/filter/?key=${e.target.value}`)
+		const { data } = await Fetch.get(`/api/${entity}/filter/?key=${e.target.value}`)
 
-		entity == 'products' && ProductStore.set(data)
+		entity == 'products' && Products.set(data)
 	}, 200)
 }

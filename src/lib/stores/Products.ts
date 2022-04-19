@@ -20,4 +20,4 @@ const createStore = () => {
 	}
 }
 
-export const ProductStore = createStore()
+export const Products = createStore()

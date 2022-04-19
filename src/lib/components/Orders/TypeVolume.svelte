@@ -1,12 +1,10 @@
 <script>
-	import { OrderStore } from '$lib/stores/OrderStore'
-
 	function updateType(e) {
-		OrderStore.setType(e.target.value)
+		Order.setType(e.target.value)
 	}
 
 	function updateVolume(e) {
-		OrderStore.setVolume(e.target.value)
+		Order.setVolume(e.target.value)
 	}
 </script>
 
@@ -24,7 +22,7 @@
 						tabindex="-1"
 						aria-hidden="true"
 						required
-						value={$OrderStore.type}
+						value={$Order.type}
 						on:change={updateType}
 					>
 						<option>Seleccione</option>
@@ -36,7 +34,7 @@
 			</div>
 		</div>
 	</div>
-	{#if ['DeliveryNote', 'Budget'].includes($OrderStore.type)}
+	{#if ['DeliveryNote', 'Budget'].includes($Order.type)}
 		<div class="col-lg-6">
 			<div class="card">
 				<div class="card-body">
@@ -47,7 +45,7 @@
 							id="selectt"
 							class="form-control select2 select2-hidden-accessible"
 							required
-							value={$OrderStore.volume}
+							value={$Order.volume}
 							on:change={updateVolume}
 						>
 							<option>Seleccione</option>

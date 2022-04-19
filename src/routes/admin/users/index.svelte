@@ -8,7 +8,7 @@
 	export let users: IUser[] = []
 
 	$: if (browser) {
-		Fetch.Get('/api/users').then(({ data }) => {
+		Fetch.get('/api/users').then(({ data }) => {
 			users = data
 		})
 	}

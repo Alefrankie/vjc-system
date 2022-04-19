@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { IProduct } from '$lib/database/schemas/Product'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
-	import { CartStore } from '$lib/stores/CartStore'
+	import { Cart } from '$lib/stores/Cart'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
-	import { OrderStore } from '$lib/stores/OrderStore'
-	import { ProductStore } from '$lib/stores/ProductStore'
+	import { Products } from '$lib/stores/Products'
 	import Loading from '../Loading.svelte'
 
 	let timeoutId
@@ -16,22 +15,22 @@
 		}
 
 		timeoutId = setTimeout(async () => {
-			const { data }: { data: IProduct[] } = await Fetch.Get(`/api/products/filter/?key=${value}`)
+			const { data }: { data: IProduct[] } = await Fetch.get(`/api/products/filter/?key=${value}`)
 
-			$CartStore.map((iCart) => {
+			$Cart.map((iCart) => {
 				data.splice(
 					data.findIndex((e) => e._id == iCart._id),
 					1
 				)
 			})
 
-			ProductStore.set(data)
+			Products.set(data)
 		}, 200)
 	}
 
 	function addItemCart(item: IProduct) {
-		CartStore.add(item)
-		ProductStore.remove(item)
+		Cart.add(item)
+		Products.remove(item)
 	}
 </script>
 
@@ -80,7 +79,7 @@
 							<Loading />
 						{:then}
 							<tbody>
-								{#each $ProductStore.filter((e) => e.quantity >= 0.99 && e.price >= 0.99) as item, index}
+								{#each $Products.filter((e) => e.quantity >= 0.99 && e.price >= 0.99) as item, index}
 									<tr on:click={() => addItemCart(item)}>
 										<td>
 											{index + 1}
@@ -89,7 +88,7 @@
 										<td>{item.name}</td>
 										<td>
 											<p class="mb-1">
-												{useFormatNumber(item.price * $OrderStore.rate)} Bs
+												{useFormatNumber(item.price * $Order.rate)} Bs
 											</p>
 											<p class="mb-0">{useFormatNumber(item.price)} $</p>
 										</td>

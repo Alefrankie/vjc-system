@@ -13,16 +13,16 @@
 	import type { IProduct } from '$lib/database/schemas/Product'
 	import { http } from '$lib/hooks/useFetch'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
-	import { ProductStore } from '$lib/stores/ProductStore'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Products } from '$lib/stores/Products'
+	import { Rates } from '$lib/stores/Rates'
 
 	export let product: IProduct
 
 	const modifyData = async () => {
 		Fetch.Patch(`/api/products/${product._id}`, product)
 
-		ProductStore.set(
-			$ProductStore.map((e) => {
+		Products.set(
+			$Products.map((e) => {
 				if (e._id === product._id) {
 					e = product
 				}
@@ -110,13 +110,13 @@
 											<div class="col-sm-6">
 												<label for="dni">Mayor</label>
 												<span id="dni" class="form-control">
-													{product.price * $RateStore.Wholesale}
+													{product.price * $Rates.Wholesale}
 												</span>
 											</div>
 											<div class="col-sm-6">
 												<label for="dni">Detal</label>
 												<span id="dni" class="form-control">
-													{product.price * $RateStore.Retail}
+													{product.price * $Rates.Retail}
 												</span>
 											</div>
 										</div>

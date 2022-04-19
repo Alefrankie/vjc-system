@@ -17,13 +17,12 @@ const createStore = () => {
 			update((store) => [...store, product])
 		},
 		update: (item: IProduct, value: number, property: 'requested' | 'discount') => {
-			update((store) => {
-				store = store.filter((e) => {
+			update((store) =>
+				store.filter((e) => {
 					if (e === item) e[property] = Number(value)
 					return e
 				})
-				return store
-			})
+			)
 		},
 		wipe: () => {
 			set([])
@@ -31,4 +30,4 @@ const createStore = () => {
 	}
 }
 
-export const CartStore = createStore()
+export const Cart = createStore()

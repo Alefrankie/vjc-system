@@ -14,27 +14,27 @@ export const get: RequestHandler = async ({ url }) => {
 			$or: [
 				{
 					dni: {
-						$regex: `.*${  key  }.*`
+						$regex: `.*${key}.*`
 					}
 				},
 				{
 					firstName: {
-						$regex: `.*${  key  }.*`
+						$regex: `.*${key}.*`
 					}
 				},
 				{
 					lastName: {
-						$regex: `.*${  key  }.*`
+						$regex: `.*${key}.*`
 					}
 				},
 				{
 					address: {
-						$regex: `.*${  key  }.*`
+						$regex: `.*${key}.*`
 					}
 				},
 				{
 					phone: {
-						$regex: `.*${  key  }.*`
+						$regex: `.*${key}.*`
 					}
 				}
 			]

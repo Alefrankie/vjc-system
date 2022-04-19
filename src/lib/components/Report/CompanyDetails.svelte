@@ -1,5 +1,4 @@
 <script>
-	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
 
 <main>
@@ -21,18 +20,18 @@
 	<aside>
 		<span style="font-style: italic;">¡Somos Gente de Soluciones!</span>
 		<br /><span>
-			{#if $OrderStore.type === 'DeliveryNote'}
+			{#if $Order.type === 'DeliveryNote'}
 				Nota De Entrega
 			{/if}
-			{#if $OrderStore.type === 'Budget'}
+			{#if $Order.type === 'Budget'}
 				Presupuesto
 			{/if}
-			{#if $OrderStore.type === 'Sale'}
+			{#if $Order.type === 'Sale'}
 				Factura Fiscal
 			{/if}
 		</span>
 
-		<br /><span>#{$OrderStore.code}</span>
+		<br /><span>#{$Order.code}</span>
 	</aside>
 </main>
 

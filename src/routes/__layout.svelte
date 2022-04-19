@@ -3,10 +3,9 @@
 	import { session } from '$app/stores'
 	import Header from '$lib/components/Headers/Header.svelte'
 	import LeftSideBar from '$lib/components/LeftSideBar.svelte'
-	import { CustomerStore } from '$lib/stores/CustomerStore'
 	import { Fetch } from '$lib/stores/Fetch'
-	import { ProductStore } from '$lib/stores/ProductStore'
-	import { RateStore } from '$lib/stores/RateStore'
+	import { Products } from '$lib/stores/Products'
+	import { Rates } from '$lib/stores/Rates'
 
 	// import '../../static/css/app.min.css'
 	// import '../../static/css/bootstrap.min.css'
@@ -24,22 +23,18 @@
 
 		// console.count()
 		if (browser) {
-			// Customers
-			const { data: customers } = await Fetch.Get('/api/customers')
-			CustomerStore.set(customers)
-
 			// Products
-			const { data: products } = await Fetch.Get('/api/products')
+			const { data: products } = await Fetch.get('/api/products')
 
-			ProductStore.set(products)
+			Products.set(products)
 
 			// Exchange Rates
 			const {
 				data: { Retail, Wholesale }
-			} = await Fetch.Get('/api/rates')
+			} = await Fetch.get('/api/rates')
 
-			RateStore.setRetail(Retail)
-			RateStore.setWholesale(Wholesale)
+			Rates.setRetail(Retail)
+			Rates.setWholesale(Wholesale)
 		}
 
 		return {}

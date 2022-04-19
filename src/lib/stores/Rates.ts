@@ -1,7 +1,15 @@
 import { writable } from 'svelte/store'
 
+interface defaultValues {
+	Retail: number
+	Wholesale: number
+	Rate: number
+}
+
+const defaultValues = { Retail: 0, Wholesale: 0, Rate: 0 }
+
 const createStore = () => {
-	const { subscribe, update } = writable({ Retail: 0, Wholesale: 0, Rate: 0 })
+	const { subscribe, update } = writable(defaultValues)
 
 	return {
 		subscribe,
@@ -26,4 +34,4 @@ const createStore = () => {
 	}
 }
 
-export const RateStore = createStore()
+export const Rates = createStore()

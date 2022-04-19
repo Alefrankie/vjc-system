@@ -1,34 +1,33 @@
 <script>
 	import { session } from '$app/stores'
 	import { useDate } from '$lib/hooks/useDate'
-	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
 
 <main>
 	<section>
 		<span>
-			{#if $OrderStore?.customer.dniType == 'V'}
-				Cliente: {$OrderStore?.customer.firstName} {$OrderStore?.customer.lastName}
+			{#if $Order?.customer.dniType == 'V'}
+				Cliente: {$Order?.customer.firstName} {$Order?.customer.lastName}
 			{:else}
-				Razón Social: {$OrderStore?.customer.socialReason}
+				Razón Social: {$Order?.customer.socialReason}
 			{/if}
 		</span>
 		<span>
 			<br />
-			{#if $OrderStore?.customer.dniType == 'V'}
-				C.I: {$OrderStore?.customer.dni} &nbsp;
+			{#if $Order?.customer.dniType == 'V'}
+				C.I: {$Order?.customer.dni} &nbsp;
 			{:else}
-				Rif: {$OrderStore?.customer.dni} &nbsp;
+				Rif: {$Order?.customer.dni} &nbsp;
 			{/if}
 
-			Teléfono: +58 {$OrderStore?.customer.phone}
+			Teléfono: +58 {$Order?.customer.phone}
 		</span>
-		<span><br /> Dirección: {$OrderStore?.customer.address}</span>
+		<span><br /> Dirección: {$Order?.customer.address}</span>
 	</section>
 
 	<aside>
-		<span>Fecha: {useDate($OrderStore?.createdAt)}</span>
-		<span><br />Forma de Pago: {$OrderStore?.payCondition}</span>
+		<span>Fecha: {useDate($Order?.createdAt)}</span>
+		<span><br />Forma de Pago: {$Order?.payCondition}</span>
 		<span class="d-print-none"><br />Usuario: {$session.username}</span>
 	</aside>
 </main>
