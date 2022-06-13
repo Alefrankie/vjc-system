@@ -18,7 +18,7 @@ export const post: RequestHandler = async ({ request }) => {
 
 	data = await Promise.all(
 		data.map((item) => {
-			if (item.code < 3408) item.rate = item.rate / 1_000_000
+			if (item.code < 3408) item.rate /= 1_000_000
 
 			if (item.type === 'DeliveryNote') item.type = 'Nota de Entrega'
 			if (item.type === 'Sale') item.type = 'Factura Fiscal'
@@ -27,10 +27,10 @@ export const post: RequestHandler = async ({ request }) => {
 			if (item.volume === 'Wholesale') item.volume = 'Al Mayor'
 			if (item.volume === 'Retail') item.volume = 'Al Detal'
 			return item
-		})
+		}),
 	)
 
 	return {
-		body: { data, count }
+		body: { data, count },
 	}
 }

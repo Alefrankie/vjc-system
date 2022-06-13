@@ -62,14 +62,14 @@
 						<span>Perfil</span></a
 					>
 
-					<a
+					<!-- <a
 						class="dropdown-item"
 						href="https://themesbrand.com/skote-mvc/layouts/index.html#"
 						on:focus={() => signOut}
 					>
 						<i class="align-middle bx bx-lock-open font-size-16 me-1" />
 						<span> Bloquear Pantalla </span>
-					</a>
+					</a> -->
 					<div class="dropdown-divider" />
 					<button class="dropdown-item" on:click={signOut}>
 						<i class="align-middle bx bx-power-off font-size-16 me-1 text-danger" />

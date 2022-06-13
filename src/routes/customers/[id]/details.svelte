@@ -97,7 +97,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-8">
+	<div class="col-xl-12">
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card mini-stats-wid">
@@ -257,7 +257,7 @@
 		</div>
 	</div>
 
-	<div class="col-xl-4">
+	<!-- <div class="col-xl-4">
 		<div class="card">
 			<div class="card-body">
 				<h4 class="mb-4 card-title">Top Productos Comprados</h4>
@@ -300,5 +300,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>

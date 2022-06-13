@@ -3,8 +3,9 @@ import mongoose from 'mongoose'
 export const jwtSecret: string = process.env.JWT_SECRET || 'someSecretToken'
 
 // export const MONGODB_URI: string =
-// 	process.env.MONGODB_URI || 'mongodb+srv://Diwaii:Diwaii@cluster0.gwm77.mongodb.net/vjcimport'
-export const MONGODB_URI: string = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/vjcimport'
+// export process.env.MONGODB_URI || 'mongodb+srv://Diwaii:Diwaii@cluster0.gwm77.mongodb.net/vjcimport'
+export const MONGODB_URI: string =
+	process.env.MONGODB_URI || 'mongodb+srv://Diwaii:Diwaii@cluster0.gwm77.mongodb.net/vjcimport'
 
 if (!MONGODB_URI) {
 	throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
@@ -13,9 +14,11 @@ if (!MONGODB_URI) {
 let cached = global.mongoose
 
 if (!cached) {
+	// eslint-disable-next-line no-multi-assign
 	cached = global.mongoose = { conn: null, promise: null }
 }
 
+// eslint-disable-next-line func-style
 export async function dbConnect() {
 	if (cached.conn) {
 		return cached.conn
@@ -31,6 +34,7 @@ export async function dbConnect() {
 
 		cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongo) => mongo)
 	}
+	// eslint-disable-next-line require-atomic-updates
 	cached.conn = await cached.promise
 	return cached.conn
 }

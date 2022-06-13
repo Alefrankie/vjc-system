@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte'
 
 	// let dni = ''
-	let dni = '21156744'
+	let dni = '26677798'
 
 	async function findCustomer() {
 		const { data } = await Fetch.Get(`/api/customers/${dni}`)

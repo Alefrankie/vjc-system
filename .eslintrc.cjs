@@ -6,16 +6,16 @@ module.exports = {
 	ignorePatterns: ['*.cjs'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
 	settings: {
-		'svelte3/typescript': () => require('typescript')
+		'svelte3/typescript': () => require('typescript'),
 	},
 	parserOptions: {
 		sourceType: 'module',
-		ecmaVersion: 2020
+		ecmaVersion: 2020,
 	},
 	env: {
 		browser: true,
 		es2017: true,
-		node: true
+		node: true,
 	},
 	rules: {
 		'one-var': 'off',
@@ -25,6 +25,10 @@ module.exports = {
 		'no-magic-numbers': 'off',
 		'sort-imports': 'off',
 		'capitalized-comments': 'off',
-		'multiline-comment-style': 'off'
-	}
+		'multiline-comment-style': 'off',
+		'no-console': 'off',
+		'no-negated-condition': 'off',
+		'no-ternarny': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+	},
 }

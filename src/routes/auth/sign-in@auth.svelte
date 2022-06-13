@@ -15,7 +15,7 @@
 	import { goto } from '$app/navigation'
 	import { session } from '$app/stores'
 	import Alert from '$lib/components/Alert.svelte'
-	import { Fetch, Promise } from '$lib/stores/Fetch'
+	import { Fetch } from '$lib/stores/Fetch'
 
 	const user = {
 		username: 'Diwaii',

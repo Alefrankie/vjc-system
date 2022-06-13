@@ -17,7 +17,7 @@
 	$: if (browser) {
 		Fetch.Post(`/api/orders/filter`, {
 			query,
-			limit
+			limit,
 		}).then((res) => {
 			orders = res.data
 			count = res.count
@@ -105,25 +105,12 @@
 											BS {useFormatNumber(item.rate)}
 										</td>
 										<td>
-											{#if item.type === 'DeliveryNote'}
-												Nota de Entrega
-											{/if}
-											{#if item.type === 'Budget'}
-												Presupuesto
-											{/if}
-											{#if item.type === 'Sale'}
-												Factura Fiscal
-											{/if}
+											{item.type}
 
 											<!-- <span class="badge badge-pill badge-soft-success font-size-12">Paid</span> -->
 										</td>
 										<td>
-											{#if item.volume === 'Wholesale'}
-												Al Mayor
-											{/if}
-											{#if item.volume === 'Retail'}
-												Al Detal
-											{/if}
+											{item.volume}
 											<!-- <i class="fab fa-cc-mastercard me-1" /> Mastercard -->
 										</td>
 										<!-- <td>

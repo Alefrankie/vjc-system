@@ -12,7 +12,7 @@ export const get: RequestHandler = async () => {
 	const count = await Order.count()
 
 	return {
-		body: { data, count }
+		body: { data, count },
 	}
 }
 
@@ -20,24 +20,31 @@ export const post: RequestHandler = async ({ request }) => {
 	await dbConnect()
 	const { order }: { order: IOrder } = await request.json()
 
-	order.customer = order.customer._id
-
 	if (order.type === 'Sale') {
 		delete order.volume
 	}
 
 	// SAVING INVOICE AT DATABASE
-	order.code = await findCode(Order, order.code)
+	// order.code = await findCode(Order, order.code)
 
-	const newOrder = await new Order(order)
+	// console.log(order)
 
+	const newOrder = await new Order({
+		code: order.code,
+		rate: order.rate,
+		type: order.type,
+		volume: order.type !== 'Sale' ? order.type : undefined,
+		customer: order.customer._id,
+		cart: order.cart,
+	})
 	console.log(newOrder)
-	// await newOrder.save()
+
+	await newOrder.save()
 
 	return {
 		body: {
 			message: 'Orden Registrada',
-			data: newOrder
-		}
+			data: order,
+		},
 	}
 }

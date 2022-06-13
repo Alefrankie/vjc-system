@@ -18,36 +18,35 @@ export interface IOrder extends Document {
 	createdAt: string
 }
 
-const OrderSchema = new Schema({
-	code: {
-		type: String,
-		required: true
+const OrderSchema = new Schema(
+	{
+		code: {
+			type: String,
+			required: true
+		},
+		rate: {
+			type: Number
+		},
+		type: {
+			type: String
+		},
+		volume: {
+			type: String
+		},
+		status: {
+			type: Boolean,
+			default: true
+		},
+		payCondition: {
+			type: String,
+			default: 'Contado'
+		},
+		customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
+		cart: {
+			type: Object
+		}
 	},
-	rate: {
-		type: Number
-	},
-	type: {
-		type: String
-	},
-	volume: {
-		type: String
-	},
-	status: {
-		type: Boolean,
-		default: true
-	},
-	createdAt: {
-		type: String,
-		default: new Date().toISOString()
-	},
-	payCondition: {
-		type: String,
-		default: 'Contado'
-	},
-	customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
-	cart: {
-		type: Object
-	}
-})
+	{ timestamps: true }
+)
 
 export const Order = mongoose.models.Invoice || model<IOrder>('Order', OrderSchema)
