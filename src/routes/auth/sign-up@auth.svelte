@@ -5,7 +5,7 @@
 
 	const user = {
 		username: 'Diwaii',
-		password: '123456'
+		password: '123456',
 	}
 
 	const signUp = () => {
@@ -19,6 +19,7 @@
 	<title>VJC Import | Registro</title>
 </svelte:head>
 
+<!-- I'm building this -->
 <div class="col-xl-3">
 	<div class="p-4 auth-full-page-content p-md-5">
 		<div class="w-100">

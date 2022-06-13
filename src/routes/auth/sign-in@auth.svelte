@@ -19,7 +19,7 @@
 
 	const user = {
 		username: 'Diwaii',
-		password: '123456'
+		password: '123456',
 	}
 
 	const signIn = async () => {
@@ -27,7 +27,8 @@
 		// @ts-ignore
 		$session
 		session.set({ ...data, authenticated: true })
-		goto('/')
+		// goto('/')
+		window.location.replace('/')
 	}
 </script>
 
