@@ -16,7 +16,12 @@
 
 	$: if (browser) {
 		Fetch.post(`/api/orders/revenues`, {
-			query: { createdAt: dayjs().format('MM/DD/YYYY') },
+			query: {
+				createdAt: {
+					$gte: new Date(`${dayjs().format('MM-DD-YYYY')}T04:00:00.000+00:00`),
+					$lt: new Date(`${dayjs().format('MM-DD-YYYY')}T04:24:00.000+00:00`)
+				}
+			},
 			limit,
 			page
 		}).then(({ data }) => {
