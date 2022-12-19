@@ -6,7 +6,10 @@ export const POST: RequestHandler = async ({ request }) => {
 	const body = await request.json()
 	const { query, limit, page } = body
 
-	const data = await Order.find({ ...query, type: { $not: OrderTypeEnum.BUDGET } })
+	const data = await Order.find({
+		...query,
+		type: [OrderTypeEnum.DELIVERY_NOTE, OrderTypeEnum.SALE]
+	})
 		.limit(limit)
 		.skip(limit * page - limit)
 		.sort({ code: -1 })
