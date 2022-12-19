@@ -23,6 +23,14 @@ export const GET: RequestHandler = async ({ url }) => {
 					}
 				},
 				{
+					firstName: {
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
+					},
+					lastName: {
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
+					}
+				},
+				{
 					lastName: {
 						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
