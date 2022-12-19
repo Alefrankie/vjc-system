@@ -1,5 +1,8 @@
-import * as bcrypt from 'bcryptjs'
-import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
+import mongoose, { Model, SchemaTypeOptions } from 'mongoose'
+import { UserGendersEnum } from '../../enums/UserGendersEnum'
+import { UserRolesEnum } from '../../enums/UserRolesEnum'
+import { UserStatusEnum } from '../../enums/UserStatusEnum'
 
 const { model, Schema } = mongoose
 
@@ -14,69 +17,75 @@ export interface IUser extends Document {
 	phone: string
 	email: string
 	address: string
-	status: string
-	role: number
-	gender: number
+	status: UserStatusEnum
+	role: UserRolesEnum
+	gender: UserGendersEnum
 	locked: boolean
-	createdAt: Date
 	comparePassword: () => Promise<boolean>
 }
 
-const UserSchema = new Schema({
-	firstName: {
-		type: String
+const UserSchema = new Schema(
+	{
+		firstName: {
+			type: String
+		},
+		lastName: {
+			type: String
+		},
+		dniType: {
+			type: String
+		},
+		dni: {
+			type: String,
+			unique: true
+		},
+		username: {
+			type: String,
+			unique: true,
+			required: true
+		},
+		password: {
+			type: String,
+			required: true
+		},
+		phone: {
+			type: String
+		},
+		email: {
+			type: String
+		},
+		address: {
+			type: String
+		},
+		status: {
+			type: String,
+			enum: UserStatusEnum,
+			default: UserStatusEnum.OFFLINE
+		},
+		role: {
+			type: String,
+			enum: UserRolesEnum,
+			default: UserRolesEnum.USER
+		},
+		gender: {
+			type: String,
+			enum: UserGendersEnum
+		},
+		locked: {
+			type: Boolean,
+			default: true
+		}
 	},
-	lastName: {
-		type: String
-	},
-	dniType: {
-		type: String
-	},
-	dni: {
-		type: String,
-		unique: true
-	},
-	username: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	password: {
-		type: String,
-		required: true
-	},
-	phone: {
-		type: String,
-		unique: true
-	},
-	email: {
-		type: String,
-		unique: true
-	},
-	address: {
-		type: String
-	},
-	status: {
-		type: Boolean,
-		default: false
-	},
-	role: {
-		type: String,
-		default: 'User'
-	},
-	gender: {
-		type: String,
-		default: 'User'
-	},
-	locked: {
-		type: Boolean,
-		default: true
-	},
-	createdAt: {
-		type: Date,
-		default: Date.now
+	{
+		toJSON: {
+			transform: (_document: Document, ret: SchemaTypeOptions<IUser>) => {
+				delete ret.__v
+				delete ret.password
+				ret._id = String(ret._id) as any
+			}
+		}
 	}
-})
+)
 
 UserSchema.pre<IUser>('save', async function (next) {
 	const user = this
@@ -90,11 +99,4 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
 	return bcrypt.compareSync(user.password, password)
 }
 
-UserSchema.set('toJSON', {
-	transform: (_document: Document, returnedObject: SchemaTypeOptions<IUser>) => {
-		delete returnedObject.__v
-		delete returnedObject.password
-	}
-})
-
-export const User = mongoose.models.User || model<IUser>('User', UserSchema)
+export const User: Model<IUser> = mongoose.models.User || model<IUser>('User', UserSchema)

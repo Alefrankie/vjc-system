@@ -1,12 +1,13 @@
 <script>
+	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
+	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import {
-		getDiscount,
 		getDiscountTotal,
-		getIva,
+		getIvaByCart,
 		getPrice,
-		getSubTotal,
-		getTotal
+		getSubTotalByCart,
+		getTotalByCart
 	} from '$lib/hooks/useMoney'
 	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
@@ -55,10 +56,10 @@
 			<tr>
 				<td style="flex-grow: 1; padding-left: 0.5rem">
 					<span>
-						{#if $OrderStore.volume === 'Wholesale'}
+						{#if $OrderStore.volume === OrderVolumeEnum.WHOLESALE}
 							Al Mayor<br />
 						{/if}
-						{#if $OrderStore.volume === 'Retail'}
+						{#if $OrderStore.volume === OrderVolumeEnum.RETAIL}
 							Al Detal<br />
 						{/if}
 					</span>
@@ -67,31 +68,34 @@
 				<td style="text-align: right; padding-left: 0; display: flex; flex-direction: column;">
 					<span>
 						Sub-Total:
-						{useFormatNumber(getSubTotal($OrderStore.cart) * $OrderStore.rate)} Bs
+						{useFormatNumber(getSubTotalByCart($OrderStore.cart) * $OrderStore.rate)} Bs
 					</span>
 
 					<span>
 						Descuento: -{useFormatNumber(getDiscountTotal($OrderStore.cart) * $OrderStore.rate)} Bs
 					</span>
-					{#if $OrderStore.type !== 'Sale'}
+					{#if $OrderStore.type === OrderTypeEnum.SALE}
 						<span>
-							Iva: +{useFormatNumber(getIva($OrderStore.cart) * $OrderStore.rate)} Bs
+							Iva: +{useFormatNumber(getIvaByCart($OrderStore.cart) * $OrderStore.rate)} Bs
 						</span>
 
-						<span
-							>Total: {useFormatNumber(
-								(getTotal($OrderStore.cart) + getIva($OrderStore.cart)) * $OrderStore.rate
-							)} Bs</span
-						>
+						<span>
+							Total: {useFormatNumber(
+								(getTotalByCart($OrderStore.cart) + getIvaByCart($OrderStore.cart)) *
+									$OrderStore.rate
+							)} Bs
+						</span>
 						<span class="d-print-none">
 							Total Dólares: {useFormatNumber(
-								getTotal($OrderStore.cart) + getIva($OrderStore.cart)
+								getTotalByCart($OrderStore.cart) + getIvaByCart($OrderStore.cart)
 							)} Bs
 						</span>
 					{:else}
-						<span>Total: {useFormatNumber(getTotal($OrderStore.cart) * $OrderStore.rate)} Bs</span>
+						<span>
+							Total: {useFormatNumber(getTotalByCart($OrderStore.cart) * $OrderStore.rate)} Bs
+						</span>
 						<span class="d-print-none">
-							Total Dólares: {useFormatNumber(getTotal($OrderStore.cart))} Bs
+							Total Dólares: {useFormatNumber(getTotalByCart($OrderStore.cart))} Bs
 						</span>
 					{/if}
 				</td>

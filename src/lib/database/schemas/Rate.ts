@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 
 const { model, Schema } = mongoose
 
@@ -17,4 +17,4 @@ const RateSchema = new Schema({
 	}
 })
 
-export const Rate = mongoose.models.Lote || model<IRate>('Rate', RateSchema)
+export const Rate: Model<IRate> = mongoose.models.Lote || model<IRate>('Rate', RateSchema)

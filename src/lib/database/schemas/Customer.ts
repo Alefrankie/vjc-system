@@ -1,5 +1,5 @@
 import type { IOrder } from './Order'
-import mongoose from 'mongoose'
+import mongoose, { Model, SchemaTypeOptions } from 'mongoose'
 
 const { model, Schema } = mongoose
 
@@ -54,4 +54,5 @@ CustomerSchema.set('toJSON', {
 	}
 })
 
-export const Customer = mongoose.models.Customer || model<ICustomer>('Customer', CustomerSchema)
+export const Customer: Model<ICustomer> =
+	mongoose.models.Customer || model<ICustomer>('Customer', CustomerSchema)

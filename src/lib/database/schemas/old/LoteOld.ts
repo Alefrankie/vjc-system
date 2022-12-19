@@ -5,7 +5,7 @@ export interface ILote extends Document {
 	items: string
 }
 
-const LoteSchema = new Schema({
+export const LoteOldSchema = new Schema({
 	loteId: {
 		type: String,
 		unique: true,
@@ -19,4 +19,4 @@ const LoteSchema = new Schema({
 	}
 })
 
-export default mongoose.models.Lote || model<ILote>('lote', LoteSchema)
+export default mongoose.models.Lote || model<ILote>('lote', LoteOldSchema)

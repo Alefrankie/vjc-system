@@ -10,7 +10,7 @@ export const useFinder = (e, entity: Entity) => {
 	}
 
 	timeoutId = setTimeout(async () => {
-		const { data } = await Fetch.Get(`/api/${entity}/filter/?key=${e.target.value}`)
+		const { data } = await Fetch.get(`/api/${entity}/filter/?key=${e.target.value}`)
 
 		entity == 'products' && ProductStore.set(data)
 	}, 200)

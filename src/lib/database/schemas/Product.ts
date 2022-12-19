@@ -2,6 +2,15 @@ import mongoose from 'mongoose'
 
 const { model, Schema } = mongoose
 
+export interface ICart {
+	unit: string
+	code: string
+	name: string
+	price: number
+	discount: number
+	requested: number
+}
+
 export interface IProduct extends Document {
 	_id: string
 	code: string
@@ -16,13 +25,11 @@ export interface IProduct extends Document {
 const ProductSchema = new Schema({
 	code: {
 		type: String,
-		unique: true,
 		required: true,
 		uppercase: true
 	},
 	name: {
 		type: String,
-		unique: true,
 		required: true,
 		uppercase: true
 	},

@@ -1,21 +1,23 @@
 import type { ICustomer } from '$lib/database/schemas/Customer'
-import type { IProduct } from '$lib/database/schemas/Product'
-import mongoose from 'mongoose'
+import type { ICart } from '$lib/database/schemas/Product'
+import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
+import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
+import { PayConditionEnum } from '$lib/enums/PayConditiomEnum'
+import mongoose, { Model } from 'mongoose'
 
 const { model, Schema } = mongoose
 
 export interface IOrder extends Document {
 	_id: string
 	code: string
-	date: string
 	rate: number
-	type: string
-	volume: string
+	type: OrderTypeEnum
+	volume: OrderVolumeEnum
 	status: boolean
-	cart: IProduct[]
-	payCondition: string
+	cart: ICart[]
+	payCondition: PayConditionEnum
 	customer: ICustomer
-	createdAt: string
+	createdAt: Date
 }
 
 const OrderSchema = new Schema(
@@ -28,10 +30,12 @@ const OrderSchema = new Schema(
 			type: Number
 		},
 		type: {
-			type: String
+			type: String,
+			enum: OrderTypeEnum
 		},
 		volume: {
-			type: String
+			type: String,
+			enum: OrderVolumeEnum
 		},
 		status: {
 			type: Boolean,
@@ -39,7 +43,8 @@ const OrderSchema = new Schema(
 		},
 		payCondition: {
 			type: String,
-			default: 'Contado'
+			enum: PayConditionEnum,
+			default: PayConditionEnum.CASH
 		},
 		customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
 		cart: {
@@ -49,4 +54,4 @@ const OrderSchema = new Schema(
 	{ timestamps: true }
 )
 
-export const Order = mongoose.models.Invoice || model<IOrder>('Order', OrderSchema)
+export const Order: Model<IOrder> = mongoose.models.Order || model<IOrder>('Order', OrderSchema)

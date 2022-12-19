@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderStore } from '$lib/stores/OrderStore'
 
-	function updateType(e) {
+	function updateType(e: any) {
 		OrderStore.setType(e.target.value)
 	}
 
-	function updateVolume(e) {
+	function updateVolume(e: any) {
 		OrderStore.setVolume(e.target.value)
 	}
 </script>
@@ -28,9 +29,9 @@
 						on:change={updateType}
 					>
 						<option>Seleccione</option>
-						<option value="DeliveryNote">Nota de Entrega</option>
-						<option value="Budget">Presupuesto</option>
-						<option value="Sale">Factura Fiscal</option>
+						<option value={OrderTypeEnum.DELIVERY_NOTE}>Nota de Entrega</option>
+						<option value={OrderTypeEnum.BUDGET}>Presupuesto</option>
+						<option value={OrderTypeEnum.SALE}>Factura Fiscal</option>
 					</select>
 				</div>
 			</div>

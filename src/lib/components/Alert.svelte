@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Promise } from '$lib/stores/Fetch'
 	import { fade } from 'svelte/transition'
 	import Loading from './Loading.svelte'

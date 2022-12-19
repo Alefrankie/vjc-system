@@ -15,7 +15,7 @@ export interface IInvoice extends Document {
 	customerId: { type: Schema.Types.ObjectId; ref: 'Customer' }
 }
 
-const InvoiceSchema = new Schema({
+export const InvoiceOldSchema = new Schema({
 	invoiceId: {
 		type: String,
 		required: true,
@@ -75,4 +75,4 @@ const InvoiceSchema = new Schema({
 	customerId: { type: Schema.Types.ObjectId, ref: 'Customer' }
 })
 
-export default mongoose.models.Invoice || model<IInvoice>('invoice', InvoiceSchema)
+export default mongoose.models.Invoice || model<IInvoice>('invoice', InvoiceOldSchema)

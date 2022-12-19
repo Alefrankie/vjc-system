@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
 const createStore = () => {
-	const { subscribe, update } = writable({ Retail: 0, Wholesale: 0, Rate: 0 })
+	const { subscribe, update } = writable({ Retail: 0, Wholesale: 0 })
 
 	return {
 		subscribe,
@@ -14,12 +14,6 @@ const createStore = () => {
 		setWholesale: (data: number) => {
 			update((store) => {
 				store.Wholesale = data
-				return store
-			})
-		},
-		setRate: (data: number) => {
-			update((store) => {
-				store.Rate = data
 				return store
 			})
 		}

@@ -9,8 +9,8 @@ const createStore = () => {
 
 	return {
 		subscribe,
-		Get: async (url: string) => {
-			const promise = http.Get(url)
+		get: async (url: string) => {
+			const promise = http.get(`http://127.0.0.1:5173${url}`)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -21,8 +21,8 @@ const createStore = () => {
 
 			return data || {}
 		},
-		Post: async (url: string, body?) => {
-			const promise = http.Post(url, body)
+		post: async (url: string, body?) => {
+			const promise = http.post(`http://127.0.0.1:5173${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -33,8 +33,8 @@ const createStore = () => {
 
 			return data || {}
 		},
-		Patch: async (url: string, body?) => {
-			const promise = http.Patch(url, body)
+		patch: async (url: string, body?) => {
+			const promise = http.patch(`http://127.0.0.1:5173${url}`, body)
 			set(promise)
 
 			const data = await promise
@@ -46,8 +46,8 @@ const createStore = () => {
 
 			return data || {}
 		},
-		Put: async (url: string, body?) => {
-			const promise = http.Put(url, body)
+		put: async (url: string, body?) => {
+			const promise = http.put(`http://127.0.0.1:5173${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -58,8 +58,8 @@ const createStore = () => {
 
 			return data || {}
 		},
-		Delete: async (url: string, body?) => {
-			const promise = http.Delete(url, body)
+		delete: async (url: string, body?) => {
+			const promise = http.remove(`http://127.0.0.1:5173${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -75,4 +75,4 @@ const createStore = () => {
 
 export const Fetch = createStore()
 
-export const Promise = derived(Fetch, ($Fetch) => $Fetch)
+export const Promise: any = derived(Fetch, ($Fetch) => $Fetch)

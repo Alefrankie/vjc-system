@@ -1,18 +1,21 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation'
-	import { session } from '$app/stores'
 	import { Fetch } from '$lib/stores/Fetch'
+	import { page } from '$app/stores'
 
-	export let sideBar
+	$: session = $page.data.session
+
+	export let sideBar: any
+
 	function showSidebar() {
 		sideBar = !sideBar
 	}
 
 	async function signOut() {
-		await Fetch.Post('/api/users/sign-out', $session)
-		// @ts-ignore
-		session.set({})
-		goto('/auth/sign-in')
+		await Fetch.post('/api/users/sign-out', { _id: session })
+		// @ts-ignorpost
+		// session.set({});
+		goto('/sign-in')
 	}
 </script>
 
@@ -52,7 +55,8 @@
 						src="/img/avatar-2.jpg"
 						alt="Header Avatar"
 					/>
-					<span class="d-none d-xl-inline-block ms-1">{$session.username}</span>
+					<!-- <span class="d-none d-xl-inline-block ms-1">{$session.username}</span> -->
+					<span class="d-none d-xl-inline-block ms-1">Diwaii</span>
 					<i class="mdi mdi-chevron-down d-none d-xl-inline-block" />
 				</button>
 				<div class="dropdown-menu dropdown-menu-end">
@@ -81,7 +85,7 @@
 			<div class="dropdown">
 				<a
 					style="display: flex; align-items: center"
-					href="/admin/settings"
+					href="/admin/rates"
 					class="btn header-item noti-icon right-bar-toggle waves-effect"
 				>
 					<i class="bx bx-cog bx-spin" />

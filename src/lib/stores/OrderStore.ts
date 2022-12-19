@@ -1,19 +1,25 @@
+import type { ICustomer } from '$lib/database/schemas/Customer'
+import type { IOrder } from '$lib/database/schemas/Order'
+import type { ICart } from '$lib/database/schemas/Product'
+import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
+import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
+import { PayConditionEnum } from '$lib/enums/PayConditiomEnum'
 import { get, writable } from 'svelte/store'
 import { RateStore } from './RateStore'
 
 const defaultValues = {
-	customer: null,
+	customer: {} as ICustomer,
 	rate: 0,
-	type: 'DeliveryNote',
-	volume: 'Retail',
-	cart: [],
+	type: OrderTypeEnum.DELIVERY_NOTE,
+	volume: OrderVolumeEnum.RETAIL,
+	cart: [] as ICart[],
 	code: '',
-	payCondition: '',
-	createdAt: ''
-}
+	payCondition: PayConditionEnum.CASH
+} as IOrder
 
+// eslint-disable-next-line max-lines-per-function
 const createStore = () => {
-	const { subscribe, set, update } = writable(defaultValues)
+	const { subscribe, set, update } = writable(defaultValues as IOrder)
 
 	return {
 		subscribe,
@@ -65,7 +71,7 @@ const createStore = () => {
 			}
 		},
 		wipe: () => {
-			set(defaultValues)
+			set(defaultValues as IOrder)
 		}
 	}
 }

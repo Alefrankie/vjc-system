@@ -7,17 +7,13 @@
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import Loading from '../Loading.svelte'
 
-	let timeoutId
+	const productFinder = async (e: any) => {
+		if (e.key === 'Enter') {
+			const { data }: { data: IProduct[] } = await Fetch.get(
+				`/api/products/filter/?key=${e.target.value}`
+			)
 
-	const productFinder = (e) => {
-		const { value } = e.target
-		if (timeoutId) {
-			clearTimeout(timeoutId)
-		}
-
-		timeoutId = setTimeout(async () => {
-			const { data }: { data: IProduct[] } = await Fetch.Get(`/api/products/filter/?key=${value}`)
-
+			// This is by remove the items presents on Cart
 			$CartStore.map((iCart) => {
 				data.splice(
 					data.findIndex((e) => e._id == iCart._id),
@@ -26,7 +22,7 @@
 			})
 
 			ProductStore.set(data)
-		}, 200)
+		}
 	}
 
 	function addItemCart(item: IProduct) {
@@ -80,7 +76,8 @@
 							<Loading />
 						{:then}
 							<tbody>
-								{#each $ProductStore.filter((e) => e.quantity >= 0.99 && e.price >= 0.99) as item, index}
+								<!-- {#each $ProductStore.filter((e) => e.quantity >= 0.99 && e.price >= 0.99) as item, index} -->
+								{#each $ProductStore as item, index}
 									<tr on:click={() => addItemCart(item)}>
 										<td>
 											{index + 1}

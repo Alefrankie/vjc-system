@@ -1,81 +1,59 @@
 import type { IOrder } from '$lib/database/schemas/Order'
-import type { IProduct } from '$lib/database/schemas/Product'
+import type { ICart } from '$lib/database/schemas/Product'
 
-export const getPrice = (product: IProduct) => {
+export const getPrice = (product: ICart) => {
 	return product.price * product.requested
 }
 
-export const getDiscount = (product: IProduct) => {
+export const getDiscount = (product: ICart) => {
 	return product.price * product.requested * product.discount
 }
 
-export const getSubTotal = (cart: IProduct[]) => {
-	let accumulator = 0
-
-	for (const i of cart) {
-		accumulator += getPrice(i)
-	}
-	return accumulator
+export const getSubTotalByCart = (cart: ICart[]) => {
+	return cart.reduce((prev, e) => prev + e.price * e.requested, 0)
 }
 
-export const getDiscountTotal = (cart: IProduct[]) => {
-	let accumulator = 0
-
-	for (const i of cart) {
-		accumulator += getDiscount(i)
-	}
-	return accumulator
+export const getDiscountTotal = (cart: ICart[]) => {
+	return cart.reduce((prev, e) => prev + getDiscount(e), 0)
 }
 
-export const getTotal = (cart: IProduct[]) => {
-	let accumulator = 0
-
-	for (const i of cart) {
-		accumulator += getPrice(i) - getDiscount(i)
-	}
-	return accumulator
+export const getTotalByCart = (cart: ICart[]) => {
+	return cart.reduce((prev, e) => {
+		const itemPriceByQuantity = e.price * e.requested
+		const discountByItem = itemPriceByQuantity * e.discount
+		return prev + itemPriceByQuantity - discountByItem
+	}, 0)
 }
 
-export const getIva = (cart: IProduct[]) => {
-	let accumulator = 0
-
-	for (const i of cart) {
-		accumulator += getPrice(i) - getDiscount(i)
-	}
+export const getIvaByCart = (cart: ICart[]) => {
+	const accumulator = cart.reduce((prev, e) => prev + getPrice(e) - getDiscount(e), 0)
 	return accumulator * 0.16
 }
 
 export const getRevenues = (orders: IOrder[]): { dollars: number; bolivars: number } => {
-	let dollars = 0
-	let bolivars = 0
-
-	orders.map((e: IOrder) => {
-		dollars += getTotal(e.cart)
-	})
-
-	orders.map((e: IOrder) => {
-		bolivars += getTotal(e.cart) * e.rate
-	})
+	const dollars = orders.reduce((prev, e) => prev + getTotalByCart(e.cart), 0)
+	const bolivars = orders.reduce((prev, e) => prev + getTotalByCart(e.cart) * e.rate, 0)
 
 	return { dollars, bolivars }
 }
 
-export const getBestOrder = (orders: IOrder[]) => {
-	let dollars = 0
-	let bolivars = 0
-	let rate = 0
-	orders.map((e: IOrder) => {
-		if (getTotal(e.cart) > dollars) {
-			dollars = getTotal(e.cart)
-		}
-	})
+export const getBestOrder = (orders: IOrder[]): { dollars: number; bolivars: number } => {
+	const { bestOrder, rate } = orders.reduce(
+		(prev, e) => {
+			if (getTotalByCart(e.cart) > prev.bestOrder) {
+				return {
+					bestOrder: getTotalByCart(e.cart),
+					rate: e.rate
+				}
+			}
 
-	orders.map((e: IOrder) => {
-		if (getTotal(e.cart) > bolivars) {
-			bolivars = getTotal(e.cart)
-			rate = e.rate
+			return prev
+		},
+		{
+			bestOrder: 0,
+			rate: 0
 		}
-	})
+	)
 
-	return { dollars, bolivars: bolivars * rate }
+	return { dollars: bestOrder, bolivars: bestOrder * rate }
 }

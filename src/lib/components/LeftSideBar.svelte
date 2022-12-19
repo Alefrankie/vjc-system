@@ -1,16 +1,16 @@
-<script>
-	import { goto } from '$app/navigation'
+<script lang="ts">
+	import { goto } from '$app/navigation';
 
-	import { session } from '$app/stores'
+	// import { session } from '$app/stores';
 
 	//
 
-	function collapseMenu(e) {
-		e.target.parentNode.classList.toggle('mm-active')
-		e.target.nextElementSibling.classList.toggle('mm-show')
+	function collapseMenu(e: any) {
+		e.target.parentNode.classList.toggle('mm-active');
+		e.target.nextElementSibling.classList.toggle('mm-show');
 	}
 
-	export let sideBar
+	export let sideBar: any;
 </script>
 
 <div class="vertical-menu">
@@ -40,7 +40,7 @@
 										<li class="menu-title">Apps</li>
 
 										<li>
-											<a href="/customers" class="waves-effect" sveltekit:prefetch>
+											<a href="/customers" class="waves-effect">
 												<i class="bx bxs-user-detail" />
 												<span>Clientes</span>
 											</a>
@@ -65,7 +65,8 @@
 											</ul>
 										</li>
 
-										{#if $session.role === 'Admin'}
+										<!-- {#if $session.role === 'Admin'} -->
+										{#if true}
 											<li class="menu-title">Admin</li>
 
 											<li>

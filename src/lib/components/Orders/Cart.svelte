@@ -1,13 +1,15 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
 	import type { IProduct } from '$lib/database/schemas/Product'
+	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import {
 		getDiscount,
 		getDiscountTotal,
-		getIva,
+		getIvaByCart,
 		getPrice,
-		getSubTotal,
-		getTotal
+		getSubTotalByCart,
+		getTotalByCart
 	} from '$lib/hooks/useMoney'
 	import { CartStore } from '$lib/stores/CartStore'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
@@ -15,17 +17,17 @@
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import Loading from '../Loading.svelte'
 
-	function updateQuantity(e, item: IProduct) {
+	function updateQuantity(e: any, item: IProduct) {
 		const quantity = e.target.value
 		CartStore.update(item, quantity, 'requested')
 	}
 
-	function updateDiscount(e, item) {
+	function updateDiscount(e: any, item: IProduct) {
 		const discount = e.target.value
 		CartStore.update(item, discount / 100, 'discount')
 	}
 
-	function removeItem(product) {
+	function removeItem(product: IProduct) {
 		CartStore.remove(product)
 		ProductStore.add(product)
 	}
@@ -40,7 +42,7 @@
 			return alert('El carrito no puede estar vacío')
 		}
 
-		await Fetch.Post('/api/orders', { order: $OrderStore })
+		await Fetch.post('/api/orders', { order: $OrderStore })
 
 		CartStore.wipe()
 		OrderStore.wipe()
@@ -103,6 +105,7 @@
 										</p>
 									</td>
 									<td>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
 										<span
 											on:click={() => removeItem(product)}
 											class="text-danger"
@@ -134,10 +137,10 @@
 								<td>Sub-Total :</td>
 								<td>
 									<p class="mb-1">
-										{useFormatNumber(getSubTotal($CartStore) * $OrderStore.rate)} Bs
+										{useFormatNumber(getSubTotalByCart($CartStore) * $OrderStore.rate)} Bs
 									</p>
 									<p class="mb-0">
-										{useFormatNumber(getSubTotal($CartStore))} $
+										{useFormatNumber(getSubTotalByCart($CartStore))} $
 									</p>
 								</td>
 							</tr>
@@ -157,28 +160,28 @@
 								<td>$0</td>
 							</tr> -->
 
-							{#if $OrderStore.type === 'Sale'}
+							{#if $OrderStore.type === OrderTypeEnum.SALE}
 								<tr>
 									<td>IVA: </td>
 									<td>
 										<p class="mb-1">
-											+{useFormatNumber(getIva($CartStore) * $OrderStore.rate)} Bs
+											+{useFormatNumber(getIvaByCart($CartStore) * $OrderStore.rate)} Bs
 										</p>
 										<p class="mb-0">
-											+{useFormatNumber(getIva($CartStore))} $
+											+{useFormatNumber(getIvaByCart($CartStore))} $
 										</p>
 									</td>
 								</tr>
 								<tr>
-									<th>Total:</th>
+									<th />
 									<th>
 										<p class="mb-1">
-											{useFormatNumber(
-												(getTotal($CartStore) + getIva($CartStore)) * $OrderStore.rate
-											)} Bs
+											<!-- {useFormatNumber(
+												(getTotal($Cart getIvaByCart($CartStore)) * $OrderStore.rate
+											)} Bs -->
 										</p>
 										<p class="mb-0">
-											{useFormatNumber(getTotal($CartStore) + getIva($CartStore))} $
+											{useFormatNumber(getTotalByCart($CartStore) + getIvaByCart($CartStore))} $
 										</p>
 									</th>
 								</tr>
@@ -187,10 +190,10 @@
 									<th>Total:</th>
 									<th>
 										<p class="mb-1">
-											{useFormatNumber(getTotal($CartStore) * $OrderStore.rate)} Bs
+											{useFormatNumber(getTotalByCart($CartStore) * $OrderStore.rate)} Bs
 										</p>
 										<p class="mb-0">
-											{useFormatNumber(getTotal($CartStore))} $
+											{useFormatNumber(getTotalByCart($CartStore))} $
 										</p>
 									</th>
 								</tr>
@@ -202,9 +205,15 @@
 						<Loading />
 					{:then value}
 						{#if value?.message}
-							<div class="alert alert-success d-print-none">
+							<div class="alert alert-success d-print-none alert-dismissible fade show">
 								{value?.message}
-								<a href="/orders/{value?.data._id}"> #{value?.data.code}</a>
+								<!-- svelte-ignore a11y-click-events-have-key-events -->
+								<span
+									on:click={() => goto(`/orders/${value?.data._id}`)}
+									style="cursor: pointer; color: blue"
+								>
+									#{value?.data.code}
+								</span>
 							</div>
 						{/if}
 

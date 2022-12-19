@@ -1,4 +1,5 @@
 <script>
+	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
 
@@ -21,13 +22,13 @@
 	<aside>
 		<span style="font-style: italic;">¡Somos Gente de Soluciones!</span>
 		<br /><span>
-			{#if $OrderStore.type === 'DeliveryNote'}
+			{#if $OrderStore.type === OrderTypeEnum.DELIVERY_NOTE}
 				Nota De Entrega
 			{/if}
-			{#if $OrderStore.type === 'Budget'}
+			{#if $OrderStore.type === OrderTypeEnum.BUDGET}
 				Presupuesto
 			{/if}
-			{#if $OrderStore.type === 'Sale'}
+			{#if $OrderStore.type === OrderTypeEnum.SALE}
 				Factura Fiscal
 			{/if}
 		</span>

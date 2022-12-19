@@ -1,7 +1,11 @@
-<script>
-	import { session } from '$app/stores'
-	import { useDate } from '$lib/hooks/useDate'
+<script lang="ts">
+	import { PayConditionEnum } from '$lib/enums/PayConditiomEnum'
+	import { page } from '$app/stores'
 	import { OrderStore } from '$lib/stores/OrderStore'
+	import dayjs from 'dayjs'
+	import type { IUser } from '$lib/database/schemas/old/UserOld'
+
+	let session = $page.data.session as IUser
 </script>
 
 <main>
@@ -27,9 +31,18 @@
 	</section>
 
 	<aside>
-		<span>Fecha: {useDate($OrderStore?.createdAt)}</span>
-		<span><br />Forma de Pago: {$OrderStore?.payCondition}</span>
-		<span class="d-print-none"><br />Usuario: {$session.username}</span>
+		<span>Fecha: {dayjs($OrderStore?.createdAt).format('DD-MM-YYYY')}</span>
+		<span
+			><br />Forma de Pago:
+
+			{#if $OrderStore?.payCondition === PayConditionEnum.CASH}
+				Contado
+			{/if}
+			{#if $OrderStore?.payCondition === PayConditionEnum.CREDIT}
+				Crédito
+			{/if}
+		</span>
+		<span class="d-print-none"><br />Usuario: {session.username}</span>
 	</aside>
 </main>
 

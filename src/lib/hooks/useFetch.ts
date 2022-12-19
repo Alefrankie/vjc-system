@@ -7,7 +7,7 @@ const headers = {
 // const HOST = 'http://localhost:3000'
 // const HOST = window.location.protocol + window.location.host
 
-export const Get = async (url: string, token?: string) => {
+export const get = async (url: string, token?: string) => {
 	headers.Authorization = `Bearer ${token}`
 	const res = await fetch(url, {
 		method: 'GET',
@@ -21,7 +21,7 @@ export const Get = async (url: string, token?: string) => {
 	return data || {}
 }
 
-export const Post = async (url: string, body: any, token?: string) => {
+export const post = async (url: string, body: any, token?: string) => {
 	headers.Authorization = `Bearer ${token}`
 	const res = await fetch(url, {
 		method: 'POST',
@@ -36,7 +36,7 @@ export const Post = async (url: string, body: any, token?: string) => {
 	return data || {}
 }
 
-export const Put = async (url: string, body?: any, token?: string) => {
+export const put = async (url: string, body?: any, token?: string) => {
 	headers.Authorization = `Bearer ${token}`
 	const res = await fetch(url, {
 		method: 'PUT',
@@ -50,7 +50,7 @@ export const Put = async (url: string, body?: any, token?: string) => {
 
 	return data || {}
 }
-export const Patch = async (url: string, body?: any, token?: string) => {
+export const patch = async (url: string, body?: any, token?: string) => {
 	headers.Authorization = `Bearer ${token}`
 	const res = await fetch(url, {
 		method: 'PATCH',
@@ -65,7 +65,7 @@ export const Patch = async (url: string, body?: any, token?: string) => {
 	return data || {}
 }
 
-export const Delete = async (url: string, body?: any) => {
+export const remove = async (url: string, body?: any) => {
 	const res = await fetch(url, {
 		method: 'DELETE',
 		headers,
@@ -79,4 +79,4 @@ export const Delete = async (url: string, body?: any) => {
 	return data || {}
 }
 
-export const http = { Get, Post, Put, Patch, Delete }
+export const http = { get, post, put, patch, remove }

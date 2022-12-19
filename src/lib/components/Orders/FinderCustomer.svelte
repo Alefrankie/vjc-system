@@ -5,11 +5,12 @@
 	import { onMount } from 'svelte'
 
 	// let dni = ''
-	let dni = '26677798'
+	let dni = '21156744'
 
 	async function findCustomer() {
-		const { data } = await Fetch.Get(`/api/customers/${dni}`)
-		OrderStore.setCustomer(data)
+		const { data } = await Fetch.get(`/api/customers/filter/?key=${dni}`)
+
+		OrderStore.setCustomer(data[0])
 	}
 
 	onMount(() => {
@@ -46,7 +47,6 @@
 	{#await $Promise}
 		<Loading />
 	{:then}
-		<!-- {JSON.stringify($OrderStore.customer)} -->
 		{#if $OrderStore.customer}
 			<div class="col-lg-8">
 				<div class="mt-4 mt-xl-3">
