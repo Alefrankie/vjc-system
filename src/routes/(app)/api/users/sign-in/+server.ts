@@ -1,7 +1,7 @@
 import { User } from '$lib/database/schemas/User'
 import { UserStatusEnum } from '$lib/enums/UserStatusEnum'
 import type { RequestHandler } from '@sveltejs/kit'
-import * as bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 import cookie from 'cookie'
 
 export const GET: RequestHandler = () => new Response(JSON.stringify({ works: 'works' }))
