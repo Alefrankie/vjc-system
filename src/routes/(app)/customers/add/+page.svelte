@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/Alert.svelte'
 	import type { ICustomer } from '$lib/database/schemas/Customer'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { Fetch } from '$lib/stores/Fetch'
 
 	let customer = {} as ICustomer
@@ -65,9 +66,8 @@
 										required
 										bind:value={customer.gender}
 									>
-										<option>Seleccione</option>
-										<option value="Masculino">Masculino</option>
-										<option value="Femenino">Femenino</option>
+										<option value={UserGendersEnum.MALE}>Masculino</option>
+										<option value={UserGendersEnum.FEMALE}>Femenino</option>
 									</select>
 								</div>
 							{/if}

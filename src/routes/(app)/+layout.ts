@@ -2,13 +2,13 @@ import { Fetch } from '$lib/stores/Fetch'
 import { ProductStore } from '$lib/stores/ProductStore'
 import { RateStore } from '$lib/stores/RateStore'
 
-export const load = async ({ data: { session } }: any) => {
-	await Fetch.get('/api/rates').then(({ data: { Retail, Wholesale } }) => {
+export const load = async ({ data: { session }, url: { origin } }: any) => {
+	await Fetch.get(`${origin}/api/rates`).then(({ data: { Retail, Wholesale } }) => {
 		RateStore.setWholesale(Wholesale)
 		RateStore.setRetail(Retail)
 	})
 
-	await Fetch.get('/api/products').then(({ data }) => {
+	await Fetch.get(`${origin}/api/products`).then(({ data }) => {
 		ProductStore.set(data)
 	})
 

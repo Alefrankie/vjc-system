@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/Alert.svelte'
 	import type { IUser } from '$lib/database/schemas/User'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { Fetch } from '$lib/stores/Fetch'
 
 	export let data
@@ -57,9 +58,8 @@
 									aria-hidden="true"
 									bind:value={user.gender}
 								>
-									<option>Seleccione</option>
-									<option value="Masculino">Masculino</option>
-									<option value="Femenino">Femenino</option>
+									<option value={UserGendersEnum.MALE}>Masculino</option>
+									<option value={UserGendersEnum.FEMALE}>Femenino</option>
 								</select>
 							</div>
 
@@ -87,7 +87,6 @@
 									aria-hidden="true"
 									bind:value={user.role}
 								>
-									<option>Seleccione</option>
 									<option value="Admin">Administrador</option>
 									<option value="User">Usuario</option>
 								</select>
@@ -103,7 +102,6 @@
 									aria-hidden="true"
 									bind:value={user.locked}
 								>
-									<option>Seleccione</option>
 									<option value={false}>Desbloqueado</option>
 									<option value={true}>Bloqueado</option>
 								</select>

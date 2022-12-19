@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		}),
 		{
 			headers: {
-				'Set-Cookie': cookie.serialize('user', '', {
+				'Set-Cookie': cookie.serialize('userId', '', {
 					path: '/',
 					expires: new Date(0)
 				})

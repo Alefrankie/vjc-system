@@ -2,6 +2,8 @@
 import { http } from '$lib/hooks/useFetch'
 import { derived, writable } from 'svelte/store'
 
+// const HOST = window.location.protocol + window.location.host
+const HOST = 'http://102.168.0.103:5173'
 const timeout = 3000
 // eslint-disable-next-line max-lines-per-function
 const createStore = () => {
@@ -10,7 +12,7 @@ const createStore = () => {
 	return {
 		subscribe,
 		get: async (url: string) => {
-			const promise = http.get(`http://127.0.0.1:5173${url}`)
+			const promise = http.get(`${url}`)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -22,7 +24,7 @@ const createStore = () => {
 			return data || {}
 		},
 		post: async (url: string, body?) => {
-			const promise = http.post(`http://127.0.0.1:5173${url}`, body)
+			const promise = http.post(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -34,7 +36,7 @@ const createStore = () => {
 			return data || {}
 		},
 		patch: async (url: string, body?) => {
-			const promise = http.patch(`http://127.0.0.1:5173${url}`, body)
+			const promise = http.patch(`${url}`, body)
 			set(promise)
 
 			const data = await promise
@@ -47,7 +49,7 @@ const createStore = () => {
 			return data || {}
 		},
 		put: async (url: string, body?) => {
-			const promise = http.put(`http://127.0.0.1:5173${url}`, body)
+			const promise = http.put(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -59,7 +61,7 @@ const createStore = () => {
 			return data || {}
 		},
 		delete: async (url: string, body?) => {
-			const promise = http.remove(`http://127.0.0.1:5173${url}`, body)
+			const promise = http.remove(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {

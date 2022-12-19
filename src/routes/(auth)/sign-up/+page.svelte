@@ -4,13 +4,13 @@
 	import { Fetch } from '$lib/stores/Fetch'
 
 	const user = {
-		username: 'Diwaii',
-		password: '123456'
+		username: '',
+		password: ''
 	}
 
 	const signUp = () => {
 		Fetch.post('/api/users', user).then((data) => {
-			goto('/sign-in')
+			window.location.replace('/sign-in')
 		})
 	}
 </script>

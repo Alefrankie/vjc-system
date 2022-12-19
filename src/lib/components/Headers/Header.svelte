@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation'
 	import { Fetch } from '$lib/stores/Fetch'
 	import { page } from '$app/stores'
 
@@ -12,10 +11,8 @@
 	}
 
 	async function signOut() {
-		await Fetch.post('/api/users/sign-out', { _id: session })
-		// @ts-ignorpost
-		// session.set({});
-		goto('/sign-in')
+		await Fetch.post('/api/users/sign-out', { _id: session._id })
+		window.location.replace('/')
 	}
 </script>
 
@@ -55,16 +52,15 @@
 						src="/img/avatar-2.jpg"
 						alt="Header Avatar"
 					/>
-					<!-- <span class="d-none d-xl-inline-block ms-1">{$session.username}</span> -->
-					<span class="d-none d-xl-inline-block ms-1">Diwaii</span>
+					<span class="d-none d-xl-inline-block ms-1">{session.username}</span>
 					<i class="mdi mdi-chevron-down d-none d-xl-inline-block" />
 				</button>
 				<div class="dropdown-menu dropdown-menu-end">
 					<!-- item-->
-					<a class="dropdown-item" href="/profile"
-						><i class="align-middle bx bx-user font-size-16 me-1" />
-						<span>Perfil</span></a
-					>
+					<a class="dropdown-item" href="/profile">
+						<i class="align-middle bx bx-user font-size-16 me-1" />
+						<span>Perfil</span>
+					</a>
 
 					<!-- <a
 						class="dropdown-item"

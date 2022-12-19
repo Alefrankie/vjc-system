@@ -3,6 +3,7 @@
 	import { OrderStore } from '$lib/stores/OrderStore'
 	import Loading from '../Loading.svelte'
 	import { onMount } from 'svelte'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 
 	// let dni = ''
 	let dni = '21156744'
@@ -50,7 +51,14 @@
 		{#if $OrderStore.customer}
 			<div class="col-lg-8">
 				<div class="mt-4 mt-xl-3">
-					<small class="text-muted">{$OrderStore.customer?.gender || ''}</small>
+					<small class="text-muted">
+						{#if $OrderStore.customer?.gender === UserGendersEnum.MALE}
+							Masculino
+						{/if}
+						{#if $OrderStore.customer?.gender === UserGendersEnum.FEMALE}
+							Femenino
+						{/if}
+					</small>
 					<h4 class="mt-1 mb-3">
 						{$OrderStore.customer?.firstName || ''}
 						{$OrderStore.customer?.lastName || ''}
