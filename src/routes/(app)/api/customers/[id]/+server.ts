@@ -78,7 +78,6 @@ const scriptInvoice = async () => {
 				await newData.save()
 			}
 		} catch (error) {
-			console.log({ e })
 			console.log(error)
 		}
 	})

@@ -8,8 +8,12 @@
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { getTotalByCart } from '$lib/hooks/useMoney'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
+	import { page } from '$app/stores'
 	import dayjs from 'dayjs'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 
+	$: session = $page.data.session as IUser
 	let orders: IOrder[] = []
 	let count = 0
 	let limit = 100
@@ -24,6 +28,14 @@
 			orders = res.data
 			count = res.count
 		})
+	}
+
+	const removeOrder = (order: IOrder) => {
+		const isSure = confirm('¿Desea remover ésta orden?')
+		if (isSure) {
+			Fetch.delete(`/api/orders/${order._id}`)
+			orders = orders.filter((e) => e._id !== order._id)
+		}
 	}
 </script>
 
@@ -79,7 +91,7 @@
 									<th class="align-middle">Tasa</th>
 									<th class="align-middle">Tipo</th>
 									<th class="align-middle">Volumen</th>
-									<!-- <th class="align-middle">Action</th> -->
+									<th class="align-middle">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -128,6 +140,36 @@
 											{#if e.volume === OrderVolumeEnum.RETAIL}
 												Detal
 											{/if}
+										</td>
+
+										<td>
+											<div class="dropdown">
+												<a
+													href="/#"
+													class="dropdown-toggle card-drop"
+													data-bs-toggle="dropdown"
+													aria-expanded="false"
+												>
+													<i class="mdi mdi-dots-horizontal font-size-18" />
+												</a>
+												<ul class="dropdown-menu dropdown-menu-end">
+													<li>
+														<button on:click={() => goto(`/orders/${e._id}`)} class="dropdown-item">
+															<i class="align-middle bx bx-user font-size-16 me-1 text-success" />
+															Detalles
+														</button>
+													</li>
+
+													{#if session.role === UserRolesEnum.ADMIN}
+														<li>
+															<button on:click={() => removeOrder(e)} class="dropdown-item">
+																<i class="mdi mdi-trash-can font-size-16 text-danger me-1" />
+																Remover
+															</button>
+														</li>
+													{/if}
+												</ul>
+											</div>
 										</td>
 									</tr>
 								{/each}

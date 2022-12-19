@@ -6,17 +6,13 @@
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 
 	// let dni = ''
-	let dni = '21156744'
+	let dni = ''
 
 	async function findCustomer() {
 		const { data } = await Fetch.get(`/api/customers/filter/?key=${dni}`)
 
 		OrderStore.setCustomer(data[0])
 	}
-
-	onMount(() => {
-		findCustomer()
-	})
 </script>
 
 <div class="row">
@@ -48,7 +44,7 @@
 	{#await $Promise}
 		<Loading />
 	{:then}
-		{#if $OrderStore.customer}
+		{#if $OrderStore.customer._id}
 			<div class="col-lg-8">
 				<div class="mt-4 mt-xl-3">
 					<small class="text-muted">

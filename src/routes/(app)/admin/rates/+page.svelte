@@ -23,8 +23,6 @@
 		const { data } = await Fetch.post('/api/rates', wholesale)
 		RateStore.setWholesale(data.value)
 	}
-
-	console.log($RateStore.Wholesale)
 </script>
 
 <svelte:head>

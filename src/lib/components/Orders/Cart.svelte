@@ -19,11 +19,19 @@
 
 	function updateQuantity(e: any, item: IProduct) {
 		const quantity = e.target.value
+
+		if (item.quantity < quantity) {
+			alert('No hay suficiente cantidad')
+			e.target.value = ''
+			return
+		}
+
 		CartStore.update(item, quantity, 'requested')
 	}
 
 	function updateDiscount(e: any, item: IProduct) {
 		const discount = e.target.value
+
 		CartStore.update(item, discount / 100, 'discount')
 	}
 
@@ -35,17 +43,18 @@
 	async function saveOrder() {
 		OrderStore.setCart($CartStore)
 
-		if (!$OrderStore.customer) {
+		if (!$OrderStore.customer._id) {
 			return alert('Debe indicar el cliente')
 		}
-		if ($CartStore.length === 0) {
+		if (!$CartStore.length) {
 			return alert('El carrito no puede estar vacío')
 		}
 
-		await Fetch.post('/api/orders', { order: $OrderStore })
+		const { data } = await Fetch.post('/api/orders', { order: $OrderStore })
 
 		CartStore.wipe()
 		OrderStore.wipe()
+		window.location.replace(`/orders/${data._id}`)
 	}
 </script>
 
@@ -68,6 +77,7 @@
 								<th>Nombre</th>
 								<th>Cantidad</th>
 								<th>Descuento</th>
+								<th>Existencia</th>
 								<th colspan="2">Total</th>
 							</tr>
 						</thead>
@@ -85,6 +95,7 @@
 											on:keyup={(e) => updateQuantity(e, product)}
 										/>
 									</td>
+
 									<!-- Descuento -->
 									<td>
 										<input
@@ -92,6 +103,9 @@
 											class="form-control"
 											on:keyup={(e) => updateDiscount(e, product)}
 										/>
+									</td>
+									<td>
+										{product.quantity}
 									</td>
 									<!-- Total -->
 									<td>

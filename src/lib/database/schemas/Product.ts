@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 const { model, Schema } = mongoose
 
 export interface ICart {
+	_id: string
 	unit: string
 	code: string
 	name: string

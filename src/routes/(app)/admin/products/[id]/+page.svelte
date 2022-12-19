@@ -9,8 +9,6 @@
 	export let data
 	let product = data.product as IProduct
 
-	console.log(data)
-
 	const modifyData = async () => {
 		Fetch.patch(`/api/products/${product._id}`, product)
 

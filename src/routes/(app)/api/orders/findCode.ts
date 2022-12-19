@@ -3,7 +3,7 @@ import type { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 import type { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 
 const findingCode = async (type: OrderTypeEnum, volume: OrderVolumeEnum): Promise<any> => {
-	const orderFound = await Order.findOne({
+	const [orderFound] = await Order.find({
 		type,
 		volume
 	})

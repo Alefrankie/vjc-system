@@ -19,7 +19,7 @@
 <svelte:head>
 	<title>VJC Import | Productos</title>
 </svelte:head>
-delete
+
 <div class="row">
 	<div class="col-12">
 		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -101,14 +101,16 @@ delete
 											<p class="mb-1">
 												{useFormatNumber(item.price * $RateStore.Wholesale)} Bs
 											</p>
-											<p class="mb-0">{useFormatNumber(item.price)} Bs$</p>
+											<br />
+											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
 										</td>
-										<td
-											><p class="mb-1">
+										<td>
+											<p class="mb-1">
 												{useFormatNumber(item.price * $RateStore.Retail)} Bs
 											</p>
-											<p class="mb-0">{useFormatNumber(item.price)} Bs$</p></td
-										>
+											<br />
+											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
+										</td>
 										<td>
 											<span
 												class="badge badge-pill"
@@ -132,15 +134,14 @@ delete
 												</a>
 												<ul class="dropdown-menu dropdown-menu-end">
 													<li>
-														<a href="/admin/products/{item._id}" class="dropdown-item"
-															><i
-																class="mdi mdi-pencil font-size-16 text-success me-1"
-															/>Modificar</a
-														>
+														<a href="/admin/products/{item._id}" class="dropdown-item">
+															<i class="mdi mdi-pencil font-size-16 text-success me-1" />
+															Modificar
+														</a>
 													</li>
 													<li>
-														<button on:click={() => removeProduct(item)} class="dropdown-item"
-															><i class="mdi mdi-trash-can font-size-16 text-danger me-1" />
+														<button on:click={() => removeProduct(item)} class="dropdown-item">
+															<i class="mdi mdi-trash-can font-size-16 text-danger me-1" />
 															Remover
 														</button>
 													</li>
@@ -167,11 +168,15 @@ delete
 <style>
 	@media print {
 		table {
-			font-size: 6px;
+			font-size: 10px;
 		}
 
 		table tr td {
-			font-size: 6px;
+			font-size: 10px;
+			line-height: 0.3;
+		}
+		table tr {
+			line-height: 0.3;
 		}
 	}
 </style>

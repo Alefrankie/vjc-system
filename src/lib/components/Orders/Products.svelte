@@ -82,7 +82,7 @@
 										<td>
 											{index + 1}
 										</td>
-										<td><a href="/products/15" class="text-body fw-bold">#{item.code}</a> </td>
+										<td><span class="text-body fw-bold">#{item.code}</span> </td>
 										<td>{item.name}</td>
 										<td>
 											<p class="mb-1">

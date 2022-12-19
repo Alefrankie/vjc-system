@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
+	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 	import { OrderStore } from '$lib/stores/OrderStore'
 
 	function updateType(e: any) {
@@ -36,7 +37,7 @@
 			</div>
 		</div>
 	</div>
-	{#if ['DeliveryNote', 'Budget'].includes($OrderStore.type)}
+	{#if $OrderStore.type !== OrderTypeEnum.SALE}
 		<div class="col-lg-6">
 			<div class="card">
 				<div class="card-body">
@@ -50,8 +51,8 @@
 							value={$OrderStore.volume}
 							on:change={updateVolume}
 						>
-							<option value="Wholesale">Mayor</option>
-							<option value="Retail">Detal</option>
+							<option value={OrderVolumeEnum.WHOLESALE}>Mayor</option>
+							<option value={OrderVolumeEnum.RETAIL}>Detal</option>
 						</select>
 					</div>
 				</div>

@@ -8,7 +8,8 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const data = await Order.find({
 		...query,
-		type: [OrderTypeEnum.DELIVERY_NOTE, OrderTypeEnum.SALE]
+		type: [OrderTypeEnum.DELIVERY_NOTE, OrderTypeEnum.SALE],
+		status: true
 	})
 		.limit(limit)
 		.skip(limit * page - limit)
