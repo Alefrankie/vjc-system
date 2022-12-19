@@ -14,27 +14,27 @@ export const GET: RequestHandler = async ({ url }) => {
 			$or: [
 				{
 					dni: {
-						$regex: `.*${key}.*`
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
 				},
 				{
 					firstName: {
-						$regex: `.*${key}.*`
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
 				},
 				{
 					lastName: {
-						$regex: `.*${key}.*`
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
 				},
 				{
 					address: {
-						$regex: `.*${key}.*`
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
 				},
 				{
 					phone: {
-						$regex: `.*${key}.*`
+						$regex: new RegExp(`^${key.toLowerCase()}`, 'iu')
 					}
 				}
 			]
