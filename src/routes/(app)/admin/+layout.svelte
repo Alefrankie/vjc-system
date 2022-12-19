@@ -3,9 +3,10 @@
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 
 	$: session = $page.data.session
+	$: pathname = $page.url.pathname
 </script>
 
-{#if session.role === UserRolesEnum.ADMIN}
+{#if session.role === UserRolesEnum.ADMIN || ['/admin/products'].includes(pathname)}
 	<slot />
 {:else}
 	<div class="pt-5 my-5 account-pages">
