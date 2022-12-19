@@ -2,12 +2,15 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import Loading from '$lib/components/Loading.svelte'
 	import type { IProduct } from '$lib/database/schemas/Product'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import { RateStore } from '$lib/stores/RateStore'
 
 	export let data
 	let product = data.product as IProduct
+	let session = data.session as IUser
 
 	const modifyData = async () => {
 		Fetch.patch(`/api/products/${product._id}`, product)
@@ -110,11 +113,13 @@
 								</div>
 							</div>
 
-							<div class="flex-wrap gap-2 d-flex">
-								<button type="submit" class="btn btn-primary waves-effect waves-light">
-									Actualizar
-								</button>
-							</div>
+							{#if session.role === UserRolesEnum.ADMIN}
+								<div class="flex-wrap gap-2 d-flex">
+									<button type="submit" class="btn btn-primary waves-effect waves-light">
+										Actualizar
+									</button>
+								</div>
+							{/if}
 						</div>
 					</form>
 				{:catch error}

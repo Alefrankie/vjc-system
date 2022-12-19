@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { Fetch } from '$lib/stores/Fetch'
+	import type { IUser } from '$lib/database/schemas/User'
 	import { page } from '$app/stores'
 
-	$: session = $page.data.session
+	$: session = $page.data.session as IUser
 
 	export let sideBar: any
 

@@ -6,6 +6,10 @@
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import { RateStore } from '$lib/stores/RateStore'
+	import { page } from '$app/stores'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+
+	$: session = $page.data.session as IUser
 
 	const removeProduct = async (product: IProduct) => {
 		const isSure = confirm('¿Desea remover el registro?')
@@ -139,12 +143,15 @@
 															Modificar
 														</a>
 													</li>
-													<li>
-														<button on:click={() => removeProduct(item)} class="dropdown-item">
-															<i class="mdi mdi-trash-can font-size-16 text-danger me-1" />
-															Remover
-														</button>
-													</li>
+
+													{#if session.role === UserRolesEnum.ADMIN}
+														<li>
+															<button on:click={() => removeProduct(item)} class="dropdown-item">
+																<i class="mdi mdi-trash-can font-size-16 text-danger me-1" />
+																Remover
+															</button>
+														</li>
+													{/if}
 												</ul>
 											</div>
 										</td>

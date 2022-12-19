@@ -65,6 +65,13 @@
 											</ul>
 										</li>
 
+										<li>
+											<a href="/admin/products" class="waves-effect">
+												<i class="bx bx-box" />
+												<span>Productos</span>
+											</a>
+										</li>
+
 										{#if session.role === UserRolesEnum.ADMIN}
 											<li class="menu-title">Admin</li>
 
@@ -72,13 +79,6 @@
 												<a href="/admin/users" class="waves-effect">
 													<i class="bx bx-user-circle" />
 													<span>Usuarios</span>
-												</a>
-											</li>
-
-											<li>
-												<a href="/admin/products" class="waves-effect">
-													<i class="bx bx-box" />
-													<span>Productos</span>
 												</a>
 											</li>
 
