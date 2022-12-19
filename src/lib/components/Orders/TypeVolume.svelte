@@ -2,12 +2,21 @@
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 	import { OrderStore } from '$lib/stores/OrderStore'
+	import { RateStore } from '$lib/stores/RateStore'
 
 	function updateType(e: any) {
 		OrderStore.setType(e.target.value)
 	}
 
 	function updateVolume(e: any) {
+		if (e.target.value === OrderVolumeEnum.RETAIL) {
+			OrderStore.setRate($RateStore.Retail)
+		}
+
+		if (e.target.value === OrderVolumeEnum.WHOLESALE) {
+			OrderStore.setRate($RateStore.Wholesale)
+		}
+
 		OrderStore.setVolume(e.target.value)
 	}
 </script>

@@ -3,13 +3,6 @@
 	import FinderCustomer from '$lib/components/Orders/FinderCustomer.svelte'
 	import Products from '$lib/components/Orders/Products.svelte'
 	import TypeVolume from '$lib/components/Orders/TypeVolume.svelte'
-	import { OrderStore } from '$lib/stores/OrderStore'
-	import { RateStore } from '$lib/stores/RateStore'
-	import { onMount } from 'svelte'
-
-	onMount(() => {
-		OrderStore.setRate($RateStore.Retail)
-	})
 </script>
 
 <svelte:head>
