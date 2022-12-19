@@ -3,6 +3,7 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import Loading from '$lib/components/Loading.svelte'
 	import type { IUser } from '$lib/database/schemas/User'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 
 	export let data
@@ -85,7 +86,14 @@
 											{index + 1}
 										</td>
 										<td>{item.firstName} {item.lastName}</td>
-										<td>{item.gender}</td>
+										<td>
+											{#if item.gender === UserGendersEnum.MALE}
+												Masculino
+											{/if}
+											{#if item.gender === UserGendersEnum.FEMALE}
+												Femenino
+											{/if}
+										</td>
 										<td>{item.username}</td>
 										<td>
 											<p class="mb-1">{item.phone || ''}</p>

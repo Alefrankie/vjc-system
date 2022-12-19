@@ -2,6 +2,7 @@
 	import type { ICustomer } from '$lib/database/schemas/Customer'
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { getBestOrder, getRevenues, getTotalByCart } from '$lib/hooks/useMoney'
 	import dayjs from 'dayjs'
@@ -59,7 +60,13 @@
 										{customer.lastName || ''}
 									</h5>
 									<h5 class="font-size-13">
-										Sexo: {customer.gender}
+										Sexo:
+										{#if customer.gender === UserGendersEnum.MALE}
+											Masculino
+										{/if}
+										{#if customer.gender === UserGendersEnum.FEMALE}
+											Femenino
+										{/if}
 									</h5>
 									<h5 class="font-size-13">
 										Tlf.: {customer.phone}

@@ -66,9 +66,8 @@
 									aria-hidden="true"
 									bind:value={user.gender}
 								>
-									<option>Seleccione</option>
-									<option value="Masculino">Masculino</option>
-									<option value="Femenino">Femenino</option>
+									<option value={UserGendersEnum.MALE}>Masculino</option>
+									<option value={UserGendersEnum.FEMALE}>Femenino</option>
 								</select>
 							</div>
 							<div class="mb-3">

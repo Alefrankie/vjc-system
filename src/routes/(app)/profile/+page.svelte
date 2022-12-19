@@ -3,6 +3,7 @@
 	import type { IUser } from '$lib/database/schemas/User'
 	import { Fetch } from '$lib/stores/Fetch'
 	import { page } from '$app/stores'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 
 	$: user = $page.data.session as IUser
 
@@ -54,9 +55,8 @@
 										class="form-control select2 select2-hidden-accessible"
 										bind:value={user.gender}
 									>
-										<option>Seleccione</option>
-										<option value="Masculino">Masculino</option>
-										<option value="Femenino">Femenino</option>
+										<option value={UserGendersEnum.MALE}>Masculino</option>
+										<option value={UserGendersEnum.FEMALE}>Femenino</option>
 									</select>
 								</div>
 

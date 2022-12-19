@@ -28,7 +28,6 @@
 						value={$OrderStore.type}
 						on:change={updateType}
 					>
-						<option>Seleccione</option>
 						<option value={OrderTypeEnum.DELIVERY_NOTE}>Nota de Entrega</option>
 						<option value={OrderTypeEnum.BUDGET}>Presupuesto</option>
 						<option value={OrderTypeEnum.SALE}>Factura Fiscal</option>
@@ -51,7 +50,6 @@
 							value={$OrderStore.volume}
 							on:change={updateVolume}
 						>
-							<option>Seleccione</option>
 							<option value="Wholesale">Mayor</option>
 							<option value="Retail">Detal</option>
 						</select>

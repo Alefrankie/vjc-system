@@ -5,16 +5,13 @@
 	import { Fetch } from '$lib/stores/Fetch'
 
 	const user = {
-		username: 'Diwaii',
-		password: '123456'
+		username: '',
+		password: ''
 	}
 
 	const signIn = async () => {
-		const { data } = await Fetch.post('/api/users/sign-in', user)
-		// $session
-		// session.set({ ...data, authenticated: true })
-		// goto('/')
-		// window.location.replace('/')
+		await Fetch.post('/api/users/sign-in', user)
+		window.location.replace('/')
 	}
 </script>
 
