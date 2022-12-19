@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { page } from '$app/stores'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 
-	// import { session } from '$app/stores';
-
-	//
+	$: session = $page.data.session as IUser
 
 	function collapseMenu(e: any) {
-		e.target.parentNode.classList.toggle('mm-active');
-		e.target.nextElementSibling.classList.toggle('mm-show');
+		e.target.parentNode.classList.toggle('mm-active')
+		e.target.nextElementSibling.classList.toggle('mm-show')
 	}
 
-	export let sideBar: any;
+	export let sideBar: any
 </script>
 
 <div class="vertical-menu">
@@ -65,8 +65,7 @@
 											</ul>
 										</li>
 
-										<!-- {#if $session.role === 'Admin'} -->
-										{#if true}
+										{#if session.role === UserRolesEnum.ADMIN}
 											<li class="menu-title">Admin</li>
 
 											<li>

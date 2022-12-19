@@ -2,6 +2,7 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 	import { Fetch } from '$lib/stores/Fetch'
 
 	export let data
@@ -87,8 +88,8 @@
 									aria-hidden="true"
 									bind:value={user.role}
 								>
-									<option value="Admin">Administrador</option>
-									<option value="User">Usuario</option>
+									<option value={UserRolesEnum.ADMIN}>Administrador</option>
+									<option value={UserRolesEnum.USER}>Usuario</option>
 								</select>
 							</div>
 

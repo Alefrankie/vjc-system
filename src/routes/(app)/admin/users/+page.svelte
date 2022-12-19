@@ -4,6 +4,7 @@
 	import Loading from '$lib/components/Loading.svelte'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 
 	export let data
@@ -130,7 +131,14 @@
 												</span>
 											{/if}
 										</td>
-										<td>{item.role}</td>
+										<td>
+											{#if item.role === UserRolesEnum.ADMIN}
+												Administrador
+											{/if}
+											{#if item.role === UserRolesEnum.USER}
+												Usuario
+											{/if}
+										</td>
 										<td>
 											<div class="dropdown">
 												<a
