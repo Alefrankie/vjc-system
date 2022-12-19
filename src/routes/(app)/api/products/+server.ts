@@ -2,7 +2,7 @@ import { Product } from '$lib/database/schemas/Product'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async () => {
-	const data = await Product.find().sort({ name: 1 }).limit(10)
+	const data = await Product.find().sort({ name: 1 })
 
 	return new Response(JSON.stringify({ data }))
 }
