@@ -20,7 +20,6 @@ const defaultValues = {
 // eslint-disable-next-line max-lines-per-function
 const createStore = () => {
 	const { subscribe, set, update } = writable(defaultValues as IOrder)
-
 	return {
 		subscribe,
 		setOrder: (data) => {

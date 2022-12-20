@@ -15,13 +15,13 @@
 	}
 
 	const saveRetail = async () => {
-		const { data } = await Fetch.post('/api/rates', retail)
-		RateStore.setRetail(data.value)
+		await Fetch.post('/api/rates', retail)
+		RateStore.setRetail(retail.value)
 	}
 
 	const saveWholesale = async () => {
-		const { data } = await Fetch.post('/api/rates', wholesale)
-		RateStore.setWholesale(data.value)
+		await Fetch.post('/api/rates', wholesale)
+		RateStore.setWholesale(wholesale.value)
 	}
 </script>
 
