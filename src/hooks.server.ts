@@ -17,7 +17,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	await Product.init()
 	await Rate.init()
 
-	AppConfig.host = event.url.origin
+	AppConfig.setHost(event.url.origin)
 
 	const userId = event.cookies.get('userId')
 

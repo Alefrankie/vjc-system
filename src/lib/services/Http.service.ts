@@ -1,131 +1,65 @@
+/* eslint-disable no-undefined */
 import { AppConfig } from '$lib/configuration/app.config'
 import { error } from '@sveltejs/kit'
-import { derived, writable } from 'svelte/store'
-export class HttpService {
-	private declare host: string
+import { derived, writable, get } from 'svelte/store'
 
-	private declare promise: Promise<Response>
-
-	public constructor() {
-		this.host = AppConfig.host
-	}
-
-	public async get<T>(url: string): Promise<T> {
-		const res = await fetch(this.host + url)
-
-		if (!res.ok) throw error(res.status, await res.text())
-
-		const data = await res.json()
-
-		return data as T
-	}
-
-	public async post<T>(url: string, body: any): Promise<T> {
-		const res = await fetch(this.host + url, { method: 'POST', body: JSON.stringify(body) })
-
-		if (!res.ok) throw error(res.status, await res.text())
-
-		const data = await res.json()
-
-		return data as T
-	}
-
-	public async put<T>(url: string, body: any): Promise<T> {
-		const res = await fetch(this.host + url, { method: 'PUT', body: JSON.stringify(body) })
-
-		if (!res.ok) throw error(res.status, await res.text())
-
-		const data = await res.json()
-
-		return data as T
-	}
-
-	public async patch<T>(url: string, body: any): Promise<T> {
-		const res = await fetch(this.host + url, { method: 'PATCH', body: JSON.stringify(body) })
-
-		if (!res.ok) throw error(res.status, await res.text())
-
-		const data = await res.json()
-
-		return data as T
-	}
-
-	public async delete<T>(url: string, body: any): Promise<T> {
-		const res = await fetch(this.host + url, { method: 'DELETE', body: JSON.stringify(body) })
-
-		if (!res.ok) throw error(res.status, await res.text())
-
-		const data = await res.json()
-
-		return data as T
-	}
-}
-
+// eslint-disable-next-line max-lines-per-function
 const createStore = () => {
-	const { subscribe, set } = writable(null as any)
+	const { subscribe } = writable(undefined as unknown as Promise<Response>)
 
 	return {
 		subscribe,
 		get: async <T>(url: string) => {
-			const promise = httpService.get(`${url}`)
-			set(promise as T)
-			const data = await promise
-			if (data) {
-				setTimeout(() => {
-					set(null)
-				}, timeout)
-			}
+			const { host } = get(AppConfig)
+			const res = await fetch(host + url)
 
-			return (data as T) || {}
+			if (!res.ok) throw error(res.status, await res.text())
+
+			const data = await res.json()
+
+			return data as T
 		},
-		post: async (url: string, body?) => {
-			const promise = httpService.post(`${url}`, body)
-			set(promise)
-			const data = await promise
-			if (data) {
-				setTimeout(() => {
-					set(null)
-				}, timeout)
-			}
+		post: async <T>(url: string, body?: any) => {
+			const { host } = get(AppConfig)
 
-			return data || {}
+			console.log(get(AppConfig))
+			const res = await fetch(host + url, { method: 'POST', body: JSON.stringify(body) })
+
+			if (!res.ok) throw error(res.status, await res.text())
+
+			const data = await res.json()
+
+			return data as T
 		},
-		patch: async (url: string, body?) => {
-			const promise = httpService.patch(`${url}`, body)
-			set(promise)
+		patch: async <T>(url: string, body?: any) => {
+			const { host } = get(AppConfig)
+			const res = await fetch(host + url, { method: 'PATCH', body: JSON.stringify(body) })
 
-			const data = await promise
-			if (data) {
-				setTimeout(() => {
-					set(null)
-				}, timeout)
-			}
+			if (!res.ok) throw error(res.status, await res.text())
 
-			return data || {}
+			const data = await res.json()
+
+			return data as T
 		},
-		put: async (url: string, body?) => {
-			const promise = httpService.put(`${url}`, body)
-			set(promise)
-			const data = await promise
-			if (data) {
-				setTimeout(() => {
-					set(null)
-				}, timeout)
-			}
+		put: async <T>(url: string, body?: any) => {
+			const { host } = get(AppConfig)
+			const res = await fetch(host + url, { method: 'PUT', body: JSON.stringify(body) })
 
-			return data || {}
+			if (!res.ok) throw error(res.status, await res.text())
+
+			const data = await res.json()
+
+			return data as T
 		},
-		delete: async (url: string, body?) => {
-			const promise = httpService.remove(`${url}`, body)
-			set(promise)
-			const data = await promise
-			if (data) {
-				setTimeout(() => {
-					set(null)
-				}, timeout)
-			}
+		delete: async <T>(url: string, body?: any) => {
+			const { host } = get(AppConfig)
+			const res = await fetch(host + url, { method: 'DELETE', body: JSON.stringify(body) })
 
-			return data || {}
+			if (!res.ok) throw error(res.status, await res.text())
+
+			const data = await res.json()
+
+			return data as T
 		}
 	}
 }
