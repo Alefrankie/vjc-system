@@ -12,7 +12,6 @@
 	import dayjs from 'dayjs'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
-	import { OrderStore } from '$lib/stores/OrderStore'
 
 	$: session = $page.data.session as IUser
 	let orders: IOrder[] = []
@@ -418,8 +417,8 @@
 								on:change={(e) => {
 									return (query = {
 										createdAt: {
-											$gte: new Date(`${date}T04:00:00.000+00:00`),
-											$lt: new Date(`${date}T04:24:00.000+00:00`)
+											$gte: new Date(`${dayjs(date).format('YYYY-MM-DD')}T00:00:00.000+00:00`),
+											$lt: new Date(`${dayjs(date).format('YYYY-MM-DD')}T23:59:59.000+00:00`)
 										}
 									})
 									// return (query = { createdAt: new Date(date + 'T04:00:00.000+00:00') })

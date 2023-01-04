@@ -6,10 +6,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	const limit = url.searchParams.get('limit')
 
 	if (!key) {
-		const data = await Order.find()
-			.sort({ createdAt: -1 })
-			.limit(Number(limit))
-			.populate('customer')
+		const data = await Order.find().sort({ code: -1 }).limit(Number(limit)).populate('customer')
 
 		return new Response(JSON.stringify({ data }))
 	}
@@ -23,7 +20,7 @@ export const GET: RequestHandler = async ({ url }) => {
 			}
 		]
 	})
-		.sort({ createdAt: -1 })
+		.sort({ code: -1 })
 		.limit(Number(limit))
 		.populate('customer')
 
@@ -35,8 +32,8 @@ export const POST: RequestHandler = async ({ request }) => {
 	const { query, limit } = body
 
 	const data = await Order.find({ ...query })
-		.limit(limit)
 		.sort({ code: -1 })
+		.limit(limit)
 		.populate('customer')
 
 	const count = await Order.count()

@@ -5,14 +5,13 @@
 	import type { IOrder } from '$lib/database/schemas/Order'
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
-	import { useDate } from '$lib/hooks/useDate'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { getBestOrder, getRevenues, getTotalByCart } from '$lib/hooks/useMoney'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import dayjs from 'dayjs'
 
 	let orders = [] as IOrder[]
-	let limit = 10
+	let limit = 100
 	let date = ''
 	let count = 0
 	let query = {}
@@ -203,6 +202,27 @@
 				</div>
 			</div>
 			<div class="card-body">
+				<!-- HOY -->
+				<div class="mb-2 row">
+					<div class="col-sm-10">
+						<div class="dropdown">
+							<button
+								class="mb-2 text-white dropdown-toggle card-drop text-start btn btn-success btn-rounded waves-effect waves-light me-2 w-100"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+								on:click={() =>
+									(query = {
+										createdAt: {
+											$gte: new Date(`${dayjs().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
+											$lt: new Date(`${dayjs().format('YYYY-MM-DD')}T23:59:59.000+00:00`)
+										}
+									})}
+							>
+								<i class="bx bx-search-alt search-icon" /> Hoy
+							</button>
+						</div>
+					</div>
+				</div>
 				<!-- Notas de Entrega -->
 				<div class="mb-2 row">
 					<div class="col-sm-10">
@@ -405,8 +425,8 @@
 								on:change={(e) =>
 									(query = {
 										createdAt: {
-											$gte: new Date(`${date}T04:00:00.000+00:00`),
-											$lt: new Date(`${date}T04:24:00.000+00:00`)
+											$gte: new Date(`${dayjs(date).format('YYYY-MM-DD')}T00:00:00.000+00:00`),
+											$lt: new Date(`${dayjs(date).format('YYYY-MM-DD')}T23:59:59.000+00:00`)
 										}
 									})}
 							/>
