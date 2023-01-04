@@ -52,9 +52,9 @@
 
 		const { data } = await Fetch.post('/api/orders', { order: $OrderStore })
 
-		CartStore.wipe()
-		OrderStore.wipe()
-		window.location.replace(`/orders/${data._id}`)
+		// CartStore.wipe()
+		// OrderStore.wipe()
+		// window.location.replace(`/orders/${data._id}`)
 	}
 </script>
 

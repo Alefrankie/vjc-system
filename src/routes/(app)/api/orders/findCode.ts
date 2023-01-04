@@ -2,21 +2,6 @@ import { Order } from '$lib/database/schemas/Order'
 import type { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 import type { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 
-const findingCode = async (type: OrderTypeEnum, volume: OrderVolumeEnum): Promise<any> => {
-	const [orderFound] = await Order.find({
-		type,
-		volume
-	})
-		.sort({ code: -1 })
-		.limit(1)
-
-	if (!orderFound) {
-		return '0000'
-	}
-
-	return orderFound.code
-}
-
 // eslint-disable-next-line max-statements
 function makeCode(Serie: number): string {
 	const cont = 1
@@ -49,20 +34,20 @@ function makeCode(Serie: number): string {
 	return String(Number(cont + Serie))
 }
 
+// eslint-disable-next-line max-statements
 export async function findCode(type: OrderTypeEnum, volume: OrderVolumeEnum) {
-	let c = ''
+	const [orderFound] = await Order.find({
+		type,
+		volume
+	})
+		.sort({ code: -1 })
+		.limit(1)
 
-	const codeFound = await findingCode(type, volume)
-
-	if (!codeFound) {
-		c = '0001'
-		return c
+	if (!orderFound.code) {
+		return '0000'
 	}
 
-	c = codeFound.slice(2)
+	const series = makeCode(Number(orderFound.code))
 
-	const series = makeCode(Number(c))
-
-	const code = `${series}`
-	return code
+	return String(series)
 }

@@ -215,6 +215,29 @@
 				</div>
 			</div>
 			<div class="card-body">
+				<!-- HOY -->
+				<div class="mb-2 row">
+					<div class="col-sm-10">
+						<div class="dropdown">
+							<button
+								class="mb-2 text-white dropdown-toggle card-drop text-start btn btn-success btn-rounded waves-effect waves-light me-2 w-100"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+								on:click={() =>
+									(query = {
+										...query,
+										status: true,
+										createdAt: {
+											$gte: new Date(`${dayjs().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
+											$lt: new Date(`${dayjs().format('YYYY-MM-DD')}T23:59:59.000+00:00`)
+										}
+									})}
+							>
+								<i class="bx bx-search-alt search-icon" /> Hoy
+							</button>
+						</div>
+					</div>
+				</div>
 				<!-- Notas de Entrega -->
 				<div class="mb-2 row">
 					<div class="col-sm-10">
@@ -416,6 +439,7 @@
 								bind:value={date}
 								on:change={(e) => {
 									return (query = {
+										...query,
 										createdAt: {
 											$gte: new Date(`${dayjs(date).format('YYYY-MM-DD')}T00:00:00.000+00:00`),
 											$lt: new Date(`${dayjs(date).format('YYYY-MM-DD')}T23:59:59.000+00:00`)

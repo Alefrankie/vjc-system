@@ -212,6 +212,7 @@
 								aria-expanded="false"
 								on:click={() =>
 									(query = {
+										...query,
 										createdAt: {
 											$gte: new Date(`${dayjs().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
 											$lt: new Date(`${dayjs().format('YYYY-MM-DD')}T23:59:59.000+00:00`)
@@ -424,6 +425,7 @@
 								bind:value={date}
 								on:change={(e) =>
 									(query = {
+										...query,
 										createdAt: {
 											$gte: new Date(`${dayjs(date).format('YYYY-MM-DD')}T00:00:00.000+00:00`),
 											$lt: new Date(`${dayjs(date).format('YYYY-MM-DD')}T23:59:59.000+00:00`)
