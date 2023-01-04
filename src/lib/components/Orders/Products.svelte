@@ -17,7 +17,7 @@
 			const { data }: { data: IProduct[] } = await Fetch.get(`/api/products/filter/?key=${value}`)
 
 			ProductStore.set(
-				data.filter((e) => $CartStore.find((iCart) => e._id !== iCart._id)).filter(Boolean)
+				data.filter((e) => !$CartStore.find((iCart) => e._id === iCart._id)).filter(Boolean)
 			)
 		}, 500)
 	}
