@@ -1,16 +1,17 @@
-import { Fetch } from '$lib/stores/Fetch'
+import type { IProduct } from '$lib/database/schemas/Product'
+import { httpService } from '$lib/services/Http.service'
 import { ProductStore } from '$lib/stores/ProductStore'
 import { RateStore } from '$lib/stores/RateStore'
 
-export const load = async ({ data: { session }, url: { origin } }: any) => {
-	await Fetch.get(`${origin}/api/rates`).then(({ data: { Retail, Wholesale } }) => {
-		RateStore.setWholesale(Wholesale)
-		RateStore.setRetail(Retail)
-	})
+export const load = async ({ data: { session } }: any) => {
+	const { Retail, Wholesale } = await httpService.get<{ Retail: number; Wholesale: number }>(
+		`/api/rates`
+	)
+	RateStore.setWholesale(Wholesale)
+	RateStore.setRetail(Retail)
 
-	await Fetch.get(`${origin}/api/products`).then(({ data }) => {
-		ProductStore.set(data)
-	})
+	const products = await httpService.get<IProduct[]>(`/api/products`)
+	ProductStore.set(products)
 
 	return {
 		session

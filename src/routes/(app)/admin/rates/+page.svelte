@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/Alert.svelte'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch } from '$lib/stores/Fetch'
 	import { RateStore } from '$lib/stores/RateStore'
 
@@ -15,12 +16,12 @@
 	}
 
 	const saveRetail = async () => {
-		await Fetch.post('/api/rates', retail)
+		await httpService.post('/api/rates', retail)
 		RateStore.setRetail(retail.value)
 	}
 
 	const saveWholesale = async () => {
-		await Fetch.post('/api/rates', wholesale)
+		await httpService.post('/api/rates', wholesale)
 		RateStore.setWholesale(wholesale.value)
 	}
 </script>

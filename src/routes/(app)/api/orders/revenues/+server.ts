@@ -16,7 +16,5 @@ export const POST: RequestHandler = async ({ request }) => {
 		.sort({ code: -1 })
 		.populate('customer')
 
-	const count = await Order.count()
-
-	return new Response(JSON.stringify({ data, count }))
+	return new Response(JSON.stringify(data))
 }

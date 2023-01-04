@@ -5,6 +5,7 @@
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 
 	export let data
@@ -14,7 +15,7 @@
 		const isSure = confirm('¿Desea Remover al Usuario?')
 		if (isSure) {
 			users = users.filter((e) => e !== user)
-			Fetch.delete(`/api/users/${user._id}`)
+			httpService.delete(`/api/users/${user._id}`)
 		}
 	}
 </script>

@@ -1,15 +1,14 @@
 <script lang="ts">
+	import { page } from '$app/stores'
 	import Alert from '$lib/components/Alert.svelte'
 	import type { IUser } from '$lib/database/schemas/User'
-	import { Fetch } from '$lib/stores/Fetch'
-	import { page } from '$app/stores'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
+	import { httpService } from '$lib/services/Http.service'
 
 	$: user = $page.data.session as IUser
 
 	const update = async () => {
-		const { data } = await Fetch.patch(`/api/users/${user._id}`, user)
-		user = data
+		user = await httpService.patch<IUser>(`/api/users/${user._id}`, user)
 	}
 </script>
 

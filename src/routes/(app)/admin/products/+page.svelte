@@ -8,13 +8,15 @@
 	import { RateStore } from '$lib/stores/RateStore'
 	import { page } from '$app/stores'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { httpService } from '$lib/services/Http.service'
 
 	$: session = $page.data.session as IUser
 
 	const removeProduct = async (product: IProduct) => {
 		const isSure = confirm('¿Desea remover el registro?')
 		if (isSure) {
-			await Fetch.delete(`/api/products/${product._id}`)
+			await httpService.delete(`/api/products/${product._id}`)
 			ProductStore.remove(product)
 		}
 	}
@@ -106,14 +108,14 @@
 												{useFormatNumber(item.price * $RateStore.Wholesale)} Bs
 											</p>
 											<br />
-											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
+											<p class="mb-0">{useFormatNumber(item.price)} $</p>
 										</td>
 										<td>
 											<p class="mb-1">
 												{useFormatNumber(item.price * $RateStore.Retail)} Bs
 											</p>
 											<br />
-											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
+											<p class="mb-0">{useFormatNumber(item.price)} $</p>
 										</td>
 										<td>
 											<span

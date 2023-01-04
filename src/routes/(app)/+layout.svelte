@@ -1,15 +1,12 @@
 <script lang="ts">
-	import { browser } from '$app/environment'
 	import Header from '$lib/components/Headers/Header.svelte'
 	import LeftSideBar from '$lib/components/LeftSideBar.svelte'
-	import { Fetch } from '$lib/stores/Fetch'
-	import { RateStore } from '$lib/stores/RateStore'
 
 	let sideBar = false
 
 	// Exchange Rates
 	// $: {
-	// 	Fetch.get('/api/rates').then(({ data: { Retail, Wholesale } }) => {
+	// 	httpService.get('/api/rates').then(({ data: { Retail, Wholesale } }) => {
 	// 		RateStore.setRetail(Retail)
 	// 		RateStore.setWholesale(Wholesale)
 	// 	})

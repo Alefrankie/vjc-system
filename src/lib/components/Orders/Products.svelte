@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { IProduct } from '$lib/database/schemas/Product'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
+	import { httpService } from '$lib/services/Http.service'
 	import { CartStore } from '$lib/stores/CartStore'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { OrderStore } from '$lib/stores/OrderStore'
@@ -9,9 +10,7 @@
 
 	const productFinder = async (e: any) => {
 		if (e.key === 'Enter') {
-			const { data }: { data: IProduct[] } = await Fetch.get(
-				`/api/products/filter/?key=${e.target.value}`
-			)
+			const data = await httpService.get<IProduct[]>(`/api/products/filter/?key=${e.target.value}`)
 
 			// This is by remove the items presents on Cart
 			$CartStore.map((iCart) => {

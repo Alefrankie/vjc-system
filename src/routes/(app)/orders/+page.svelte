@@ -12,6 +12,7 @@
 	import dayjs from 'dayjs'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+	import { httpService } from '$lib/services/Http.service'
 
 	$: session = $page.data.session as IUser
 	let orders: IOrder[] = []
@@ -21,19 +22,21 @@
 	let query = {}
 
 	$: if (browser) {
-		Fetch.post(`/api/orders/filter`, {
-			query,
-			limit
-		}).then((res) => {
-			orders = res.data
-			count = res.count
-		})
+		httpService
+			.post(`/api/orders/filter`, {
+				query,
+				limit
+			})
+			.then((res) => {
+				orders = res.data
+				count = res.count
+			})
 	}
 
 	const removeOrder = (order: IOrder) => {
 		const isSure = confirm('¿Desea remover ésta orden?')
 		if (isSure) {
-			Fetch.delete(`/api/orders/${order._id}`)
+			httpService.delete(`/api/orders/${order._id}`)
 			orders = orders.filter((e) => e._id !== order._id)
 		}
 	}

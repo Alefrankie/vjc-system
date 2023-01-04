@@ -1,4 +1,5 @@
 import { User } from '$lib/database/schemas/User'
+import { HttpErrorEnum } from '$lib/enums/HttpError.enum'
 import { UserStatusEnum } from '$lib/enums/UserStatusEnum'
 import type { RequestHandler } from '@sveltejs/kit'
 import bcrypt from 'bcryptjs'
@@ -10,13 +11,13 @@ export const POST: RequestHandler = async ({ request }) => {
 	const { username, password } = await request.json()
 
 	const user = await User.findOne({ username })
-	if (!user) return new Response(JSON.stringify({ message: 'User not found!' }), { status: 404 })
+	if (!user) return new Response(HttpErrorEnum.RESOURCE_NOT_FOUND, { status: 404 })
 	if (user.status === UserStatusEnum.ONLINE)
-		return new Response(JSON.stringify({ message: 'User already online', user }), {
+		return new Response('User already online', {
 			status: 402
 		})
 	if (user.locked)
-		return new Response(JSON.stringify({ message: 'User locked!' }), {
+		return new Response('User already online', {
 			status: 402
 		})
 

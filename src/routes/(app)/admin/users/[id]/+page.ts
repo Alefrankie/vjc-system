@@ -1,9 +1,10 @@
-import { Fetch } from '$lib/stores/Fetch'
+import type { IUser } from '$lib/database/schemas/User'
+import { httpService } from '$lib/services/Http.service'
 import type { PageLoad } from './$types'
 
-export const load: PageLoad = async ({ params, url: { origin } }) => {
-	const { data } = await Fetch.get(`${origin}/api/users/${params.id}`)
+export const load: PageLoad = async ({ params }) => {
+	const user = await httpService.get<IUser>(`/api/users/${params.id}`)
 	return {
-		user: data
+		user
 	}
 }

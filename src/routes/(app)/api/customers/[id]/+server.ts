@@ -9,6 +9,7 @@ import { InvoiceOldSchema } from '$lib/database/schemas/old/InvoiceOld'
 import { LoteOldSchema } from '$lib/database/schemas/old/LoteOld'
 import type { IOrder } from '$lib/database/schemas/Order'
 import type { ICart } from '$lib/database/schemas/Product'
+import { HttpErrorEnum } from '$lib/enums/HttpError.enum'
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 const scriptInvoice = async () => {
@@ -102,8 +103,7 @@ export const GET: RequestHandler = async ({ params }) => {
 		_id: id
 	}).populate('orders')
 
-	if (!data)
-		return new Response(JSON.stringify({ message: 'Cliente No Encontrado' }), { status: 404 })
+	if (!data) return new Response(HttpErrorEnum.RESOURCE_NOT_FOUND, { status: 404 })
 
 	return new Response(
 		JSON.stringify({
@@ -117,7 +117,7 @@ export const PATCH: RequestHandler = async ({ request, params }) => {
 	const body = await request.json()
 
 	if (body.phone.length < 10) {
-		return new Response(JSON.stringify({ message: 'Phone number is not valid!' }), { status: 400 })
+		return new Response(HttpErrorEnum.INVALID_REQUEST, { status: 400 })
 	}
 
 	if (body.dni.includes('-')) {
@@ -127,15 +127,14 @@ export const PATCH: RequestHandler = async ({ request, params }) => {
 
 	const data = await Customer.findByIdAndUpdate(id, body)
 
-	return new Response(JSON.stringify({ data, message: 'Cliente Actualizado' }))
+	return new Response(JSON.stringify(data))
 }
 
 export const DELETE: RequestHandler = async ({ params }) => {
 	const { id } = params
 
 	const dataFound = await Customer.findById(id)
-	if (!dataFound)
-		return new Response(JSON.stringify({ message: 'Cliente No Encontrado' }), { status: 404 })
+	if (!dataFound) return new Response(HttpErrorEnum.RESOURCE_NOT_FOUND, { status: 404 })
 
 	// await Customer.findByIdAndDelete(id)
 

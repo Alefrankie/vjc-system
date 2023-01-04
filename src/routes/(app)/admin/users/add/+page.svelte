@@ -4,6 +4,7 @@
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 	import { UserStatusEnum } from '$lib/enums/UserStatusEnum'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch } from '$lib/stores/Fetch'
 
 	let user = {
@@ -23,7 +24,7 @@
 	} as IUser
 
 	const saveUser = () => {
-		Fetch.post('/api/users', user)
+		httpService.post('/api/users', user)
 	}
 </script>
 

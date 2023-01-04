@@ -7,7 +7,8 @@
 	import { useDate } from '$lib/hooks/useDate'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { getTotalByCart } from '$lib/hooks/useMoney'
-	import { Fetch, Promise } from '$lib/stores/Fetch'
+	import { httpService } from '$lib/services/Http.service'
+	import { Promise } from '$lib/stores/Fetch'
 	import dayjs from 'dayjs'
 
 	let orders = [] as IOrder[]
@@ -15,18 +16,18 @@
 	let page = 1
 
 	$: if (browser) {
-		Fetch.post(`/api/orders/revenues`, {
-			query: {
-				createdAt: {
-					$gte: new Date(`${dayjs().format('MM-DD-YYYY')}T04:00:00.000+00:00`),
-					$lt: new Date(`${dayjs().format('MM-DD-YYYY')}T04:24:00.000+00:00`)
-				}
-			},
-			limit,
-			page
-		}).then(({ data }) => {
-			orders = data
-		})
+		httpService
+			.post<IOrder[]>(`/api/orders/revenues`, {
+				query: {
+					createdAt: {
+						$gte: new Date(`${dayjs().format('MM-DD-YYYY')}T04:00:00.000+00:00`),
+						$lt: new Date(`${dayjs().format('MM-DD-YYYY')}T04:24:00.000+00:00`)
+					}
+				},
+				limit,
+				page
+			})
+			.then((data) => (orders = data))
 	}
 </script>
 

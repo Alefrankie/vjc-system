@@ -32,6 +32,7 @@ module.exports = {
 		'func-style': 'off',
 		'no-shadow': 'off',
 		'arrow-body-style': 'off',
-		'no-ternary': 'off'
+		'no-ternary': 'off',
+		'class-methods-use-this': 'off'
 	}
 }

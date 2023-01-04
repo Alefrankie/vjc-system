@@ -5,9 +5,7 @@ export const GET: RequestHandler = async () => {
 	const Retail = await Rate.findOne({ name: 'Retail' })
 	const Wholesale = await Rate.findOne({ name: 'Wholesale' })
 
-	return new Response(
-		JSON.stringify({ data: { Retail: Retail?.value, Wholesale: Wholesale?.value } })
-	)
+	return new Response(JSON.stringify({ Retail: Retail?.value, Wholesale: Wholesale?.value }))
 }
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -17,11 +15,11 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	if (data) {
 		await Rate.findOneAndUpdate({ name }, { value })
-		return new Response(JSON.stringify({ data, message: 'Tasa Actualizada' }))
+		return new Response(JSON.stringify(data))
 	}
 
 	const rate = new Rate({ name: String(name), value: Number(value) })
 	await rate.save()
 
-	return new Response(JSON.stringify({ data: rate, message: 'Tasa Actualizada' }))
+	return new Response(JSON.stringify(rate))
 }

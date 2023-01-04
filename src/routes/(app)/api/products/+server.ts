@@ -1,10 +1,11 @@
 import { Product } from '$lib/database/schemas/Product'
+import { HttpErrorEnum } from '$lib/enums/HttpError.enum'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async () => {
 	const data = await Product.find().sort({ name: 1 })
 
-	return new Response(JSON.stringify({ data }))
+	return new Response(JSON.stringify(data))
 }
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -22,11 +23,11 @@ export const POST: RequestHandler = async ({ request }) => {
 			]
 		})
 	) {
-		return new Response(JSON.stringify({ message: 'Product already exists' }), { status: 400 })
+		return new Response(HttpErrorEnum.RESOURCE_ALREADY_EXIST, { status: 400 })
 	}
 
 	const newData = new Product(body)
 	await newData.save()
 
-	return new Response(JSON.stringify({ data: newData, message: 'Data registered successfully' }))
+	return new Response(JSON.stringify(newData))
 }

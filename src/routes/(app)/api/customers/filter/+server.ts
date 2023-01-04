@@ -6,7 +6,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	if (!key?.length) {
 		const data = await Customer.find()
-		return new Response(JSON.stringify({ data }))
+		return new Response(JSON.stringify(data))
 	}
 
 	const [data] = await Promise.all([
@@ -48,5 +48,5 @@ export const GET: RequestHandler = async ({ url }) => {
 			]
 		})
 	])
-	return new Response(JSON.stringify({ data }))
+	return new Response(JSON.stringify(data))
 }

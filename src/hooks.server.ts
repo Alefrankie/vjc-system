@@ -1,4 +1,5 @@
 /* eslint-disable require-atomic-updates */
+import { AppConfig } from '$lib/configuration/app.config'
 import { dbConnect } from '$lib/database/mongo'
 import { Customer } from '$lib/database/schemas/Customer'
 import { Order } from '$lib/database/schemas/Order'
@@ -15,6 +16,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	await Order.init()
 	await Product.init()
 	await Rate.init()
+
+	AppConfig.host = event.url.origin
 
 	const userId = event.cookies.get('userId')
 

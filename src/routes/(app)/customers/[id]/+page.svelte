@@ -2,12 +2,13 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import type { ICustomer } from '$lib/database/schemas/Customer'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch } from '$lib/stores/Fetch'
 	export let data
 	let customer = data.customer as ICustomer
 
 	const modifyData = async () => {
-		Fetch.patch(`/api/customers/${customer._id}`, customer)
+		httpService.patch(`/api/customers/${customer._id}`, customer)
 	}
 </script>
 

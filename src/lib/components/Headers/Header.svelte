@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Fetch } from '$lib/stores/Fetch'
-	import type { IUser } from '$lib/database/schemas/User'
 	import { page } from '$app/stores'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { httpService } from '$lib/services/Http.service'
 
 	$: session = $page.data.session as IUser
 
@@ -12,7 +12,7 @@
 	}
 
 	async function signOut() {
-		await Fetch.post('/api/users/sign-out', { _id: session._id })
+		await httpService.post('/api/users/sign-out', { _id: session._id })
 		window.location.replace('/')
 	}
 </script>

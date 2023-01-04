@@ -1,17 +1,18 @@
 <script lang="ts">
-	import { Fetch, Promise } from '$lib/stores/Fetch'
+	import type { ICustomer } from '$lib/database/schemas/Customer'
+	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
+	import { httpService } from '$lib/services/Http.service'
+	import { Promise } from '$lib/stores/Fetch'
 	import { OrderStore } from '$lib/stores/OrderStore'
 	import Loading from '../Loading.svelte'
-	import { onMount } from 'svelte'
-	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 
 	// let dni = ''
 	let dni = ''
 
 	async function findCustomer() {
-		const { data } = await Fetch.get(`/api/customers/filter/?key=${dni}`)
+		const [data] = await httpService.get<ICustomer[]>(`/api/customers/filter/?key=${dni}`)
 
-		OrderStore.setCustomer(data[0])
+		OrderStore.setCustomer(data)
 	}
 </script>
 

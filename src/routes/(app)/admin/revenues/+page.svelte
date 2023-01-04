@@ -8,6 +8,7 @@
 	import { useDate } from '$lib/hooks/useDate'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { getBestOrder, getRevenues, getTotalByCart } from '$lib/hooks/useMoney'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import dayjs from 'dayjs'
 
@@ -18,13 +19,15 @@
 	let query = {}
 
 	$: if (browser) {
-		Fetch.post(`/api/orders/filter`, {
-			query,
-			limit
-		}).then((res) => {
-			orders = res.data
-			count = res.count
-		})
+		httpService
+			.post(`/api/orders/filter`, {
+				query,
+				limit
+			})
+			.then((res) => {
+				orders = res.data
+				count = res.count
+			})
 	}
 
 	$: revenues = getRevenues(orders)

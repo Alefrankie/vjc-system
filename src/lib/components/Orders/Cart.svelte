@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
+	import type { IOrder } from '$lib/database/schemas/Order'
 	import type { IProduct } from '$lib/database/schemas/Product'
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
@@ -11,8 +12,9 @@
 		getSubTotalByCart,
 		getTotalByCart
 	} from '$lib/hooks/useMoney'
+	import { httpService } from '$lib/services/Http.service'
 	import { CartStore } from '$lib/stores/CartStore'
-	import { Fetch, Promise } from '$lib/stores/Fetch'
+	import { Promise } from '$lib/stores/Fetch'
 	import { OrderStore } from '$lib/stores/OrderStore'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import Loading from '../Loading.svelte'
@@ -50,7 +52,7 @@
 			return alert('El carrito no puede estar vacío')
 		}
 
-		const { data } = await Fetch.post('/api/orders', { order: $OrderStore })
+		const data = await httpService.post<IOrder>('/api/orders', { order: $OrderStore })
 
 		CartStore.wipe()
 		OrderStore.wipe()

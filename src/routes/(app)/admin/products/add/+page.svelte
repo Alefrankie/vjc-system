@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Alert from '$lib/components/Alert.svelte'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch } from '$lib/stores/Fetch'
 	import { RateStore } from '$lib/stores/RateStore'
 
@@ -12,7 +13,7 @@
 	}
 
 	const saveData = async () => {
-		await Fetch.post('/api/products', product)
+		await httpService.post('/api/products', product)
 	}
 </script>
 

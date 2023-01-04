@@ -1,8 +1,7 @@
 <!--  -->
 <script>
-	import { goto } from '$app/navigation'
 	import Alert from '$lib/components/Alert.svelte'
-	import { Fetch } from '$lib/stores/Fetch'
+	import { httpService } from '$lib/services/Http.service'
 
 	const user = {
 		username: '',
@@ -10,7 +9,7 @@
 	}
 
 	const signIn = async () => {
-		await Fetch.post('/api/users/sign-in', user)
+		await httpService.post('/api/users/sign-in', user)
 		window.location.replace('/')
 	}
 </script>

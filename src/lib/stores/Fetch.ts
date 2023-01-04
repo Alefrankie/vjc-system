@@ -1,19 +1,17 @@
-/* eslint-disable new-cap */
-import { http } from '$lib/hooks/useFetch'
+import { httpService } from '$lib/services/Http.service'
 import { derived, writable } from 'svelte/store'
 
 // const HOST = window.location.protocol + window.location.host
-const HOST = 'http://102.168.0.103:5173'
 const timeout = 3000
 // eslint-disable-next-line max-lines-per-function
 const createStore = () => {
-	const { subscribe, set } = writable(null)
+	const { subscribe, set } = writable(null as any)
 
 	return {
 		subscribe,
-		get: async (url: string) => {
-			const promise = http.get(`${url}`)
-			set(promise)
+		get: async <T>(url: string) => {
+			const promise = httpService.get(`${url}`)
+			set(promise as T)
 			const data = await promise
 			if (data) {
 				setTimeout(() => {
@@ -21,10 +19,10 @@ const createStore = () => {
 				}, timeout)
 			}
 
-			return data || {}
+			return (data as T) || {}
 		},
 		post: async (url: string, body?) => {
-			const promise = http.post(`${url}`, body)
+			const promise = httpService.post(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -36,7 +34,7 @@ const createStore = () => {
 			return data || {}
 		},
 		patch: async (url: string, body?) => {
-			const promise = http.patch(`${url}`, body)
+			const promise = httpService.patch(`${url}`, body)
 			set(promise)
 
 			const data = await promise
@@ -49,7 +47,7 @@ const createStore = () => {
 			return data || {}
 		},
 		put: async (url: string, body?) => {
-			const promise = http.put(`${url}`, body)
+			const promise = httpService.put(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -61,7 +59,7 @@ const createStore = () => {
 			return data || {}
 		},
 		delete: async (url: string, body?) => {
-			const promise = http.remove(`${url}`, body)
+			const promise = httpService.remove(`${url}`, body)
 			set(promise)
 			const data = await promise
 			if (data) {
@@ -77,4 +75,4 @@ const createStore = () => {
 
 export const Fetch = createStore()
 
-export const Promise: any = derived(Fetch, ($Fetch) => $Fetch)
+export const Promise = derived(Fetch, ($Fetch) => $Fetch)

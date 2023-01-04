@@ -7,9 +7,7 @@ import { findCode } from './findCode'
 export const GET: RequestHandler = async () => {
 	const data = await Order.find().limit(1).sort({ code: -1 }).populate('customer')
 
-	const count = await Order.count()
-
-	return new Response(JSON.stringify({ data, count }))
+	return new Response(JSON.stringify(data))
 }
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -36,5 +34,5 @@ export const POST: RequestHandler = async ({ request }) => {
 		})
 	}
 
-	return new Response(JSON.stringify({ message: 'Orden Registrada', data: newOrder }))
+	return new Response(JSON.stringify(newOrder))
 }

@@ -2,12 +2,20 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import type { ICustomer } from '$lib/database/schemas/Customer'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
-	import { Fetch } from '$lib/stores/Fetch'
+	import { httpService } from '$lib/services/Http.service'
 
-	let customer = {} as ICustomer
+	let customer = {
+		firstName: 'Alefrank',
+		lastName: 'Martinez',
+		gender: UserGendersEnum.MALE,
+		phone: '04125491811',
+		email: 'Alefrank.m@gmail.com',
+		dni: '26677798',
+		address: 'string'
+	} as ICustomer
 
 	const saveData = async () => {
-		Fetch.post('/api/customers', customer)
+		await httpService.post('/api/customers', customer)
 	}
 </script>
 

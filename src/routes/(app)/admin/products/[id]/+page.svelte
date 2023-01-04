@@ -4,6 +4,7 @@
 	import type { IProduct } from '$lib/database/schemas/Product'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import { RateStore } from '$lib/stores/RateStore'
@@ -13,7 +14,7 @@
 	let session = data.session as IUser
 
 	const modifyData = async () => {
-		Fetch.patch(`/api/products/${product._id}`, product)
+		httpService.patch(`/api/products/${product._id}`, product)
 
 		ProductStore.set(
 			$ProductStore.map((e) => {

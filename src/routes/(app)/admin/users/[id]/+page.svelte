@@ -3,16 +3,12 @@
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserGendersEnum } from '$lib/enums/UserGendersEnum'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
-	import { Fetch } from '$lib/stores/Fetch'
+	import { httpService } from '$lib/services/Http.service'
 
 	export let data
 	let user = data.user as IUser
 
-	const update = async () => {
-		const { data } = await Fetch.patch(`/api/users/${user._id}`, user)
-
-		user = data
-	}
+	const update = async () => (user = await httpService.patch(`/api/users/${user._id}`, user))
 </script>
 
 <svelte:head>

@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ url }) => {
 			name: 1
 		})
 
-		return new Response(JSON.stringify({ data }))
+		return new Response(JSON.stringify(data))
 	}
 
 	const data = await Product.find({
@@ -24,5 +24,5 @@ export const GET: RequestHandler = async ({ url }) => {
 		name: 1
 	})
 
-	return new Response(JSON.stringify({ data }))
+	return new Response(JSON.stringify(data))
 }

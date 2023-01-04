@@ -3,6 +3,7 @@
 	import Loading from '$lib/components/Loading.svelte'
 	import TableWrap from '$lib/components/TableWrap.svelte'
 	import type { ICustomer } from '$lib/database/schemas/Customer'
+	import { httpService } from '$lib/services/Http.service'
 	import { CustomerStore } from '$lib/stores/CustomerStore'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { OrderStore } from '$lib/stores/OrderStore'
@@ -11,7 +12,7 @@
 	const removeCustomer = (customer: ICustomer) => {
 		const isSure = confirm('¿Desea remover al cliente?')
 		if (isSure) {
-			Fetch.delete(`/api/customers/${customer._id}`)
+			httpService.delete(`/api/customers/${customer._id}`)
 			CustomerStore.remove(customer)
 		}
 	}
@@ -20,7 +21,7 @@
 		const { value } = e.target
 
 		if (e.key === 'Enter') {
-			const { data } = await Fetch.get(`/api/customers/filter/?key=${value}`)
+			const data = await httpService.get<ICustomer[]>(`/api/customers/filter/?key=${value}`)
 			CustomerStore.set(data)
 		}
 	}

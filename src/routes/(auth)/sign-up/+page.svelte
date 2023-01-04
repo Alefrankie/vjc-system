@@ -1,6 +1,6 @@
 <script>
-	import { goto } from '$app/navigation'
 	import Alert from '$lib/components/Alert.svelte'
+	import { httpService } from '$lib/services/Http.service'
 	import { Fetch } from '$lib/stores/Fetch'
 
 	const user = {
@@ -8,8 +8,8 @@
 		password: ''
 	}
 
-	const signUp = () => {
-		Fetch.post('/api/users', user).then((data) => {
+	const signUp = async () => {
+		await httpService.post('/api/users', user).then(() => {
 			window.location.replace('/sign-in')
 		})
 	}
@@ -50,9 +50,7 @@
 
 							<div class="mb-3">
 								<div class="float-end">
-									<!-- <a href="auth-recoverpw-2.html" class="text-muted"
-								>¿Olvidó su Contraseña?
-							</a> -->
+									<!-- <a href="auth-recoverpw-2.html" class="text-muted"> ¿Olvidó su Contraseña? </a> -->
 								</div>
 								<label for="password" class="form-label">Contraseña</label>
 								<div class="input-group auth-pass-inputgroup">
