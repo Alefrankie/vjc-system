@@ -12,6 +12,7 @@
 	import dayjs from 'dayjs'
 	import type { IUser } from '$lib/database/schemas/User'
 	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
+	import { OrderStore } from '$lib/stores/OrderStore'
 
 	$: session = $page.data.session as IUser
 	let orders: IOrder[] = []
@@ -37,6 +38,23 @@
 			orders = orders.filter((e) => e._id !== order._id)
 		}
 	}
+
+	let timeoutId: NodeJS.Timeout
+
+	const ordersFinder = async (e: KeyboardEvent) => {
+		const { value } = e.target as HTMLInputElement
+
+		if (timeoutId) clearTimeout(timeoutId)
+
+		timeoutId = setTimeout(async () => {
+			const res: { data: IOrder[]; count: number } = await Fetch.get(
+				`/api/orders/filter/?key=${value}&limit=${limit}`
+			)
+
+			orders = res.data
+			count = res.count
+		}, 500)
+	}
 </script>
 
 <svelte:head>
@@ -59,7 +77,12 @@
 					<div class="col-sm-4">
 						<div class="mb-2 search-box me-2 d-inline-block">
 							<div class="position-relative">
-								<input type="text" class="form-control" placeholder="Search..." />
+								<input
+									type="text"
+									on:keyup={ordersFinder}
+									class="form-control"
+									placeholder="Search..."
+								/>
 								<i class="bx bx-search-alt search-icon" />
 							</div>
 						</div>
