@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
+	import type { IOrder } from '$lib/database/schemas/Order'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 
 	import { getBestOrder, getRevenues } from '$lib/hooks/useMoney'
 
-	export let orders = []
+	export let orders = [] as IOrder[]
 
 	$: revenues = getRevenues(orders)
 	$: bestOrder = getBestOrder(orders)

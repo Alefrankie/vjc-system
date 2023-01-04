@@ -72,7 +72,9 @@
 					</span>
 
 					<span>
-						Descuento: -{useFormatNumber(getDiscountTotal($OrderStore.cart) * $OrderStore.rate)} Bs
+						{#if getDiscountTotal($OrderStore.cart) * $OrderStore.rate}
+							Descuento: -{useFormatNumber(getDiscountTotal($OrderStore.cart) * $OrderStore.rate)} Bs
+						{/if}
 					</span>
 					{#if $OrderStore.type === OrderTypeEnum.SALE}
 						<span>
