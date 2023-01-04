@@ -1,13 +1,13 @@
 <script lang="ts">
+	import { page } from '$app/stores'
 	import Loading from '$lib/components/Loading.svelte'
 	import type { IProduct } from '$lib/database/schemas/Product'
-	import { useFinder } from '$lib/hooks/useFinder'
+	import type { IUser } from '$lib/database/schemas/User'
+	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
 	import { Fetch, Promise } from '$lib/stores/Fetch'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import { RateStore } from '$lib/stores/RateStore'
-	import { page } from '$app/stores'
-	import { UserRolesEnum } from '$lib/enums/UserRolesEnum'
 
 	$: session = $page.data.session as IUser
 
@@ -17,6 +17,20 @@
 			await Fetch.delete(`/api/products/${product._id}`)
 			ProductStore.remove(product)
 		}
+	}
+
+	let timeoutId: NodeJS.Timeout
+
+	const productFinder = async (e: KeyboardEvent) => {
+		const { value } = e.target as HTMLInputElement
+
+		if (timeoutId) clearTimeout(timeoutId)
+
+		timeoutId = setTimeout(async () => {
+			const { data }: { data: IProduct[] } = await Fetch.get(`/api/products/filter/?key=${value}`)
+
+			ProductStore.set(data)
+		}, 500)
 	}
 </script>
 
@@ -41,11 +55,7 @@
 					<div class="col-sm-4">
 						<div class="mb-2 search-box me-2 d-inline-block">
 							<div class="position-relative">
-								<input
-									on:keyup={(e) => useFinder(e, 'products')}
-									class="form-control"
-									placeholder="Search..."
-								/>
+								<input on:keyup={productFinder} class="form-control" placeholder="Search..." />
 								<i class="bx bx-search-alt search-icon" />
 							</div>
 						</div>
@@ -84,7 +94,7 @@
 						<table class="table align-middle table-nowrap table-check">
 							<thead class="table-light">
 								<tr>
-									<th class="align-middle d-print-none">#</th>
+									<th class="align-middle">#</th>
 									<th class="align-middle d-print-none">Código</th>
 									<th class="align-middle">Nombre</th>
 									<th class="align-middle">Precio Al Mayor</th>
@@ -96,28 +106,29 @@
 							<tbody>
 								{#each $ProductStore as item, index}
 									<tr>
-										<td class="d-print-none">{index + 1}</td>
+										<td class="">{index + 1}</td>
 										<td class="d-print-none">
 											<a href="/admin/products/{item._id}"> #{item.code}</a>
 										</td>
 										<td>{item.name}</td>
 										<td>
-											<p class="mb-1">
+											<p style="margin-top: 5px; margin-bottom: 10px">
 												{useFormatNumber(item.price * $RateStore.Wholesale)} Bs
 											</p>
-											<br />
-											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
+											<p style="margin-bottom: 4px; margin-top: 0px">
+												{useFormatNumber(item.price)} $
+											</p>
 										</td>
 										<td>
-											<p class="mb-1">
+											<p style="margin-top: 5px; margin-bottom: 10px">
 												{useFormatNumber(item.price * $RateStore.Retail)} Bs
 											</p>
-											<br />
-											<p class="mb-0">{useFormatNumber(item.price)} Bs</p>
+											<p style="margin-bottom: 4px; margin-top: 0px">
+												{useFormatNumber(item.price)} $
+											</p>
 										</td>
 										<td>
 											<span
-												class="badge badge-pill"
 												class:badge-soft-danger={item.quantity < 1}
 												class:badge-soft-success={item.quantity > 1}
 											>
@@ -173,17 +184,27 @@
 </div>
 
 <style>
+	table {
+		font-size: 10px;
+	}
+
+	table tr td {
+		padding: 0;
+		margin: 0;
+		line-height: 1;
+		font-size: 14px;
+	}
+
 	@media print {
 		table {
 			font-size: 10px;
 		}
 
 		table tr td {
-			font-size: 10px;
-			line-height: 0.3;
-		}
-		table tr {
-			line-height: 0.3;
+			padding: 0;
+			margin: 0;
+			line-height: 0;
+			font-size: 7px;
 		}
 	}
 </style>

@@ -11,10 +11,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const user = await User.findOne({ username })
 	if (!user) return new Response(JSON.stringify({ message: 'User not found!' }), { status: 404 })
-	if (user.status === UserStatusEnum.ONLINE)
-		return new Response(JSON.stringify({ message: 'User already online', user }), {
-			status: 402
-		})
 	if (user.locked)
 		return new Response(JSON.stringify({ message: 'User locked!' }), {
 			status: 402

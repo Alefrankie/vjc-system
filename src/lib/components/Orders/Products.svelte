@@ -6,23 +6,20 @@
 	import { OrderStore } from '$lib/stores/OrderStore'
 	import { ProductStore } from '$lib/stores/ProductStore'
 	import Loading from '../Loading.svelte'
+	let timeoutId: NodeJS.Timeout
 
-	const productFinder = async (e: any) => {
-		if (e.key === 'Enter') {
-			const { data }: { data: IProduct[] } = await Fetch.get(
-				`/api/products/filter/?key=${e.target.value}`
+	const productFinder = async (e: KeyboardEvent) => {
+		const { value } = e.target as HTMLInputElement
+
+		if (timeoutId) clearTimeout(timeoutId)
+
+		timeoutId = setTimeout(async () => {
+			const { data }: { data: IProduct[] } = await Fetch.get(`/api/products/filter/?key=${value}`)
+
+			ProductStore.set(
+				data.filter((e) => $CartStore.find((iCart) => e._id !== iCart._id)).filter(Boolean)
 			)
-
-			// This is by remove the items presents on Cart
-			$CartStore.map((iCart) => {
-				data.splice(
-					data.findIndex((e) => e._id == iCart._id),
-					1
-				)
-			})
-
-			ProductStore.set(data)
-		}
+		}, 500)
 	}
 
 	function addItemCart(item: IProduct) {

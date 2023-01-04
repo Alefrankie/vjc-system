@@ -15,14 +15,16 @@
 			CustomerStore.remove(customer)
 		}
 	}
+	let timeoutId: NodeJS.Timeout
+	const customerFinder = async (e: KeyboardEvent) => {
+		const { value } = e.target as HTMLInputElement
 
-	const customerFinder = async (e: any) => {
-		const { value } = e.target
+		if (timeoutId) clearTimeout(timeoutId)
 
-		if (e.key === 'Enter') {
+		timeoutId = setTimeout(async () => {
 			const { data } = await Fetch.get(`/api/customers/filter/?key=${value}`)
 			CustomerStore.set(data)
-		}
+		}, 500)
 	}
 </script>
 
