@@ -213,6 +213,7 @@
 								on:click={() =>
 									(query = {
 										...query,
+										status: true,
 										createdAt: {
 											$gte: new Date(`${dayjs().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
 											$lt: new Date(`${dayjs().format('YYYY-MM-DD')}T23:59:59.000+00:00`)
@@ -238,7 +239,7 @@
 							<ul class="dropdown-menu dropdown-menu-end">
 								<li>
 									<button
-										on:click={() => (query = { type: OrderTypeEnum.DELIVERY_NOTE })}
+										on:click={() => (query = { type: OrderTypeEnum.DELIVERY_NOTE, status: true })}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -250,7 +251,8 @@
 										on:click={() =>
 											(query = {
 												type: OrderTypeEnum.DELIVERY_NOTE,
-												volume: OrderVolumeEnum.WHOLESALE
+												volume: OrderVolumeEnum.WHOLESALE,
+												status: true
 											})}
 										class="dropdown-item"
 									>
@@ -263,7 +265,8 @@
 										on:click={() =>
 											(query = {
 												type: OrderTypeEnum.DELIVERY_NOTE,
-												volume: OrderVolumeEnum.RETAIL
+												volume: OrderVolumeEnum.RETAIL,
+												status: true
 											})}
 										class="dropdown-item"
 									>
@@ -289,7 +292,7 @@
 							<ul class="dropdown-menu dropdown-menu-end">
 								<li>
 									<button
-										on:click={() => (query = { type: OrderTypeEnum.SALE })}
+										on:click={() => (query = { type: OrderTypeEnum.SALE, status: true })}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -315,7 +318,7 @@
 							<ul class="dropdown-menu dropdown-menu-end">
 								<li>
 									<button
-										on:click={() => (query = { type: OrderTypeEnum.BUDGET })}
+										on:click={() => (query = { type: OrderTypeEnum.BUDGET, status: true })}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -325,7 +328,11 @@
 								<li>
 									<button
 										on:click={() =>
-											(query = { type: OrderTypeEnum.BUDGET, volume: OrderVolumeEnum.WHOLESALE })}
+											(query = {
+												type: OrderTypeEnum.BUDGET,
+												volume: OrderVolumeEnum.WHOLESALE,
+												status: true
+											})}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -335,7 +342,11 @@
 								<li>
 									<button
 										on:click={() =>
-											(query = { type: OrderTypeEnum.BUDGET, volume: OrderVolumeEnum.RETAIL })}
+											(query = {
+												type: OrderTypeEnum.BUDGET,
+												volume: OrderVolumeEnum.RETAIL,
+												status: true
+											})}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -367,7 +378,7 @@
 								</li>
 								<li>
 									<button
-										on:click={() => (query = { volume: OrderVolumeEnum.WHOLESALE })}
+										on:click={() => (query = { volume: OrderVolumeEnum.WHOLESALE, status: true })}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -376,7 +387,7 @@
 								</li>
 								<li>
 									<button
-										on:click={() => (query = { volume: OrderVolumeEnum.RETAIL })}
+										on:click={() => (query = { volume: OrderVolumeEnum.RETAIL, status: true })}
 										class="dropdown-item"
 									>
 										<i class="mdi mdi-shopping font-size-16 text-success me-1" />
@@ -426,6 +437,7 @@
 								on:change={(e) =>
 									(query = {
 										...query,
+										status: true,
 										createdAt: {
 											$gte: new Date(`${dayjs(date).format('YYYY-MM-DD')}T00:00:00.000+00:00`),
 											$lt: new Date(`${dayjs(date).format('YYYY-MM-DD')}T23:59:59.000+00:00`)
