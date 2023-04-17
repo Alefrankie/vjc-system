@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  vjc-system-app:
+    container_name: vjc-system-app
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - MONGO_URI=${MONGO_URI}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    links:
+      - vjc-system-mongo
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  vjc-system-mongo:
+    image: mongo
+    container_name: vjc-system-mongo
+    ports:
+      - '27017:27017'

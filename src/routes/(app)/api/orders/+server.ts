@@ -1,7 +1,7 @@
 import '$lib/database/schemas/Customer'
 import { type IOrder, Order } from '$lib/database/schemas/Order'
 import { Product } from '$lib/database/schemas/Product'
-import type { RequestHandler } from '@sveltejs/kit'
+import { json, type RequestHandler } from '@sveltejs/kit'
 import { findCode } from './findCode'
 
 export const GET: RequestHandler = async () => {
@@ -36,5 +36,5 @@ export const POST: RequestHandler = async ({ request }) => {
 		})
 	}
 
-	return new Response(JSON.stringify({ message: 'Orden Registrada', data: newOrder }))
+	return json({ message: 'Orden Registrada', data: newOrder })
 }

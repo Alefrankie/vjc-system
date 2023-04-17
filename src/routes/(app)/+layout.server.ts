@@ -1,7 +1,7 @@
-import type { LayoutServerLoad } from '.svelte-kit/types/src/routes/(auth)/$types'
 import { redirect } from '@sveltejs/kit'
+import type { LayoutServerLoad } from '../(auth)/$types'
 
-export const load: LayoutServerLoad = async ({ locals: { authenticated, session } }) => {
+export const load: LayoutServerLoad = ({ locals: { authenticated, session } }) => {
 	if (!authenticated) {
 		throw redirect(302, '/sign-in')
 	}
