@@ -47,7 +47,7 @@ export async function findCode(type: OrderTypeEnum, volume: OrderVolumeEnum) {
 		return '0000'
 	}
 
-	const series = makeCode(Number(orderFound.code))
+	// const series = makeCode(Number(orderFound.code))
 
-	return String(series)
+	return String(Number(orderFound.code) + 1)
 }
