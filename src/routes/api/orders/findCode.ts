@@ -3,51 +3,30 @@ import type { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 import type { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 
 // eslint-disable-next-line max-statements
-function makeCode(Serie: number): string {
-	const cont = 1
-	let code = ''
-
-	if (Serie < 9) {
-		const can = cont + Serie
-		code = `000${can}`
-		// 0009
-		return code
-		// return 0001 or 0009
-	}
-
-	if (Serie >= 9 && Serie < 99) {
-		const can = cont + Serie
-		code = `00${can}`
-		// from 0010 to 0099
-		return code
-		// return 0010 or 0099
-	}
-
-	if (Serie >= 99 && Serie < 999) {
-		const can = cont + Serie
-		code = `0${can}`
-		// 0100 && 0999
-		return code
-		// return 0100 or 0999
-	}
-
-	return String(Number(cont + Serie))
-}
 
 // eslint-disable-next-line max-statements
 export async function findCode(type: OrderTypeEnum, volume: OrderVolumeEnum) {
-	const [orderFound] = await Order.find({
+	const orderFound = await Order.findOne({
 		type,
 		volume
-	})
-		.sort({ code: -1 })
-		.limit(1)
+	}).sort({ code: -1 })
 
-	if (!orderFound.code) {
-		return '0000'
+	if (!orderFound?.code) {
+		return 0
+	}
+
+	const ordersToNumber = await Order.find({ code: 10000, type, volume })
+
+	let codeK = 9999
+	for await (const e of ordersToNumber) {
+		codeK = Number(codeK + 1)
+
+		await e.updateOne({ code: codeK })
+		// Order.findByIdAndUpdate(e.id)
+		console.log(e.code)
 	}
 
 	// const series = makeCode(Number(orderFound.code))
 
-	return String(Number(orderFound.code) + 1)
+	return orderFound.code + 1
 }

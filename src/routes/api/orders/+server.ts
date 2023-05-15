@@ -1,5 +1,5 @@
 import '$lib/database/schemas/Customer'
-import { type IOrder, Order } from '$lib/database/schemas/Order'
+import { Order, type IOrder } from '$lib/database/schemas/Order'
 import { Product } from '$lib/database/schemas/Product'
 import { json, type RequestHandler } from '@sveltejs/kit'
 import { findCode } from './findCode'

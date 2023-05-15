@@ -9,7 +9,7 @@ const { model, Schema } = mongoose
 
 export interface IOrder extends Document {
 	_id: string
-	code: string
+	code: number
 	rate: number
 	type: OrderTypeEnum
 	volume: OrderVolumeEnum
@@ -23,7 +23,7 @@ export interface IOrder extends Document {
 const OrderSchema = new Schema(
 	{
 		code: {
-			type: String,
+			type: Number,
 			required: true
 		},
 		rate: {

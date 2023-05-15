@@ -13,7 +13,7 @@ const defaultValues = {
 	type: OrderTypeEnum.DELIVERY_NOTE,
 	volume: OrderVolumeEnum.RETAIL,
 	cart: [] as ICart[],
-	code: '',
+	code: 0,
 	payCondition: PayConditionEnum.CASH
 } as IOrder
 

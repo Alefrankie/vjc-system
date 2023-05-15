@@ -1,5 +1,6 @@
 <script>
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
+	import { useMakeCode } from '$lib/hooks/useMakeCode'
 	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
 
@@ -34,7 +35,7 @@
 			{/if}
 		</span>
 
-		<br /><span>#{$OrderStore.code}</span>
+		<br /><span>#{useMakeCode($OrderStore.code)}</span>
 	</aside>
 </main>
 

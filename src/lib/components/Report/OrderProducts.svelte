@@ -2,6 +2,7 @@
 	import { OrderTypeEnum } from '$lib/enums/OrderTypeEnum'
 	import { OrderVolumeEnum } from '$lib/enums/OrderVolumeEnum'
 	import { useFormatNumber } from '$lib/hooks/useFormatNumber'
+	import { useMakeCode } from '$lib/hooks/useMakeCode'
 	import {
 		getDiscountTotal,
 		getIvaByCart,
@@ -63,7 +64,7 @@
 							Al Detal<br />
 						{/if}
 					</span>
-					<span>Factura: #{$OrderStore.code}</span>
+					<span>Factura: #{useMakeCode($OrderStore.code)}</span>
 				</td>
 				<td style="text-align: right; padding-left: 0; display: flex; flex-direction: column;">
 					<span>
