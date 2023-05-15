@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Orden</title>
+	<title>Orden</title>
 </svelte:head>
 
 <div class="row">

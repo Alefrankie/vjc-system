@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Ajustes</title>
+	<title>Ajustes</title>
 </svelte:head>
 
 <div class="row">

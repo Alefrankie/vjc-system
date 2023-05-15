@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Registro</title>
+	<title>Registro</title>
 </svelte:head>
 
 <div class="col-xl-3">
@@ -65,7 +65,7 @@
 										aria-label="Password"
 										aria-describedby="password-addon"
 									/>
-									<button class="btn btn-light " type="button" id="password-addon">
+									<button class="btn btn-light" type="button" id="password-addon">
 										<i class="mdi mdi-eye-outline" />
 									</button>
 								</div>

@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Actualización</title>
+	<title>Actualización</title>
 </svelte:head>
 
 <div class="row">

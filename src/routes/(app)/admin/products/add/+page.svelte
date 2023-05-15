@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Registro</title>
+	<title>Registro</title>
 </svelte:head>
 
 <div class="row">

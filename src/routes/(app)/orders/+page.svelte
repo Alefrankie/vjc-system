@@ -57,7 +57,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Ordenes</title>
+	<title>Ordenes</title>
 </svelte:head>
 
 <div class="row">

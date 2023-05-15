@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Dashboard</title>
+	<title>Dashboard</title>
 </svelte:head>
 
 <div class="row">

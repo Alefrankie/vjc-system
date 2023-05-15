@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Resumen</title>
+	<title>Resumen</title>
 </svelte:head>
 
 <div class="row">
@@ -78,7 +78,7 @@
 									<h4 class="mb-0">${useFormatNumber(revenues.dollars)}</h4>
 								</div>
 
-								<div class="flex-shrink-0 align-self-center ">
+								<div class="flex-shrink-0 align-self-center">
 									<div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
 										<span class="avatar-title rounded-circle bg-primary">
 											<i class="bx bx-archive-in font-size-24" />

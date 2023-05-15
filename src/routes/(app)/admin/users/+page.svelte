@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Usuarios</title>
+	<title>Usuarios</title>
 </svelte:head>
 
 <div class="row">

@@ -8,6 +8,10 @@
 	import { OrderStore } from '$lib/stores/OrderStore'
 </script>
 
+<svelte:head>
+	<title>Orden #{useMakeCode($OrderStore.code)}</title>
+</svelte:head>
+
 <div class="row d-print-none">
 	<div class="col-12">
 		<div class="page-title-box d-sm-flex align-items-center justify-content-between">

@@ -35,7 +35,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Productos</title>
+	<title>Productos</title>
 </svelte:head>
 
 <div class="row">

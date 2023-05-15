@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-	<title>VJC Import | Resumen</title>
+	<title>Resumen</title>
 </svelte:head>
 
 {#await $Promise}
